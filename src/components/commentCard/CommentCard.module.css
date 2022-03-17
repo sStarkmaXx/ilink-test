@@ -1,5 +1,6 @@
 .commentCard {
   display: flex;
+  flex-direction: column;
   width: 471px;
   height: 231px;
   background-color: #f5f5f5;
@@ -9,7 +10,7 @@
 
 .cardHeader {
   display: flex;
-  width: 52px;
+  height: 52px;
   justify-content: space-between;
 }
 
@@ -44,4 +45,13 @@
   font-size: 14px;
   line-height: 22px;
   color: #8a8a8a;
+}
+.commentText {
+  padding-top: 24px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #333333;
 }
