@@ -1,0 +1,26 @@
+.greetings {
+  display: flex;
+  height: 477px;
+  justify-content: center;
+  align-items: center;
+}
+.wrap {
+  display: flex;
+  width: 1360px;
+  border: yellowgreen solid 1px;
+  justify-content: left;
+  padding-left: 80px;
+}
+.text {
+  display: flex;
+  height: 296px;
+  text-align: left;
+  font-family: "Factor A TRIAL";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 124px;
+  line-height: 148px;
+  color: #ffffff;
+  justify-content: left;
+  border: grey 1px solid;
+}

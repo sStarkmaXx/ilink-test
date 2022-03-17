@@ -1,0 +1,26 @@
+.accountCont {
+  display: flex;
+  justify-content: center;
+  height: 537px;
+}
+.wrap {
+  display: flex;
+  width: 1440px;
+  border: solid red 1px;
+  justify-content: center;
+}
+.accountImg {
+  display: flex;
+  width: 516px;
+  height: 383px;
+  background-color: ivory;
+  margin-top: 32px;
+  border-radius: 2px;
+}
+.accountInfo {
+  display: flex;
+  width: 761px;
+  height: 383px;
+  background-color: khaki;
+  border-radius: 2px;
+}
