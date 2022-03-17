@@ -1,4 +1,4 @@
-import css from "./Carousel.module.css";
+import css from './Carousel.module.css';
 
 export const Carousel = () => {
   return (
@@ -9,7 +9,9 @@ export const Carousel = () => {
             <div className={css.text}>Отзывы</div>
             <button className={css.carouselBtn}>+ Добавить отзыв</button>
           </div>
-          <div className={css.commentWindow}></div>
+          <div className={css.commentWindow}>
+            <Carousel />
+          </div>
         </div>
       </div>
     </div>

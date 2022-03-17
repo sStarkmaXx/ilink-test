@@ -1,0 +1,47 @@
+.commentCard {
+  display: flex;
+  width: 471px;
+  height: 231px;
+  background-color: #f5f5f5;
+  border-radius: 2px;
+  padding: 24px;
+}
+
+.cardHeader {
+  display: flex;
+  width: 52px;
+  justify-content: space-between;
+}
+
+.accountGroup {
+  display: flex;
+}
+
+.avatar {
+  display: flex;
+  width: 52px;
+  height: 52px;
+}
+
+.accountName {
+  display: flex;
+  height: 52px;
+  padding-left: 20px;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Factor A TRIAL';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  color: #333333;
+}
+
+.date {
+  font-family: 'Factor A TRIAL';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #8a8a8a;
+}
