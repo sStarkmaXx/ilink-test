@@ -7,7 +7,6 @@
 .wrap {
   display: flex;
   width: 1360px;
-  border: yellowgreen solid 1px;
   justify-content: left;
   padding-left: 80px;
 }
@@ -15,12 +14,11 @@
   display: flex;
   height: 296px;
   text-align: left;
-  font-family: "Factor A TRIAL";
+  font-family: 'Factor A';
   font-style: normal;
   font-weight: 500;
   font-size: 124px;
   line-height: 148px;
   color: #ffffff;
   justify-content: left;
-  border: grey 1px solid;
 }

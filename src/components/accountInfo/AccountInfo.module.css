@@ -6,14 +6,12 @@
 .wrap {
   display: flex;
   width: 1440px;
-  border: solid red 1px;
   justify-content: center;
 }
 .accountImg {
   display: flex;
   width: 516px;
   height: 383px;
-  background-color: ivory;
   margin-top: 32px;
   border-radius: 2px;
 }
@@ -21,6 +19,6 @@
   display: flex;
   width: 761px;
   height: 383px;
-  background-color: khaki;
+  background-color: #ffffff;
   border-radius: 2px;
 }

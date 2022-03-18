@@ -31,7 +31,7 @@
   padding-left: 20px;
   justify-content: center;
   align-items: center;
-  font-family: "Factor A TRIAL";
+  font-family: 'Factor A';
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -40,7 +40,7 @@
 }
 
 .date {
-  font-family: "Factor A TRIAL";
+  font-family: 'Factor A';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -49,7 +49,7 @@
 }
 .commentText {
   padding-top: 24px;
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
