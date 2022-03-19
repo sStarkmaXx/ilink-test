@@ -17,8 +17,53 @@
 }
 .accountInfo {
   display: flex;
-  width: 761px;
-  height: 383px;
+  flex-direction: column;
+  width: 681px;
+  height: 303px;
   background-color: #ffffff;
   border-radius: 2px;
+  padding: 40px;
+  justify-content: space-between;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+.name {
+  font-family: 'Factor A';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 32px;
+  color: #585cc6;
+}
+.date {
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #8a8a8a;
+}
+.info {
+  display: flex;
+}
+.field {
+  margin-right: 40px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #333333;
+}
+.aboutMe {
+  margin-right: 40px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #333333;
+  height: 145px;
 }
