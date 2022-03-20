@@ -1,5 +1,7 @@
 import css from './AccountInfo.module.css';
 import myPhoto from './img/my_photo.jpg';
+import sex from './img/sex.png';
+import pet from './img/pet.png';
 
 export const AccountInfo = () => {
   return (
@@ -13,22 +15,24 @@ export const AccountInfo = () => {
           </div>
           <div className={css.info}>
             <div className={css.field}>
-              <b>Город: </b>Томск
+              <b>Город: </b> Томск
             </div>
             <div className={css.field}>
-              <b>Пол: </b>мужчина <img src="" alt="" />
+              <b>Пол: </b> мужчина{' '}
+              <img src={sex} alt="" style={{ marginLeft: '10px' }} />
             </div>
             <div className={css.field}>
-              <b>Возраст: </b>31
+              <b>Возраст: </b> 31
             </div>
           </div>
           <div className={css.aboutMe}>
-            <b>О себе: </b>
+            <b>О себе: </b> Всем Привет! Меня зовут Макс, мне 31 год. Работаю
+            конструктором в проектной конторе, учусь на FrontEnd разработчика.
+            Изучаю React, Redux, TypeScript.
           </div>
           <div className={css.field}>
-            {' '}
-            <img src="" alt="" />
-            <b>Домашнее животное: </b>есть
+            <img src={pet} alt="" style={{ marginRight: '12px' }} />
+            <b> Домашнее животное: </b> кошка
           </div>
         </div>
       </div>

@@ -7,6 +7,8 @@ import { Carousel } from './components/carousel/Carousel';
 import { CommentForm } from './components/commentForm/CommentForm';
 import { useState } from 'react';
 import { v1 } from 'uuid';
+import { Toast } from './components/toast/Toast';
+import vector from './img/vector.png';
 
 export type commentType = {
   id: string;
@@ -17,12 +19,21 @@ export type commentType = {
 };
 
 function App() {
-  const [formState, setFormState] = useState(false);
+  const [formState, setFormState] = useState<boolean>(false);
   const openForm = () => {
     setFormState(true);
   };
   const closeForm = () => {
     setFormState(false);
+  };
+
+  const [toast, setShoeToast] = useState<boolean>(false);
+  const showToast = () => {
+    setShoeToast(true);
+  };
+
+  const closeToast = () => {
+    setShoeToast(false);
   };
 
   const [comments, setComment] = useState<Array<commentType>>([
@@ -64,7 +75,7 @@ function App() {
 
   return (
     <>
-      <div className="App">
+      <div className="App" style={{ backgroundImage: `url(${vector})` }}>
         <Header />
         <Greetings />
         <AccountInfo />
@@ -72,8 +83,13 @@ function App() {
         <Footer />
       </div>
       {formState && (
-        <CommentForm closeForm={closeForm} addComment={addComment} />
+        <CommentForm
+          closeForm={closeForm}
+          addComment={addComment}
+          showToast={showToast}
+        />
       )}
+      {toast && <Toast closeToast={closeToast} />}
     </>
   );
 }

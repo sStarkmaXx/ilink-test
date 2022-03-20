@@ -43,6 +43,21 @@
   border: 1px solid #e0e0e0;
   border-radius: 2px;
   outline: none;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #333333;
+  outline: none;
+}
+.nameInput::placeholder {
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #8a8a8a;
 }
 
 .text {
@@ -59,7 +74,7 @@
   width: 100%;
   justify-content: space-between;
 }
-.addPfotoBtn {
+.addPhotoBtn {
   display: flex;
   height: 52px;
   width: 217px;
@@ -74,6 +89,10 @@
   line-height: 18px;
   color: #ffffff;
   border: 0;
+  outline: none;
+}
+.addPfotoBtn:hover {
+  background-color: #797ddf;
 }
 
 .commentText {
@@ -84,6 +103,21 @@
   border: 1px solid #e0e0e0;
   border-radius: 2px;
   outline: none;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #333333;
+}
+
+.commentText::placeholder {
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #8a8a8a;
 }
 
 .footer {
@@ -92,7 +126,7 @@
   height: 52px;
   align-items: center;
 }
-.addCommentBtn {
+.addCommentBtnActive {
   display: flex;
   height: 52px;
   width: 217px;
@@ -108,6 +142,11 @@
   color: #ffffff;
   border: 0;
 }
+
+.addCommentBtnActive:hover {
+  background-color: #797ddf;
+}
+
 .textFooter {
   font-family: 'Gilroy';
   font-style: normal;
@@ -115,4 +154,7 @@
   font-size: 12px;
   line-height: 16px;
   color: #8a8a8a;
+}
+.error {
+  border: 1px solid red;
 }

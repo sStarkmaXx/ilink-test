@@ -1,15 +1,24 @@
 import css from './CommentForm.module.css';
 import close from './img/close.png';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, KeyboardEvent } from 'react';
 
 type commentFormPropsType = {
   closeForm: () => void;
   addComment: (name: string, text: string) => void;
+  showToast: () => void;
 };
+
+type errorType =
+  | 'nameIsEmpty'
+  | 'commentIsEmpty'
+  | 'nameIsShort'
+  | 'commentIsShort'
+  | null;
 
 export const CommentForm: React.FC<commentFormPropsType> = ({
   closeForm,
   addComment,
+  showToast,
 }) => {
   const [inputName, setInputName] = useState<string>('');
   const onChangeHandlerInputName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,9 +29,31 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
     setInputComment(e.target.value);
   };
 
+  const [error, setError] = useState<errorType>(null);
+
   const addCommentBtn = () => {
-    addComment(inputName, inputComment);
-    closeForm();
+    if (inputName.trim() == '') {
+      setError('nameIsEmpty');
+    } else if (inputName.length < 3) {
+      setError('nameIsShort');
+    } else if (inputComment.trim() == '') {
+      setError('commentIsEmpty');
+    } else if (inputComment.length < 30) {
+      setError('commentIsShort');
+    } else {
+      addComment(inputName, inputComment);
+      closeForm();
+      showToast();
+    }
+  };
+
+  const onKeyPressHandler = (
+    e: KeyboardEvent<HTMLInputElement> | KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    setError(null);
+    if (e.charCode === 13) {
+      addCommentBtn();
+    }
   };
 
   return (
@@ -43,22 +74,30 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
             type="text"
             value={inputName}
             className={css.nameInput}
+            style={error === 'nameIsEmpty' ? { border: '1px solid red' } : {}}
             placeholder="Имя Фамилия"
             onChange={onChangeHandlerInputName}
-            required
+            onKeyPress={onKeyPressHandler}
           />
-          <button className={css.addPfotoBtn}>+ Загрузить фото</button>
+          <button className={css.addPhotoBtn}>+ Загрузить фото</button>
         </div>
         <div className={css.label}>Все ли вам понравилос?</div>
+
         <textarea
           className={css.commentText}
+          style={error === 'commentIsEmpty' ? { border: '1px solid red' } : {}}
           value={inputComment}
           maxLength={200}
           placeholder="Напишите пару слов о вашем опыте..."
           onChange={onChangeHandlerInputComment}
+          onKeyPress={onKeyPressHandler}
         ></textarea>
         <div className={css.footer}>
-          <button className={css.addCommentBtn} onClick={addCommentBtn}>
+          <button
+            className={css.addCommentBtnActive}
+            onClick={addCommentBtn}
+            //disabled={!inputName || !inputComment}
+          >
             Отправить отзыв
           </button>
           <div className={css.textFooter}>

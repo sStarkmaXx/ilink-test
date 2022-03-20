@@ -49,6 +49,8 @@
   display: flex;
 }
 .field {
+  display: flex;
+  align-items: center;
   margin-right: 40px;
   font-family: 'Gilroy';
   font-style: normal;

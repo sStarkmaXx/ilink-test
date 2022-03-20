@@ -23,6 +23,9 @@
   display: flex;
   width: 52px;
   height: 52px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #ffffff;
 }
 
 .accountName {

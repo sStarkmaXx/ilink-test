@@ -13,7 +13,7 @@ export const Header = () => {
               className={css.avatar}
               style={{ backgroundImage: `url(${myPhoto})` }}
             ></div>
-            <div className={css.accountName}>Max Myasnikov</div>
+            <div className={css.accountName}>Макс Мясников</div>
           </div>
           <div className={css.academyName}>
             <img src={ilink} className={css.ilink}></img>

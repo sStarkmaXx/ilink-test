@@ -66,3 +66,6 @@
   color: #ffffff;
   border-radius: 2px;
 }
+.headerButton:hover {
+  background-color: #797ddf;
+}

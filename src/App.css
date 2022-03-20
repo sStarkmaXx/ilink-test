@@ -3,6 +3,8 @@
   justify-content: center;
   flex-direction: column;
   background-color: #585cc6;
+  background-repeat: no-repeat;
+  background-position: right 230px top;
 }
 @font-face {
   font-family: 'Gilroy';
