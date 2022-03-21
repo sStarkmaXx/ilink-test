@@ -7,7 +7,10 @@ export const AccountInfo = () => {
   return (
     <div className={css.accountCont}>
       <div className={css.wrap}>
-        <img src={myPhoto} className={css.accountImg}></img>
+        <div
+          className={css.accountImg}
+          style={{ backgroundImage: `url(${myPhoto})` }}
+        ></div>
         <div className={css.accountInfo}>
           <div className={css.header}>
             <div className={css.name}>Макс Мясников</div>
@@ -19,7 +22,11 @@ export const AccountInfo = () => {
             </div>
             <div className={css.field}>
               <b>Пол: </b> мужчина{" "}
-              <img src={sex} alt="" style={{ marginLeft: "10px" }} />
+              <img
+                src={sex}
+                alt=""
+                style={{ marginLeft: "8px", height: "13px" }}
+              />
             </div>
             <div className={css.field}>
               <b>Возраст: </b> 31
@@ -33,7 +40,11 @@ export const AccountInfo = () => {
             заполнения полей.
           </div>
           <div className={css.field}>
-            <img src={pet} alt="" style={{ marginRight: "12px" }} />
+            <img
+              src={pet}
+              alt=""
+              style={{ marginRight: "8px", height: "16px", width: "24px" }}
+            />
             <b> Домашнее животное: </b> кошка
           </div>
         </div>

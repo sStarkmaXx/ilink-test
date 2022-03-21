@@ -1,71 +1,74 @@
 .accountCont {
   display: flex;
   justify-content: center;
-  height: 537px;
+  width: calc(100% - 16px);
+  padding: 0px 0px 57px 16px;
 }
 .wrap {
   display: flex;
-  width: 1440px;
-  justify-content: center;
+
+  flex-direction: column;
 }
 .accountImg {
   display: flex;
-  width: 516px;
-  height: 383px;
-  margin-top: 32px;
+  width: 304px;
+  height: 200px;
   border-radius: 2px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 .accountInfo {
   display: flex;
   flex-direction: column;
-  width: 681px;
-  height: 303px;
+  margin-top: -12px;
+  width: calc(100% - 48px);
   background-color: #ffffff;
   border-radius: 2px;
-  padding: 40px;
+  padding: 16px;
   justify-content: space-between;
 }
 .header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 }
 .name {
-  font-family: 'Factor A';
+  font-family: "Factor A";
   font-style: normal;
   font-weight: 700;
-  font-size: 32px;
+  font-size: 24px;
   line-height: 32px;
   color: #585cc6;
 }
 .date {
-  font-family: 'Gilroy';
+  font-family: "Gilroy";
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 22px;
   color: #8a8a8a;
 }
 .info {
   display: flex;
+  flex-wrap: wrap;
 }
 .field {
   display: flex;
   align-items: center;
-  margin-right: 40px;
-  font-family: 'Gilroy';
+  margin-top: 16px;
+  font-family: "Gilroy";
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 22px;
   color: #333333;
 }
 .aboutMe {
-  margin-right: 40px;
-  font-family: 'Gilroy';
+  width: 256px;
+  font-family: "Gilroy";
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 22px;
   color: #333333;
-  height: 145px;
 }

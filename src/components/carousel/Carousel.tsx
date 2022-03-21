@@ -41,7 +41,7 @@ export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
           <div className={css.carouselHeader}>
             <div className={css.text}>Отзывы</div>
             <button className={css.addCommentBtn} onClick={openForm}>
-              + Добавить отзыв
+              +
             </button>
           </div>
           <div className={css.commentWindow}>
