@@ -1,18 +1,20 @@
-import css from './Carousel.module.css';
-import { CommentCard } from '../commentCard/CommentCard';
-import { useState } from 'react';
-import { commentType } from '../../App';
+import css from "./Carousel.module.css";
+import { CommentCard } from "../commentCard/CommentCard";
+import { useState } from "react";
+import { commentType } from "../../store/commentsReducer";
+import { AppRootStateType } from "../../store/store";
+import { useSelector } from "react-redux";
 
 type carouselPropsType = {
   openForm: () => void;
-  comments: Array<commentType>;
 };
 
-export const Carousel: React.FC<carouselPropsType> = ({
-  openForm,
-  comments,
-}) => {
+export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
   const [position, setPosition] = useState<number>(0);
+
+  const comments = useSelector<AppRootStateType, Array<commentType>>(
+    (state) => state.comments
+  );
 
   const comment = comments.map((com) => {
     return <CommentCard key={com.id} comment={com} />;

@@ -1,45 +1,57 @@
-import css from './CommentForm.module.css';
-import close from './img/close.png';
-import { ChangeEvent, useState, KeyboardEvent } from 'react';
+import css from "./CommentForm.module.css";
+import close from "./img/close.png";
+import { ChangeEvent, useState, KeyboardEvent } from "react";
+import { Toast } from "../toast/Toast";
+import { useDispatch } from "react-redux";
+import { addCommentAC } from "../../store/commentsReducer";
 
 type commentFormPropsType = {
   closeForm: () => void;
-  addComment: (name: string, text: string) => void;
   showToast: () => void;
 };
 
 type errorType =
-  | 'nameIsEmpty'
-  | 'commentIsEmpty'
-  | 'nameIsShort'
-  | 'commentIsShort'
+  | "nameIsEmpty"
+  | "commentIsEmpty"
+  | "nameIsShort"
+  | "commentIsShort"
   | null;
 
 export const CommentForm: React.FC<commentFormPropsType> = ({
   closeForm,
-  addComment,
-  showToast,
+  showToast
 }) => {
-  const [inputName, setInputName] = useState<string>('');
+  const dispatch = useDispatch();
+
+  const addComment = (name: string, text: string) => {
+    dispatch(addCommentAC(name, text));
+  };
+
+  const [inputName, setInputName] = useState<string>("");
   const onChangeHandlerInputName = (e: ChangeEvent<HTMLInputElement>) => {
     setInputName(e.target.value);
   };
-  const [inputComment, setInputComment] = useState<string>('');
+  const [inputComment, setInputComment] = useState<string>("");
   const onChangeHandlerInputComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInputComment(e.target.value);
   };
 
   const [error, setError] = useState<errorType>(null);
+  const [errorText, setErrorText] = useState<string>("");
 
   const addCommentBtn = () => {
-    if (inputName.trim() == '') {
-      setError('nameIsEmpty');
+    if (inputName.trim() === "") {
+      setError("nameIsEmpty");
+      setErrorText("Заполните поле с именем.");
     } else if (inputName.length < 3) {
-      setError('nameIsShort');
-    } else if (inputComment.trim() == '') {
-      setError('commentIsEmpty');
+      setError("nameIsShort");
+      setErrorText("Имя не должно быть короче трех букв");
+    } else if (inputComment.trim() === "") {
+      setError("commentIsEmpty");
+      setErrorText("Заполните поле с комментарием.");
     } else if (inputComment.length < 30) {
-      setError('commentIsShort');
+      setError("commentIsShort");
+      setErrorText("Ваш комментарий не должен быть короче 30 символов");
     } else {
       addComment(inputName, inputComment);
       closeForm();
@@ -63,7 +75,7 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
           <div className={css.text}>Отзыв</div>
           <img
             src={close}
-            style={{ width: '25px', height: '25px' }}
+            style={{ width: "25px", height: "25px" }}
             alt=""
             onClick={closeForm}
           />
@@ -74,7 +86,7 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
             type="text"
             value={inputName}
             className={css.nameInput}
-            style={error === 'nameIsEmpty' ? { border: '1px solid red' } : {}}
+            style={error === "nameIsEmpty" ? { border: "1px solid red" } : {}}
             placeholder="Имя Фамилия"
             onChange={onChangeHandlerInputName}
             onKeyPress={onKeyPressHandler}
@@ -85,7 +97,7 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
 
         <textarea
           className={css.commentText}
-          style={error === 'commentIsEmpty' ? { border: '1px solid red' } : {}}
+          style={error === "commentIsEmpty" ? { border: "1px solid red" } : {}}
           value={inputComment}
           maxLength={200}
           placeholder="Напишите пару слов о вашем опыте..."
@@ -93,11 +105,7 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
           onKeyPress={onKeyPressHandler}
         ></textarea>
         <div className={css.footer}>
-          <button
-            className={css.addCommentBtnActive}
-            onClick={addCommentBtn}
-            //disabled={!inputName || !inputComment}
-          >
+          <button className={css.addCommentBtnActive} onClick={addCommentBtn}>
             Отправить отзыв
           </button>
           <div className={css.textFooter}>
@@ -105,6 +113,7 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
           </div>
         </div>
       </div>
+      {error && <Toast closeToast={() => {}} error={error} text={errorText} />}
     </div>
   );
 };
