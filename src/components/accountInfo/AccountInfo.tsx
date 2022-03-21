@@ -1,7 +1,7 @@
-import css from './AccountInfo.module.css';
-import myPhoto from './img/my_photo.jpg';
-import sex from './img/sex.png';
-import pet from './img/pet.png';
+import css from "./AccountInfo.module.css";
+import myPhoto from "./img/my_photo.jpg";
+import sex from "./img/sex.png";
+import pet from "./img/pet.png";
 
 export const AccountInfo = () => {
   return (
@@ -18,8 +18,8 @@ export const AccountInfo = () => {
               <b>Город: </b> Томск
             </div>
             <div className={css.field}>
-              <b>Пол: </b> мужчина{' '}
-              <img src={sex} alt="" style={{ marginLeft: '10px' }} />
+              <b>Пол: </b> мужчина{" "}
+              <img src={sex} alt="" style={{ marginLeft: "10px" }} />
             </div>
             <div className={css.field}>
               <b>Возраст: </b> 31
@@ -28,10 +28,12 @@ export const AccountInfo = () => {
           <div className={css.aboutMe}>
             <b>О себе: </b> Всем Привет! Меня зовут Макс, мне 31 год. Работаю
             конструктором в проектной конторе, учусь на FrontEnd разработчика.
-            Изучаю React, Redux, TypeScript.
+            Изучаю React, Redux, TypeScript. В данном проекте я использовал
+            Redux для добавления комментариев. Тосты реагируют на правильнось
+            заполнения полей.
           </div>
           <div className={css.field}>
-            <img src={pet} alt="" style={{ marginRight: '12px' }} />
+            <img src={pet} alt="" style={{ marginRight: "12px" }} />
             <b> Домашнее животное: </b> кошка
           </div>
         </div>

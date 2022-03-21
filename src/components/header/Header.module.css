@@ -1,7 +1,7 @@
 .header {
   display: flex;
   background-color: #ffffff;
-  height: 116px;
+  height: 77px;
   justify-content: center;
   align-items: center;
 }
@@ -32,7 +32,7 @@
   justify-content: center;
   align-items: center;
   padding-left: 20px;
-  font-family: 'Gilroy';
+  font-family: "Gilroy";
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
@@ -58,7 +58,7 @@
   justify-content: center;
   align-items: center;
   border: 0px;
-  font-family: 'Gilroy';
+  font-family: "Gilroy";
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
