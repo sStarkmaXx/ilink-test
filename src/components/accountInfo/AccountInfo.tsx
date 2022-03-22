@@ -1,15 +1,16 @@
-import css from "./AccountInfo.module.css";
-import myPhoto from "./img/my_photo.jpg";
-import sex from "./img/sex.png";
-import pet from "./img/pet.png";
+import css from './AccountInfo.module.css';
+import myPhoto from './img/my_photo.jpg';
+import sex from './img/sex.png';
+import pet from './img/pet.png';
 
 export const AccountInfo = () => {
   return (
     <div className={css.accountCont}>
       <div className={css.wrap}>
-        <div className={css.accountImg}>
-          <img src={myPhoto} className={css.img}></img>
-        </div>
+        <div
+          className={css.accountImg}
+          style={{ backgroundImage: `url(${myPhoto})` }}
+        ></div>
 
         <div className={css.accountInfo}>
           <div className={css.header}>
@@ -21,8 +22,8 @@ export const AccountInfo = () => {
               <b>Город: </b> Томск
             </div>
             <div className={css.field}>
-              <b>Пол: </b> мужчина{" "}
-              <img src={sex} alt="" style={{ marginLeft: "10px" }} />
+              <b>Пол: </b> мужчина{' '}
+              <img src={sex} alt="" style={{ marginLeft: '10px' }} />
             </div>
             <div className={css.field}>
               <b>Возраст: </b> 31
@@ -34,7 +35,7 @@ export const AccountInfo = () => {
             Изучаю React, Redux, TypeScript.
           </div>
           <div className={css.field}>
-            <img src={pet} alt="" style={{ marginRight: "12px" }} />
+            <img src={pet} alt="" style={{ marginRight: '12px' }} />
             <b> Домашнее животное: </b> кошка
           </div>
         </div>

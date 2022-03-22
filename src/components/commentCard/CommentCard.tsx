@@ -1,4 +1,4 @@
-import { commentType } from '../../App';
+import { commentType } from '../../store/commentsReducer';
 import css from './CommentCard.module.css';
 import ava from './img/Path.png';
 

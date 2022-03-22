@@ -1,9 +1,9 @@
-import css from "./Carousel.module.css";
-import { CommentCard } from "../commentCard/CommentCard";
-import { useState } from "react";
-import { commentType } from "../../store/commentsReducer";
-import { AppRootStateType } from "../../store/store";
-import { useSelector } from "react-redux";
+import css from './Carousel.module.css';
+import { CommentCard } from '../commentCard/CommentCard';
+import { useState } from 'react';
+import { commentType } from '../../store/commentsReducer';
+import { AppRootStateType } from '../../store/store';
+import { useSelector } from 'react-redux';
 
 type carouselPropsType = {
   openForm: () => void;

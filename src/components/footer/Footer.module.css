@@ -10,10 +10,9 @@
   width: 1440px;
   justify-content: space-between;
   padding: 0px 80px 0px 80px;
-  border: 1px red solid;
 }
 .text {
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 500;
   font-size: 16px;

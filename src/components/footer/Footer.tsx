@@ -14,19 +14,11 @@ export const Footer = () => {
           <a href="https://vk.com/ilinkdev">
             <img src={vk} alt="" style={{ width: '24px', height: '24px' }} />
           </a>
-          <a href="">
-            <img src={anyy} alt="" style={{ width: '24px', height: '24px' }} />
+          <a href="https://vk.com/ilinkdev">
+            <img src={vk} alt="" style={{ width: '24px', height: '24px' }} />
           </a>
-          <a href="https://t.me/ilinknetwork">
-            <img
-              src={telegram}
-              alt=""
-              style={{
-                width: '24px',
-                height: '24px',
-                backgroundColor: '#585CC6',
-              }}
-            />
+          <a href="https://vk.com/ilinkdev">
+            <img src={vk} alt="" style={{ width: '24px', height: '24px' }} />
           </a>
         </div>
       </div>

@@ -8,29 +8,30 @@
   justify-content: center;
 }
 .accountImg {
-  max-width: calc(36% - 40px);
-  height: 100%;
+  width: calc(36% - 40px);
+  height: 383px;
   margin-top: 32px;
   border-radius: 2px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-.img {
-  max-width: 100%;
-}
+
 .accountInfo {
   display: flex;
   flex-direction: column;
   max-width: calc(52% - 40px);
+  max-height: 303px;
   background-color: #ffffff;
   border-radius: 2px;
   padding: 40px;
-  justify-content: space-between;
 }
 .header {
   display: flex;
   justify-content: space-between;
 }
 .name {
-  font-family: "Factor A";
+  font-family: 'Factor A';
   font-style: normal;
   font-weight: 700;
   font-size: 32px;
@@ -38,7 +39,7 @@
   color: #585cc6;
 }
 .date {
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -54,7 +55,7 @@
   align-items: center;
   margin-top: 18px;
   margin-right: 40px;
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -63,7 +64,7 @@
 }
 .aboutMe {
   margin-top: 18px;
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
