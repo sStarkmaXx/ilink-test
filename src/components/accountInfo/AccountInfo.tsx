@@ -7,10 +7,9 @@ export const AccountInfo = () => {
   return (
     <div className={css.accountCont}>
       <div className={css.wrap}>
-        <div
-          className={css.accountImg}
-          style={{ backgroundImage: `url(${myPhoto})` }}
-        ></div>
+        <div className={css.accountImg}>
+          <img src={myPhoto} alt="" className={css.img} />
+        </div>
         <div className={css.accountInfo}>
           <div className={css.header}>
             <div className={css.name}>Макс Мясников</div>
