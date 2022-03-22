@@ -1,7 +1,7 @@
-import css from "./AccountInfo.module.css";
-import myPhoto from "./img/my_photo.jpg";
-import sex from "./img/sex.png";
-import pet from "./img/pet.png";
+import css from './AccountInfo.module.css';
+import myPhoto from './img/my_photo.jpg';
+import sex from './img/sex.png';
+import pet from './img/pet.png';
 
 export const AccountInfo = () => {
   return (
@@ -20,11 +20,11 @@ export const AccountInfo = () => {
               <b>Город: </b> Томск
             </div>
             <div className={css.field}>
-              <b>Пол: </b> мужчина{" "}
+              <b>Пол: </b> мужчина{' '}
               <img
                 src={sex}
                 alt=""
-                style={{ marginLeft: "8px", height: "13px" }}
+                style={{ marginLeft: '8px', height: '13px' }}
               />
             </div>
             <div className={css.field}>
@@ -42,7 +42,7 @@ export const AccountInfo = () => {
             <img
               src={pet}
               alt=""
-              style={{ marginRight: "8px", height: "16px", width: "24px" }}
+              style={{ marginRight: '8px', height: '16px', width: '24px' }}
             />
             <b> Домашнее животное: </b> кошка
           </div>
