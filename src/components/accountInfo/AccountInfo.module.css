@@ -7,7 +7,6 @@
   }
   .wrap {
     display: flex;
-
     flex-direction: column;
   }
   .accountImg {
@@ -57,9 +56,9 @@
   }
   .field {
     display: flex;
-    margin-right: 24px;
     align-items: center;
     margin-top: 16px;
+    margin-right: 24px;
     font-family: 'Gilroy';
     font-style: normal;
     font-weight: 400;
@@ -68,7 +67,19 @@
     color: #333333;
   }
   .aboutMe {
-    min-width: 256px;
+    margin-top: 16px;
+    width: 100%;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #333333;
+  }
+  .pet {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
     font-family: 'Gilroy';
     font-style: normal;
     font-weight: 400;

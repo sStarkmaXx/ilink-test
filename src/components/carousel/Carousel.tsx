@@ -1,9 +1,10 @@
-import css from "./Carousel.module.css";
-import { CommentCard } from "../commentCard/CommentCard";
-import { useState } from "react";
-import { commentType } from "../../store/commentsReducer";
-import { AppRootStateType } from "../../store/store";
-import { useSelector } from "react-redux";
+import css from './Carousel.module.css';
+import { CommentCard } from '../commentCard/CommentCard';
+import { useState } from 'react';
+import { commentType } from '../../store/commentsReducer';
+import { AppRootStateType } from '../../store/store';
+import { useSelector } from 'react-redux';
+import plus from './img/plus.png';
 
 type carouselPropsType = {
   openForm: () => void;
@@ -43,7 +44,7 @@ export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
           <div className={css.carouselHeader}>
             <div className={css.text}>Отзывы</div>
             <button className={css.addCommentBtn} onClick={openForm}>
-              +
+              <img src={plus} alt="" /> {screenWidth > 820 && ' Добавить отзыв'}
             </button>
           </div>
           <div className={css.commentWindow}>
@@ -55,7 +56,7 @@ export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
             </div>
           </div>
         </div>
-        {screenWidth > 600 && (
+        {screenWidth > 820 && (
           <div className={css.groupBtns}>
             <button
               className={

@@ -6,39 +6,50 @@
   background-repeat: no-repeat;
   background-position: left top -190px;
 }
+
+@media (max-width: 820px) {
+  .App {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #585cc6;
+    background-repeat: no-repeat;
+    background-position: left top -190px;
+  }
+}
 @font-face {
-  font-family: "Gilroy";
-  src: local("Gilroy Semibold"), local("Gilroy-Semibold"),
-    url("../src/fonts/Gilroy-Semibold.woff2") format("woff2"),
-    url("../src/fonts/Gilroy-Semibold.woff") format("woff"),
-    url("../src/fonts/Gilroy-Semibold.ttf") format("truetype");
+  font-family: 'Gilroy';
+  src: local('Gilroy Semibold'), local('Gilroy-Semibold'),
+    url('../src/fonts/Gilroy-Semibold.woff2') format('woff2'),
+    url('../src/fonts/Gilroy-Semibold.woff') format('woff'),
+    url('../src/fonts/Gilroy-Semibold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
 }
 @font-face {
-  font-family: "Gilroy";
-  src: local("Gilroy Regular"), local("Gilroy-Regular"),
-    url("../src/fonts/Gilroy-Regular.woff2") format("woff2"),
-    url("../src/fonts/Gilroy-Regular.woff") format("woff"),
-    url("../src/fonts/Gilroy-Regular.ttf") format("truetype");
+  font-family: 'Gilroy';
+  src: local('Gilroy Regular'), local('Gilroy-Regular'),
+    url('../src/fonts/Gilroy-Regular.woff2') format('woff2'),
+    url('../src/fonts/Gilroy-Regular.woff') format('woff'),
+    url('../src/fonts/Gilroy-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
-  font-family: "Factor A";
-  src: local("Factor A Medium"), local("Factor-A-Medium"),
-    url("../src/fonts/FactorAMedium-Regular.woff2") format("woff2"),
-    url("../src/fonts/FactorAMedium-Regular.woff") format("woff"),
-    url("../src/fonts/FactorAMedium-Regular.ttf") format("truetype");
+  font-family: 'Factor A';
+  src: local('Factor A Medium'), local('Factor-A-Medium'),
+    url('../src/fonts/FactorAMedium-Regular.woff2') format('woff2'),
+    url('../src/fonts/FactorAMedium-Regular.woff') format('woff'),
+    url('../src/fonts/FactorAMedium-Regular.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 @font-face {
-  font-family: "Factor A";
-  src: local("Factor A Bold"), local("Factor-A-Bold"),
-    url("../src/fonts/FactorA-Bold.woff2") format("woff2"),
-    url("../src/fonts/FactorA-Bold.woff") format("woff"),
-    url("../src/fonts/FactorA-Bold.ttf") format("truetype");
+  font-family: 'Factor A';
+  src: local('Factor A Bold'), local('Factor-A-Bold'),
+    url('../src/fonts/FactorA-Bold.woff2') format('woff2'),
+    url('../src/fonts/FactorA-Bold.woff') format('woff'),
+    url('../src/fonts/FactorA-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }

@@ -66,6 +66,28 @@
     border: 0px;
     border-radius: 2px;
   }
+  .headerButton::after {
+    content: '';
+    display: flex;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    position: relative;
+    top: -3px;
+    right: 5px;
+  }
+  .headerButton::before {
+    content: '';
+    display: flex;
+    width: 13px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    position: relative;
+    top: 7px;
+    left: 5px;
+  }
   .headerButton:hover {
     background-color: #797ddf;
   }

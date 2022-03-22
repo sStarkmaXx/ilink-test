@@ -38,7 +38,7 @@ export const AccountInfo = () => {
             Redux для добавления комментариев. Тосты реагируют на правильнось
             заполнения полей.
           </div>
-          <div className={css.field}>
+          <div className={css.pet}>
             <img
               src={pet}
               alt=""

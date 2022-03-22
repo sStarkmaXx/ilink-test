@@ -38,8 +38,8 @@
     border: 3px #8a8a8a solid;
     border-radius: 50%;
     position: relative;
-    top: 21px;
-    left: 20px;
+    top: 15px;
+    left: 13px;
   }
 
   .accountName {
@@ -65,7 +65,7 @@
     color: #8a8a8a;
   }
   .commentText {
-    width: 100%;
+    width: calc(100% - 15px);
     padding-top: 24px;
     font-family: 'Gilroy';
     font-style: normal;
