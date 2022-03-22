@@ -1,7 +1,6 @@
 .accountCont {
   display: flex;
   justify-content: center;
-  height: 537px;
 }
 .wrap {
   display: flex;
@@ -9,17 +8,18 @@
   justify-content: center;
 }
 .accountImg {
-  display: flex;
-  width: 516px;
-  height: 383px;
+  max-width: calc(36% - 40px);
+  height: 100%;
   margin-top: 32px;
   border-radius: 2px;
+}
+.img {
+  max-width: 100%;
 }
 .accountInfo {
   display: flex;
   flex-direction: column;
-  width: 681px;
-  height: 303px;
+  max-width: calc(52% - 40px);
   background-color: #ffffff;
   border-radius: 2px;
   padding: 40px;
@@ -30,7 +30,7 @@
   justify-content: space-between;
 }
 .name {
-  font-family: 'Factor A';
+  font-family: "Factor A";
   font-style: normal;
   font-weight: 700;
   font-size: 32px;
@@ -38,7 +38,7 @@
   color: #585cc6;
 }
 .date {
-  font-family: 'Gilroy';
+  font-family: "Gilroy";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -47,12 +47,14 @@
 }
 .info {
   display: flex;
+  flex-wrap: wrap;
 }
 .field {
   display: flex;
   align-items: center;
+  margin-top: 18px;
   margin-right: 40px;
-  font-family: 'Gilroy';
+  font-family: "Gilroy";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -60,12 +62,11 @@
   color: #333333;
 }
 .aboutMe {
-  margin-right: 40px;
-  font-family: 'Gilroy';
+  margin-top: 18px;
+  font-family: "Gilroy";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
   color: #333333;
-  height: 145px;
 }

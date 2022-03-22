@@ -1,23 +1,21 @@
 .greetings {
   display: flex;
-  height: 477px;
   justify-content: center;
   align-items: center;
 }
 .wrap {
   display: flex;
-  width: 1360px;
+  width: 1440px;
   justify-content: left;
-  padding-left: 80px;
 }
 .text {
+  padding: 93px 0px 88px 80px;
   display: flex;
-  height: 296px;
   text-align: left;
-  font-family: 'Factor A';
+  font-family: "Factor A";
   font-style: normal;
   font-weight: 500;
-  font-size: 124px;
+  font-size: calc(48px + 76 * (100vw / 1440));
   line-height: 148px;
   color: #ffffff;
   justify-content: left;

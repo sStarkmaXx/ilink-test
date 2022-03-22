@@ -1,7 +1,7 @@
 .commentCard {
   display: flex;
   flex-direction: column;
-  min-width: 471px;
+  width: 471px;
   min-height: 231px;
   background-color: #f5f5f5;
   border-radius: 2px;

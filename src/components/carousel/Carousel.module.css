@@ -1,29 +1,33 @@
 .carouselCont {
   display: flex;
-  height: 631px;
   justify-content: center;
 }
 .wrap {
   display: flex;
-  height: 525px;
   width: 1440px;
+  margin-top: 120px;
+  border: steelblue 1px solid;
+  margin-bottom: 106px;
 }
 .carousel {
   display: flex;
   flex-direction: column;
-  width: 1062px;
-  padding: 56px 56px 0px 80px;
+  justify-content: space-between;
+  width: calc(100% - 900px);
+  padding: 56px 56px 64px 80px;
   background-color: #ffffff;
+  border: rgb(81, 70, 180) 1px solid;
 }
 .carouselHeader {
   display: flex;
-  width: 1062px;
-  height: 126px;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
+  border: rgb(70, 180, 147) 1px solid;
+  padding-bottom: 38px;
 }
 .text {
-  font-family: 'Factor A';
+  font-family: "Factor A";
   font-style: normal;
   font-weight: 500;
   font-size: 68px;
@@ -40,7 +44,7 @@
   background-color: #585cc6;
   border-radius: 2px;
   color: #ffffff;
-  font-family: 'Gilroy';
+  font-family: "Gilroy";
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
@@ -51,6 +55,7 @@
 }
 .commentWindow {
   display: flex;
+  width: 100%;
   overflow: hidden;
   transform: translateX();
 }
