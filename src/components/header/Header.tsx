@@ -4,6 +4,7 @@ import academy from "./img/ACADEMY.png";
 import myPhoto from "../accountInfo/img/my_photo.jpg";
 
 export const Header = () => {
+  let screenWidth = window.screen.width;
   return (
     <div className={css.header}>
       <div className={css.wrap}>
@@ -19,7 +20,9 @@ export const Header = () => {
             <img src={ilink} className={css.ilink}></img>
             <img src={academy} className={css.academy}></img>
           </div>
-          <button className={css.headerButton}></button>
+          <button className={css.headerButton}>
+            {screenWidth > 600 && "Панель управления"}
+          </button>
         </div>
       </div>
     </div>

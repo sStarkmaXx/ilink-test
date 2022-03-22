@@ -12,6 +12,8 @@ type carouselPropsType = {
 export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
   const [position, setPosition] = useState<number>(0);
 
+  let screenWidth = window.screen.width;
+
   const comments = useSelector<AppRootStateType, Array<commentType>>(
     (state) => state.comments
   );
@@ -53,28 +55,30 @@ export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
             </div>
           </div>
         </div>
-        <div className={css.groupBtns}>
-          <button
-            className={
-              position === 0 ? css.carouselBtnDisable : css.carouselBtnActive
-            }
-            onClick={handleLeft}
-            disabled={position === 0}
-          >
-            L
-          </button>
-          <button
-            className={
-              position > (-543 * comments.length) / 2
-                ? css.carouselBtnActive
-                : css.carouselBtnDisable
-            }
-            onClick={handleRight}
-            disabled={!(position > (-543 * comments.length) / 2)}
-          >
-            R
-          </button>
-        </div>
+        {screenWidth > 600 && (
+          <div className={css.groupBtns}>
+            <button
+              className={
+                position === 0 ? css.carouselBtnDisable : css.carouselBtnActive
+              }
+              onClick={handleLeft}
+              disabled={position === 0}
+            >
+              L
+            </button>
+            <button
+              className={
+                position > (-543 * comments.length) / 2
+                  ? css.carouselBtnActive
+                  : css.carouselBtnDisable
+              }
+              onClick={handleRight}
+              disabled={!(position > (-543 * comments.length) / 2)}
+            >
+              R
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

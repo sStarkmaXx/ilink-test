@@ -54,6 +54,7 @@
 }
 .field {
   display: flex;
+  margin-right: 24px;
   align-items: center;
   margin-top: 16px;
   font-family: "Gilroy";
@@ -64,7 +65,7 @@
   color: #333333;
 }
 .aboutMe {
-  width: 256px;
+  min-width: 256px;
   font-family: "Gilroy";
   font-style: normal;
   font-weight: 400;
