@@ -2,64 +2,64 @@
   .toast {
     display: flex;
     flex-direction: column;
-    width: 390px;
-    height: 84px;
+    width: 194px;
+    height: 95px;
     background-color: #b5ffa2;
     border-radius: 32px;
-    padding: 24px;
+    padding: 16px 16px 21px 78px;
     align-items: flex-end;
     background-repeat: no-repeat;
     background-position: bottom left;
     position: fixed;
-    bottom: 104px;
-    right: 40px;
+    bottom: 16px;
+    right: 16px;
     transition: 0.3s ease;
     animation: toast_right 0.7s;
   }
   .errorToast {
     display: flex;
     flex-direction: column;
-    width: 390px;
-    height: 84px;
+    width: 194px;
+    height: 95px;
     background-color: #f64b3c;
     border-radius: 32px;
-    padding: 24px;
+    padding: 16px 16px 21px 78px;
     align-items: flex-end;
     background-repeat: no-repeat;
     background-position: bottom left;
     position: fixed;
-    bottom: 104px;
-    right: 40px;
+    bottom: 16px;
+    right: 16px;
     transition: 0.3s ease;
     animation: toast_right 0.7s;
   }
 
   .header {
     display: flex;
-    width: 280px;
+    width: 100%;
     height: 48px;
     justify-content: space-between;
   }
   .text {
-    font-family: 'Factor A';
+    font-family: "Factor A";
     font-style: normal;
     font-weight: 500;
-    font-size: 32px;
-    line-height: 38px;
+    font-size: 24px;
+    line-height: 28px;
     color: #333333;
   }
   .errorText {
-    font-family: 'Factor A';
+    font-family: "Factor A";
     font-style: normal;
     font-weight: 500;
-    font-size: 32px;
-    line-height: 38px;
+    font-size: 24px;
+    line-height: 28px;
     color: #ffffff;
   }
 
   .body {
-    width: 280px;
-    font-family: 'Gilroy';
+    width: 100%;
+    font-family: "Gilroy";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -68,8 +68,8 @@
   }
 
   .errorBody {
-    width: 280px;
-    font-family: 'Gilroy';
+    width: 100%;
+    font-family: "Gilroy";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -99,7 +99,7 @@
     background-position: center;
   }
   .errorBubble::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 0px;
     height: 0px;
@@ -113,7 +113,7 @@
   }
 
   .bubble::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 0px;
     height: 0px;

@@ -15,11 +15,10 @@
   .commentForm {
     display: flex;
     flex-direction: column;
-    width: 626px;
-    height: 396px;
+    width: 256px;
+    height: 431px;
     background-color: #ffffff;
-    padding: 24px;
-    justify-content: space-between;
+    padding: 16px;
     align-items: center;
   }
   .header {
@@ -30,30 +29,32 @@
   .label {
     display: flex;
     align-self: flex-start;
-    font-family: 'Factor A';
+    font-family: "Factor A";
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 18px;
     color: #333333;
+    margin-top: 20px;
   }
   .nameInput {
     display: flex;
-    height: 50px;
-    width: 393px;
+    height: 45px;
+    width: 256px;
     border: 1px solid #e0e0e0;
     border-radius: 2px;
     outline: none;
-    font-family: 'Gilroy';
+    font-family: "Gilroy";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;
     color: #333333;
     outline: none;
+    margin-top: 8px;
   }
   .nameInput::placeholder {
-    font-family: 'Gilroy';
+    font-family: "Gilroy";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -62,35 +63,33 @@
   }
 
   .text {
-    font-family: 'Factor A';
+    font-family: "Factor A";
     font-style: normal;
     font-weight: 500;
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 20px;
+    line-height: 24px;
     color: #333333;
   }
 
   .name_file {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
   }
   .addPhotoBtn {
     display: flex;
-    height: 52px;
-    width: 217px;
+    height: 42px;
+    width: 149px;
     background-color: #585cc6;
     border-radius: 2px;
     justify-content: center;
     align-items: center;
-    font-family: 'Gilroy';
+    font-family: "Gilroy";
     font-style: normal;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 18px;
     color: #ffffff;
     border: 0;
     outline: none;
+    margin-top: 12px;
   }
   .addPfotoBtn:hover {
     background-color: #797ddf;
@@ -98,22 +97,23 @@
 
   .commentText {
     display: flex;
-    height: 103px;
-    width: 626px;
+    height: 105px;
+    width: 256px;
     resize: none;
     border: 1px solid #e0e0e0;
     border-radius: 2px;
     outline: none;
-    font-family: 'Gilroy';
+    font-family: "Gilroy";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;
     color: #333333;
+    margin-top: 8px;
   }
 
   .commentText::placeholder {
-    font-family: 'Gilroy';
+    font-family: "Gilroy";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -123,25 +123,24 @@
 
   .footer {
     display: flex;
-    width: 100%;
-    height: 52px;
-    align-items: center;
+    flex-direction: column-reverse;
   }
   .addCommentBtnActive {
     display: flex;
-    height: 52px;
-    width: 217px;
+    height: 42px;
+    width: 256px;
     background-color: #585cc6;
     border-radius: 2px;
     justify-content: center;
     align-items: center;
-    font-family: 'Gilroy';
+    font-family: "Gilroy";
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
     line-height: 18px;
     color: #ffffff;
     border: 0;
+    margin-top: 12px;
   }
 
   .addCommentBtnActive:hover {
@@ -149,12 +148,13 @@
   }
 
   .textFooter {
-    font-family: 'Gilroy';
+    font-family: "Gilroy";
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
     color: #8a8a8a;
+    margin-top: 32px;
   }
   .error {
     border: 1px solid red;

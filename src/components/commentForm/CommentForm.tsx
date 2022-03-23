@@ -68,6 +68,10 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
     }
   };
 
+  const closeToast = () => {
+    setError(null);
+  };
+
   return (
     <div className={css.cont}>
       <div className={css.commentForm}>
@@ -113,7 +117,9 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
           </div>
         </div>
       </div>
-      {error && <Toast closeToast={() => {}} error={error} text={errorText} />}
+      {error && (
+        <Toast closeToast={closeToast} error={error} text={errorText} />
+      )}
     </div>
   );
 };
