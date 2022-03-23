@@ -60,24 +60,22 @@ export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
           <div className={css.groupBtns}>
             <button
               className={
-                position === 0 ? css.carouselBtnDisable : css.carouselBtnActive
+                position === 0
+                  ? css.carouselBtnDisLeft
+                  : css.carouselBtnActiveLeft
               }
               onClick={handleLeft}
               disabled={position === 0}
-            >
-              L
-            </button>
+            ></button>
             <button
               className={
                 position > (-543 * comments.length) / 2
-                  ? css.carouselBtnActive
-                  : css.carouselBtnDisable
+                  ? css.carouselBtnActiveRight
+                  : css.carouselBtnDisRight
               }
               onClick={handleRight}
               disabled={!(position > (-543 * comments.length) / 2)}
-            >
-              R
-            </button>
+            ></button>
           </div>
         )}
       </div>

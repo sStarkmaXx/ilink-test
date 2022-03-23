@@ -24,7 +24,7 @@
   align-items: center;
 }
 .text {
-  font-family: "Factor A";
+  font-family: 'Factor A';
   font-style: normal;
   font-weight: 500;
   font-size: 32px;
@@ -41,7 +41,7 @@
   background-color: #585cc6;
   border-radius: 2px;
   color: #ffffff;
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
@@ -127,7 +127,7 @@
     padding-bottom: 38px;
   }
   .text {
-    font-family: "Factor A";
+    font-family: 'Factor A';
     font-style: normal;
     font-weight: 500;
     font-size: 68px;
@@ -144,7 +144,7 @@
     background-color: #585cc6;
     border-radius: 2px;
     color: #ffffff;
-    font-family: "Gilroy";
+    font-family: 'Gilroy';
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -174,7 +174,7 @@
     align-self: end;
     margin-left: 34px;
   }
-  .carouselBtnActive {
+  .carouselBtnActiveLeft {
     display: flex;
     width: 56px;
     height: 56px;
@@ -184,11 +184,34 @@
     justify-content: center;
     align-items: center;
   }
-  .carouselBtnActive:hover {
+  .carouselBtnActiveLeft::after {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-right: transparent;
+    border-bottom: transparent;
+    transform: rotate(-45deg);
+  }
+
+  .carouselBtnActiveLeft::before {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-bottom: transparent;
+  }
+
+  .carouselBtnActiveLeft:hover {
     background-color: #c2c4ff;
   }
 
-  .carouselBtnDisable {
+  .carouselBtnDisLeft {
     display: flex;
     width: 56px;
     height: 56px;
@@ -197,5 +220,96 @@
     border: 0;
     justify-content: center;
     align-items: center;
+  }
+  .carouselBtnDisLeft::after {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-right: transparent;
+    border-bottom: transparent;
+    transform: rotate(-45deg);
+  }
+
+  .carouselBtnDisLeft::before {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-bottom: transparent;
+  }
+  .carouselBtnActiveRight {
+    display: flex;
+    width: 56px;
+    height: 56px;
+    border-radius: 2px;
+    background-color: #ffffff;
+    border: 0;
+    justify-content: center;
+    align-items: center;
+  }
+  .carouselBtnActiveRight::after {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-left: transparent;
+    border-bottom: transparent;
+    transform: rotate(45deg);
+  }
+
+  .carouselBtnActiveRight::before {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-bottom: transparent;
+  }
+
+  .carouselBtnActiveRight:hover {
+    background-color: #c2c4ff;
+  }
+
+  .carouselBtnDisRight {
+    display: flex;
+    width: 56px;
+    height: 56px;
+    border-radius: 2px;
+    background-color: #e0e0e0;
+    border: 0;
+    justify-content: center;
+    align-items: center;
+  }
+  .carouselBtnDisRight::after {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-left: transparent;
+    border-bottom: transparent;
+    transform: rotate(45deg);
+  }
+
+  .carouselBtnDisRight::before {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-bottom: transparent;
   }
 }

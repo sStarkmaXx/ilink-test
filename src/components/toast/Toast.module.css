@@ -40,7 +40,7 @@
   justify-content: space-between;
 }
 .text {
-  font-family: "Factor A";
+  font-family: 'Factor A';
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -48,7 +48,7 @@
   color: #333333;
 }
 .errorText {
-  font-family: "Factor A";
+  font-family: 'Factor A';
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -58,7 +58,7 @@
 
 .body {
   width: 100%;
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -68,7 +68,7 @@
 
 .errorBody {
   width: 100%;
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -98,7 +98,7 @@
   background-position: center;
 }
 .errorBubble::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 0px;
   height: 0px;
@@ -112,7 +112,7 @@
 }
 
 .bubble::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 0px;
   height: 0px;
@@ -123,6 +123,135 @@
   border-radius: 5px;
   top: 53px;
   left: 10px;
+}
+
+@media (min-width: 821px) {
+  .toast {
+    display: flex;
+    flex-direction: column;
+    width: 390px;
+    height: 84px;
+    background-color: #b5ffa2;
+    border-radius: 32px;
+    padding: 24px;
+    align-items: flex-end;
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    position: fixed;
+    bottom: 104px;
+    right: 40px;
+    transition: 0.3s ease;
+    animation: toast_right 0.7s;
+  }
+  .errorToast {
+    display: flex;
+    flex-direction: column;
+    width: 390px;
+    height: 84px;
+    background-color: #f64b3c;
+    border-radius: 32px;
+    padding: 24px;
+    align-items: flex-end;
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    position: fixed;
+    bottom: 104px;
+    right: 40px;
+    transition: 0.3s ease;
+    animation: toast_right 0.7s;
+  }
+
+  .header {
+    display: flex;
+    width: 280px;
+    height: 48px;
+    justify-content: space-between;
+  }
+  .text {
+    font-family: 'Factor A';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 38px;
+    color: #333333;
+  }
+  .errorText {
+    font-family: 'Factor A';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 38px;
+    color: #ffffff;
+  }
+
+  .body {
+    width: 280px;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #333333;
+  }
+
+  .errorBody {
+    width: 280px;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #ffffff;
+  }
+  .bubble {
+    position: absolute;
+    width: 68px;
+    height: 68px;
+    border-radius: 50px;
+    background-color: #7ded61;
+    top: -45px;
+    left: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .errorBubble {
+    position: absolute;
+    width: 68px;
+    height: 68px;
+    border-radius: 50px;
+    background-color: #c81912;
+    top: -45px;
+    left: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .errorBubble::before {
+    content: '';
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border-left: 20px solid #c81912;
+    border-top: 15px solid #c81912;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-radius: 5px;
+    top: 53px;
+    left: 10px;
+  }
+
+  .bubble::before {
+    content: '';
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border-left: 20px solid #7ded61;
+    border-top: 15px solid #7ded61;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-radius: 5px;
+    top: 53px;
+    left: 10px;
+  }
 }
 
 @keyframes toast_right {

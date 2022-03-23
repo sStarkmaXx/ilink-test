@@ -1,7 +1,8 @@
-import css from "./Toast.module.css";
-import union from "./img/union.png";
-import check from "./img/check.png";
-import close from "./img/close.png";
+import css from './Toast.module.css';
+import green from './img/green.png';
+import check from './img/check.png';
+import close from './img/close.png';
+import imgError from './img/error.png';
 
 type toastPropsType = {
   closeToast: () => void;
@@ -12,30 +13,30 @@ type toastPropsType = {
 export const Toast: React.FC<toastPropsType> = ({
   closeToast,
   error,
-  text
+  text,
 }) => {
   return (
     <div
       className={error ? css.errorToast : css.toast}
-      style={{ backgroundImage: `url(${union})` }}
+      style={{ backgroundImage: `url(${error ? '' : green})` }}
     >
       <div className={css.header}>
         <div className={error ? css.errorText : css.text}>
-          {error ? "Что-то не так..." : "Успешно!"}
+          {error ? 'Что-то не так...' : 'Успешно!'}
         </div>
         <img
           src={close}
           alt=""
-          style={{ width: "15px", height: "15px" }}
+          style={{ width: '15px', height: '15px' }}
           onClick={closeToast}
         />
       </div>
       <div className={error ? css.errorBody : css.body}>
-        {error ? text : "Спасибо за отзыв о нашей компании!"}
+        {error ? text : 'Спасибо за отзыв о нашей компании!'}
       </div>
       <div
         className={error ? css.errorBubble : css.bubble}
-        style={{ backgroundImage: `url(${check})` }}
+        style={{ backgroundImage: `url(${error ? imgError : check})` }}
       ></div>
     </div>
   );

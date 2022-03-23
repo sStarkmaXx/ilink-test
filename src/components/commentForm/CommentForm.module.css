@@ -28,7 +28,7 @@
 .label {
   display: flex;
   align-self: flex-start;
-  font-family: "Factor A";
+  font-family: 'Factor A';
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -43,7 +43,7 @@
   border: 1px solid #e0e0e0;
   border-radius: 2px;
   outline: none;
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -53,7 +53,7 @@
   margin-top: 8px;
 }
 .nameInput::placeholder {
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -62,7 +62,7 @@
 }
 
 .text {
-  font-family: "Factor A";
+  font-family: 'Factor A';
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
@@ -80,7 +80,7 @@
   border-radius: 2px;
   justify-content: center;
   align-items: center;
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
@@ -102,7 +102,7 @@
   border: 1px solid #e0e0e0;
   border-radius: 2px;
   outline: none;
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -112,7 +112,7 @@
 }
 
 .commentText::placeholder {
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -132,7 +132,7 @@
   border-radius: 2px;
   justify-content: center;
   align-items: center;
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
@@ -147,7 +147,7 @@
 }
 
 .textFooter {
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -190,7 +190,7 @@
   .label {
     display: flex;
     align-self: flex-start;
-    font-family: "Factor A";
+    font-family: 'Factor A';
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -205,7 +205,7 @@
     border: 1px solid #e0e0e0;
     border-radius: 2px;
     outline: none;
-    font-family: "Gilroy";
+    font-family: 'Gilroy';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -215,7 +215,7 @@
     margin-top: 0px;
   }
   .nameInput::placeholder {
-    font-family: "Gilroy";
+    font-family: 'Gilroy';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -224,7 +224,7 @@
   }
 
   .text {
-    font-family: "Factor A";
+    font-family: 'Factor A';
     font-style: normal;
     font-weight: 500;
     font-size: 24px;
@@ -247,7 +247,7 @@
     border-radius: 2px;
     justify-content: center;
     align-items: center;
-    font-family: "Gilroy";
+    font-family: 'Gilroy';
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -269,7 +269,7 @@
     border: 1px solid #e0e0e0;
     border-radius: 2px;
     outline: none;
-    font-family: "Gilroy";
+    font-family: 'Gilroy';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -279,7 +279,7 @@
   }
 
   .commentText::placeholder {
-    font-family: "Gilroy";
+    font-family: 'Gilroy';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -290,6 +290,7 @@
   .footer {
     display: flex;
     flex-direction: row;
+    align-items: center;
     width: 100%;
     height: 52px;
     align-items: center;
@@ -302,7 +303,7 @@
     border-radius: 2px;
     justify-content: center;
     align-items: center;
-    font-family: "Gilroy";
+    font-family: 'Gilroy';
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -310,6 +311,7 @@
     color: #ffffff;
     border: 0;
     margin-top: 0px;
+    margin-right: 44px;
   }
 
   .addCommentBtnActive:hover {
@@ -317,12 +319,13 @@
   }
 
   .textFooter {
-    font-family: "Gilroy";
+    font-family: 'Gilroy';
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
     color: #8a8a8a;
+    margin: 0;
   }
   .error {
     border: 1px solid red;
