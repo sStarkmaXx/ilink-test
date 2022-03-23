@@ -1,7 +1,7 @@
-import css from './Header.module.css';
-import ilink from './img/ilink.png';
-import academy from './img/ACADEMY.png';
-import myPhoto from '../accountInfo/img/my_photo.jpg';
+import css from "./Header.module.css";
+import ilink from "./img/ilink.png";
+import academy from "./img/ACADEMY.png";
+import myPhoto from "../accountInfo/img/my_photo.jpg";
 
 export const Header = () => {
   let screenWidth = window.screen.width;
@@ -20,8 +20,12 @@ export const Header = () => {
             <img src={ilink} className={css.ilink}></img>
             <img src={academy} className={css.academy}></img>
           </div>
-          <button className={css.headerButton}>
-            {screenWidth > 820 && 'Панель управления'}
+          <button
+            className={
+              screenWidth > 820 ? css.headerButton : css.miniHeaderButton
+            }
+          >
+            {screenWidth > 820 && "Панель управления"}
           </button>
         </div>
       </div>
