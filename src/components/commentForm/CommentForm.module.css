@@ -1,0 +1,333 @@
+.cont {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  width: 256px;
+  height: 431px;
+  background-color: #ffffff;
+  padding: 16px;
+  align-items: center;
+}
+.header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.label {
+  display: flex;
+  align-self: flex-start;
+  font-family: 'Factor A';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #333333;
+  margin-top: 20px;
+}
+.nameInput {
+  display: flex;
+  height: 45px;
+  width: 256px;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  outline: none;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #333333;
+  outline: none;
+  margin-top: 8px;
+}
+.nameInput::placeholder {
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #8a8a8a;
+}
+
+.text {
+  font-family: 'Factor A';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #333333;
+}
+
+.name_file {
+}
+.addPhotoBtn {
+  display: flex;
+  height: 42px;
+  width: 149px;
+  background-color: #585cc6;
+  border-radius: 2px;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  color: #ffffff;
+  border: 0;
+  outline: none;
+  margin-top: 12px;
+}
+.addPfotoBtn:hover {
+  background-color: #797ddf;
+}
+
+.commentText {
+  display: flex;
+  height: 105px;
+  width: 256px;
+  resize: none;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  outline: none;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #333333;
+  margin-top: 8px;
+}
+
+.commentText::placeholder {
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #8a8a8a;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.addCommentBtnActive {
+  display: flex;
+  height: 42px;
+  width: 256px;
+  background-color: #585cc6;
+  border-radius: 2px;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+  color: #ffffff;
+  border: 0;
+  margin-top: 12px;
+}
+
+.addCommentBtnActive:hover {
+  background-color: #797ddf;
+}
+
+.textFooter {
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #8a8a8a;
+  margin-top: 32px;
+}
+.error {
+  border: 1px solid red;
+}
+@media (min-width: 821px) {
+  .cont {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .commentForm {
+    display: flex;
+    flex-direction: column;
+    width: 628px;
+    max-height: 396px;
+    background-color: #ffffff;
+    padding: 24px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .label {
+    display: flex;
+    align-self: flex-start;
+    font-family: 'Factor A';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #333333;
+    margin-top: 0px;
+  }
+  .nameInput {
+    display: flex;
+    height: 48px;
+    width: 393px;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    outline: none;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #333333;
+    outline: none;
+    margin-top: 0px;
+  }
+  .nameInput::placeholder {
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #8a8a8a;
+  }
+
+  .text {
+    font-family: 'Factor A';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    color: #333333;
+  }
+
+  .name_file {
+    display: flex;
+    width: 100%;
+    height: 52px;
+    justify-content: space-between;
+    margin-top: -20px;
+  }
+  .addPhotoBtn {
+    display: flex;
+    height: 52px;
+    width: 217px;
+    background-color: #585cc6;
+    border-radius: 2px;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 18px;
+    color: #ffffff;
+    border: 0;
+    outline: none;
+    margin: 0px;
+  }
+  .addPfotoBtn:hover {
+    background-color: #797ddf;
+  }
+
+  .commentText {
+    display: flex;
+    height: 99px;
+    width: 620px;
+    resize: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    outline: none;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #333333;
+    margin-top: -20px;
+  }
+
+  .commentText::placeholder {
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #8a8a8a;
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 52px;
+    align-items: center;
+  }
+  .addCommentBtnActive {
+    display: flex;
+    height: 52px;
+    width: 217px;
+    background-color: #585cc6;
+    border-radius: 2px;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 18px;
+    color: #ffffff;
+    border: 0;
+    margin-top: 0px;
+    margin-right: 44px;
+  }
+
+  .addCommentBtnActive:hover {
+    background-color: #797ddf;
+  }
+
+  .textFooter {
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #8a8a8a;
+    margin: 0;
+  }
+  .error {
+    border: 1px solid red;
+  }
+}

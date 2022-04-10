@@ -1,0 +1,315 @@
+.carouselCont {
+  display: flex;
+  min-width: 304px;
+  padding: 0px 0px 82px 0px;
+}
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: calc(100% - 16px);
+}
+.carousel {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 32px);
+  padding: 20px 15px 48px 17px;
+  background-color: #ffffff;
+}
+.carouselHeader {
+  display: flex;
+  width: 100%;
+  height: 42px;
+  justify-content: space-between;
+  align-items: center;
+}
+.text {
+  font-family: 'Factor A';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 42px;
+  color: #333333;
+}
+.addCommentBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  background-color: #585cc6;
+  border-radius: 2px;
+  color: #ffffff;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+}
+.addCommentBtn:hover {
+  background-color: #797ddf;
+}
+.commentWindow {
+  display: flex;
+  overflow: hidden;
+  margin-top: 21px;
+  width: 100%;
+  transform: translateX();
+}
+.allCommentsCont {
+  display: flex;
+  transition: translate;
+  transition-property: transform;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+}
+.groupBtns {
+  display: flex;
+  width: 70px;
+  height: 30px;
+  justify-content: space-between;
+  align-self: center;
+}
+.carouselBtnActive {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  border: 0;
+  justify-content: center;
+  align-items: center;
+}
+.carouselBtnActive:hover {
+  background-color: #c2c4ff;
+}
+
+.carouselBtnDisable {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  background-color: #e0e0e0;
+  border: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 821px) {
+  .carouselCont {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+  }
+  .wrap {
+    display: flex;
+    max-width: 1440px;
+    width: 100%;
+    margin-top: 120px;
+    margin-bottom: 106px;
+    flex-direction: row;
+  }
+  .carousel {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    justify-content: space-between;
+    width: 83%;
+    padding: 56px 56px 64px 80px;
+    background-color: #ffffff;
+  }
+  .carouselHeader {
+    display: flex;
+    max-width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 38px;
+  }
+  .text {
+    font-family: 'Factor A';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 68px;
+    line-height: 88px;
+    color: #333333;
+  }
+  .addCommentBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    height: 52px;
+    border: 0;
+    background-color: #585cc6;
+    border-radius: 2px;
+    color: #ffffff;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 18px;
+  }
+  .addCommentBtn:hover {
+    background-color: #797ddf;
+  }
+  .commentWindow {
+    display: flex;
+    max-width: 1062px;
+    overflow: hidden;
+    transform: translateX();
+  }
+  .allCommentsCont {
+    display: flex;
+    transition: translate;
+    transition-property: transform;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+  }
+  .groupBtns {
+    display: flex;
+    width: 128px;
+    height: 56px;
+    justify-content: space-between;
+    align-self: end;
+    margin-left: 34px;
+  }
+  .carouselBtnActiveLeft {
+    display: flex;
+    width: 56px;
+    height: 56px;
+    border-radius: 2px;
+    background-color: #ffffff;
+    border: 0;
+    justify-content: center;
+    align-items: center;
+  }
+  .carouselBtnActiveLeft::after {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-right: transparent;
+    border-bottom: transparent;
+    transform: rotate(-45deg);
+  }
+
+  .carouselBtnActiveLeft::before {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-bottom: transparent;
+  }
+
+  .carouselBtnActiveLeft:hover {
+    background-color: #c2c4ff;
+  }
+
+  .carouselBtnDisLeft {
+    display: flex;
+    width: 56px;
+    height: 56px;
+    border-radius: 2px;
+    background-color: #e0e0e0;
+    border: 0;
+    justify-content: center;
+    align-items: center;
+  }
+  .carouselBtnDisLeft::after {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-right: transparent;
+    border-bottom: transparent;
+    transform: rotate(-45deg);
+  }
+
+  .carouselBtnDisLeft::before {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-bottom: transparent;
+  }
+  .carouselBtnActiveRight {
+    display: flex;
+    width: 56px;
+    height: 56px;
+    border-radius: 2px;
+    background-color: #ffffff;
+    border: 0;
+    justify-content: center;
+    align-items: center;
+  }
+  .carouselBtnActiveRight::after {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-left: transparent;
+    border-bottom: transparent;
+    transform: rotate(45deg);
+  }
+
+  .carouselBtnActiveRight::before {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-bottom: transparent;
+  }
+
+  .carouselBtnActiveRight:hover {
+    background-color: #c2c4ff;
+  }
+
+  .carouselBtnDisRight {
+    display: flex;
+    width: 56px;
+    height: 56px;
+    border-radius: 2px;
+    background-color: #e0e0e0;
+    border: 0;
+    justify-content: center;
+    align-items: center;
+  }
+  .carouselBtnDisRight::after {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-left: transparent;
+    border-bottom: transparent;
+    transform: rotate(45deg);
+  }
+
+  .carouselBtnDisRight::before {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 10px;
+    border: #333333 2px solid;
+    border-radius: 2px;
+    border-bottom: transparent;
+  }
+}
