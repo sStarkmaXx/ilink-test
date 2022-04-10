@@ -1,6 +1,4 @@
 import vk from './img/vk.png';
-import telegram from './img/telegram.png';
-import anyy from './img/any.png';
 import css from './Footer.module.css';
 
 export const Footer = () => {
@@ -13,7 +11,7 @@ export const Footer = () => {
             <img src={vk} alt="" style={{ width: '24px', height: '24px' }} />
           </a>
 
-          <a href="">
+          <a href="https://vk.com/ilinkdev">
             <img src={vk} alt="" style={{ width: '24px', height: '24px' }} />
           </a>
 

@@ -1,0 +1,19 @@
+.accountPage {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #585cc6;
+  background-repeat: no-repeat;
+  background-position: right 250px top -20px;
+}
+
+@media (max-width: 820px) {
+  .accountPage {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #585cc6;
+    background-repeat: no-repeat;
+    background-position: left top -190px;
+  }
+}
