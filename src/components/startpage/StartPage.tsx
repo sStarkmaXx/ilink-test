@@ -4,8 +4,20 @@ import css from './StartPage.module.css';
 import academy from './img/academy.png';
 import ilink from './img/ilink.png';
 import vector from './img/vector.png';
+import { useState } from 'react';
+import { Toast } from '../toast/Toast';
 
 export const StartPage = () => {
+  const [accountError, setAccountError] = useState<string | null>(null);
+
+  const accountErrorSetter = (text: string) => {
+    setAccountError(text);
+  };
+
+  const closeToast = () => {
+    setAccountError(null);
+  };
+
   return (
     <div
       className={css.startpage}
@@ -14,8 +26,15 @@ export const StartPage = () => {
       <img src={ilink} alt="" />
       <img src={academy} alt="" />
       <div className={css.content}>
-        <LoginForm />
+        <LoginForm accountErrorSetter={accountErrorSetter} />
       </div>
+      {accountError && (
+        <Toast
+          closeToast={closeToast}
+          error={accountError}
+          text={accountError}
+        />
+      )}
       <Footer />
     </div>
   );

@@ -72,7 +72,6 @@
   box-sizing: border-box;
   padding: 0px 18px 0px 11px;
   border-radius: 2px;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -86,6 +85,7 @@
   line-height: 22px;
   letter-spacing: 0.2em;
   color: #333333;
+  flex: 1;
 }
 
 .password > input::placeholder {
@@ -97,13 +97,6 @@
   color: #8a8a8a;
 }
 
-.password > div {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  margin-right: -15px;
-}
-
 .password > div > img {
   display: flex;
   width: 19px;
@@ -111,36 +104,59 @@
   position: relative;
 }
 
+.open {
+  display: flex;
+  position: relative;
+  width: 25px;
+  height: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 .open::after {
   content: '';
   display: flex;
   position: relative;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   border: 2px solid #585cc6;
   border-radius: 50%;
-  right: 13px;
+  right: -9px;
+  top: 5px;
+}
+
+.hidden {
+  display: flex;
+  position: relative;
+  width: 25px;
+  height: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .hidden::after {
   content: '';
   display: flex;
   position: relative;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   border: 2px solid #585cc6;
   border-radius: 50%;
-  right: 13px;
+  right: -7px;
+  top: 5px;
 }
 
 .hidden::before {
   content: '';
   display: flex;
+  height: 27px;
   position: relative;
-  width: 20px;
   border: 1px solid #585cc6;
-  right: -20px;
-  transform: rotate(-45deg);
+  top: -5px;
+  right: -12px;
+  transform: rotate(45deg);
 }
 
 .enable {
@@ -192,6 +208,45 @@
   font-size: 12px;
   line-height: 16px;
   color: #585cc6;
+}
+
+.error {
+  display: flex;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #fb8f8f;
+  border-radius: 5px;
+  margin-left: 18px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+  color: #fb8f8f;
+}
+
+.error:hover::after {
+  content: attr(data-title);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 164px;
+  box-sizing: border-box;
+  padding: 5px;
+  border-radius: 2px;
+  background-color: #f5f5f5;
+  position: absolute;
+  right: -10px;
+  top: -50px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  color: #333333;
 }
 
 @media (min-width: 821px) {
