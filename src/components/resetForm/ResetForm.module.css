@@ -56,32 +56,6 @@
   margin: 16px auto 0px;
 }
 
-.form > input {
-  width: 256px;
-  height: 52px;
-  border: 1px #e0e0e0 solid;
-  box-sizing: border-box;
-  border-radius: 2px;
-  outline: none;
-  padding-left: 12px;
-  box-sizing: border-box;
-  font-family: 'Gilroy';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 22px;
-  color: #333333;
-}
-
-.form > input::placeholder {
-  font-family: 'Gilroy';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 22px;
-  color: #333333;
-}
-
 .form > label {
   display: flex;
   margin-top: 32px;
@@ -99,7 +73,7 @@
   margin-top: 24px;
 }
 
-.password {
+.login {
   display: flex;
   width: 256px;
   height: 52px;
@@ -107,11 +81,14 @@
   box-sizing: border-box;
   padding: 0px 18px 0px 11px;
   border-radius: 2px;
-  justify-content: space-between;
   align-items: center;
 }
 
-.password > input {
+.login {
+  justify-content: space-between;
+}
+
+.login > input {
   outline: none;
   border: none;
   font-family: 'Gilroy';
@@ -119,11 +96,13 @@
   font-weight: 600;
   font-size: 14px;
   line-height: 22px;
-  letter-spacing: 0.2em;
   color: #333333;
+  flex: 1;
+  height: 48px;
+  background-color: #ffffff;
 }
 
-.password > input::placeholder {
+.login > input::placeholder {
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
@@ -132,58 +111,52 @@
   color: #8a8a8a;
 }
 
-.password > div {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  margin-right: -15px;
-}
-
-.password > div > img {
-  display: flex;
-  width: 19px;
-  height: 15px;
-  position: relative;
-}
-
-.open::after {
-  content: '';
-  display: flex;
-  position: relative;
-  width: 3px;
-  height: 3px;
-  border: 2px solid #585cc6;
-  border-radius: 50%;
-  right: 13px;
-}
-
-.hidden::after {
-  content: '';
-  display: flex;
-  position: relative;
-  width: 3px;
-  height: 3px;
-  border: 2px solid #585cc6;
-  border-radius: 50%;
-  right: 13px;
-}
-
-.hidden::before {
-  content: '';
-  display: flex;
-  position: relative;
-  width: 20px;
-  border: 1px solid #585cc6;
-  right: -20px;
-  transform: rotate(-45deg);
-}
-
 .buttons {
   display: flex;
   margin-top: 40px;
 }
 
-.buttons > button {
+.buttons > a {
+  display: none;
+}
+.error {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  background-image: url(./img/normal/Info\ Square.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-left: 9px;
+  position: relative;
+}
+
+.error:hover {
+  background-image: url(./img/hover/Info\ Square.png);
+}
+
+.error:hover::after {
+  content: attr(data-title);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 164px;
+  box-sizing: border-box;
+  padding: 5px;
+  border-radius: 2px;
+  background-color: #f5f5f5;
+  position: absolute;
+  right: -10px;
+  top: -50px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  color: #333333;
+}
+.enable,
+.disable {
   display: flex;
   width: 256px;
   height: 42px;
@@ -199,10 +172,11 @@
   line-height: 18px;
   letter-spacing: 0.01em;
   color: #ffffff;
+  margin-bottom: 16px;
 }
 
-.buttons > a {
-  display: none;
+.disable {
+  background: #8a8a8a;
 }
 
 @media (min-width: 821px) {
@@ -222,7 +196,7 @@
     width: 548px;
     height: 52px;
   }
-  .password {
+  .login {
     width: 548px;
     height: 52px;
   }

@@ -31,9 +31,7 @@ export const Toast: React.FC<toastPropsType> = ({
           onClick={closeToast}
         />
       </div>
-      <div className={error ? css.errorBody : css.body}>
-        {error ? text : 'Спасибо за отзыв о нашей компании!'}
-      </div>
+      <div className={error ? css.errorBody : css.body}>{text}</div>
       <div
         className={error ? css.errorBubble : css.bubble}
         style={{ backgroundImage: `url(${error ? imgError : check})` }}
