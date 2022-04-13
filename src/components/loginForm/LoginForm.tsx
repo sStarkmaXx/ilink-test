@@ -64,6 +64,23 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
     password: 'qweQWE123!@#',
   };
 
+  const formOnClickHandler = () => {
+    setLogin('');
+    setPassword('');
+    if (login === account.login) {
+      if (password === account.password) {
+        document.location = '#/profile';
+      } else {
+        setTimeout(() => accountErrorSetter('Неверный пароль!'), 2000);
+      }
+    } else {
+      setTimeout(
+        () => accountErrorSetter('Данный пользователь не зарегистрирован!'),
+        2000
+      );
+    }
+  };
+
   return (
     <form
       className={css.form}
@@ -122,21 +139,7 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
       <button
         type="button"
         disabled={!loginRegExp.test(login) || !passwordRegExp.test(password)}
-        onClick={() => {
-          if (login === account.login) {
-            if (password === account.password) {
-              document.location = '/profile';
-            } else {
-              setTimeout(() => accountErrorSetter('Неверный пароль!'), 2000);
-            }
-          } else {
-            setTimeout(
-              () =>
-                accountErrorSetter('Данный пользователь не зарегистрирован!'),
-              2000
-            );
-          }
-        }}
+        onClick={formOnClickHandler}
         className={
           !loginRegExp.test(login) || !passwordRegExp.test(password)
             ? css.disable

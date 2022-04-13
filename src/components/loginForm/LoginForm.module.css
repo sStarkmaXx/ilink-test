@@ -89,8 +89,8 @@
   line-height: 22px;
   color: #333333;
   flex: 1;
-  height: 48px;
-  background-color: #ffffff;
+  height: 46px;
+  box-sizing: border-box;
 }
 
 .password > input {
@@ -103,7 +103,8 @@
   line-height: 22px;
   color: #333333;
   flex: 1;
-  height: 48px;
+  height: 46px;
+  box-sizing: border-box;
 }
 
 .login > input::placeholder {
@@ -234,10 +235,6 @@
     font-size: 32px;
   }
 
-  .form > input {
-    width: 548px;
-    height: 52px;
-  }
   .password,
   .login {
     width: 548px;

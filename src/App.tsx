@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path={'ilink-test/'} element={<StartPage />} />
+        <Route path={'/'} element={<StartPage />} />
         <Route path={'/respas'} element={<ResetPasswordPage />} />
         <Route path={'/profile'} element={<AccountPage />} />
       </Routes>

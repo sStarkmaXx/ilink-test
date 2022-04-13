@@ -30,21 +30,22 @@ export const ResetForm: React.FC<ResetFormPropsType> = ({ sendCodeSetter }) => {
   };
 
   const loginOnClickHandler = () => {
-    if (loginRegExp.test(login)) {
-      if (Math.random() < 0.5) {
-        sendCodeSetter('error');
-      } else {
-        sendCodeSetter('success');
+    setLogin('');
+    setTimeout(() => {
+      if (loginRegExp.test(login)) {
+        if (Math.random() < 0.5) {
+          sendCodeSetter('error');
+        } else {
+          sendCodeSetter('success');
+        }
       }
-    } else {
-      setLoginError('Не верный формат электронный почты!');
-    }
+    }, 2000);
   };
 
   return (
     <form className={css.form} action="">
       <div className={css.header}>
-        <NavLink to={'/ilink-test/'}>
+        <NavLink to={'/'}>
           <div className={css.arrow}></div>
         </NavLink>
         <p>Сброс пароля</p>
@@ -86,7 +87,7 @@ export const ResetForm: React.FC<ResetFormPropsType> = ({ sendCodeSetter }) => {
         >
           Сбросить
         </button>
-        <NavLink to={'/ilink-test/'}>Отмена</NavLink>
+        <NavLink to={'/'}>Отмена</NavLink>
       </div>
     </form>
   );
