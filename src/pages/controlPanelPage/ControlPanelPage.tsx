@@ -1,8 +1,9 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route, Routes } from 'react-router-dom';
 import { Footer } from 'shared/ui/footer/Footer';
 import { Header } from 'shared/ui/header/Header';
 import css from './ControlPanelPage.module.scss';
 import dataEmpty from './img/Group 137336586.png';
+import { AccountList } from '../../entities/account/model/AccountList';
 
 export const ControlPanelPage = () => {
   const accounts = [];
@@ -12,7 +13,7 @@ export const ControlPanelPage = () => {
       <div className={css.container}>
         <div className={css.navBar}>
           <NavLink
-            to={'/asd'}
+            to={'/accounts'}
             className={({ isActive }) =>
               isActive ? css.partyActive : css.party
             }
@@ -20,13 +21,13 @@ export const ControlPanelPage = () => {
             Участники
           </NavLink>
           <NavLink
-            to={'/dfg'}
+            to={'/comments'}
             className={({ isActive }) => (isActive ? css.chatActive : css.chat)}
           >
             Отзывы
           </NavLink>
           <NavLink
-            to={'/as'}
+            to={'/aboutMe'}
             className={({ isActive }) =>
               isActive ? css.paperActive : css.paper
             }
@@ -35,7 +36,11 @@ export const ControlPanelPage = () => {
           </NavLink>
         </div>
         <div className={css.content}>
-          <img src={dataEmpty} alt="" />
+          <Routes>
+            <Route path={'accounts'} element={<AccountList />}></Route>
+            <Route path={'comments'} element={'Отзывы'}></Route>
+            <Route path={'aboutMe'} element={'Обо мне'}></Route>
+          </Routes>
         </div>
       </div>
       <Footer />
