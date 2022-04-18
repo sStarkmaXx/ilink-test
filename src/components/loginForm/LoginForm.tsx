@@ -1,6 +1,8 @@
 import css from './LoginForm.module.css';
 import { ChangeEvent, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { emailRegExp as loginRegExp } from 'shared/regexp/emailRegexp';
+import { passwordRegExp } from 'shared/regexp/passwordRegExp';
 
 type LoginFormPropsType = {
   accountErrorSetter: (text: string) => void;
@@ -9,11 +11,6 @@ type LoginFormPropsType = {
 export const LoginForm: React.FC<LoginFormPropsType> = ({
   accountErrorSetter,
 }) => {
-  const loginRegExp =
-    /^((?=[a-zA-Z0-9])[a-zA-Z0-9!#$%&\\'*+\-\/=?^_`.{|}~]{1,25})@(([a-zA-Z0-9\-]){1,25}\.)([a-zA-Z0-9]{2,4})$/;
-
-  const passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,24}$/;
-
   const [passwordHide, setPasswordHiden] = useState<boolean>(true);
 
   const onClickHandler = () => {

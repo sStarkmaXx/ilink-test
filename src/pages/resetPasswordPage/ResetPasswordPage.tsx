@@ -1,11 +1,11 @@
-import { Footer } from '../footer/Footer';
+import { Footer } from 'shared/ui/footer/Footer';
 import css from './ResetPasswordPage.module.css';
 import academy from './img/academy.png';
 import ilink from './img/ilink.png';
 import vector from './img/vector.png';
-import { ResetForm } from '../resetForm/ResetForm';
+import { ResetForm } from 'components/resetForm/ResetForm';
 import { useState } from 'react';
-import { Toast } from '../toast/Toast';
+import { Toast } from 'shared/ui/toast/Toast';
 
 export type SendCode = null | 'error' | 'success';
 

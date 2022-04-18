@@ -1,16 +1,14 @@
 import css from './ResetForm.module.css';
 import { ChangeEvent, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { SendCode } from '../resetPasswordPage/ResetPasswordPage';
+import { SendCode } from 'pages/resetPasswordPage/ResetPasswordPage';
+import { emailRegExp } from 'shared/regexp/emailRegexp';
 
 type ResetFormPropsType = {
   sendCodeSetter: (req: SendCode) => void;
 };
 
 export const ResetForm: React.FC<ResetFormPropsType> = ({ sendCodeSetter }) => {
-  const loginRegExp =
-    /^((?=[a-zA-Z0-9])[a-zA-Z0-9!#$%&\\'*+\-\/=?^_`.{|}~]{1,25})@(([a-zA-Z0-9\-]){1,25}\.)([a-zA-Z0-9]{2,4})$/;
-
   const [login, setLogin] = useState<string>('');
   const [loginError, setLoginError] = useState<string | null>(null);
 
@@ -21,7 +19,7 @@ export const ResetForm: React.FC<ResetFormPropsType> = ({ sendCodeSetter }) => {
 
   const loginBlurHandler = () => {
     if (login.trim() !== '') {
-      loginRegExp.test(login)
+      emailRegExp.test(login)
         ? setLoginError(null)
         : setLoginError('Не верный формат электронный почты!');
     } else {
@@ -32,7 +30,7 @@ export const ResetForm: React.FC<ResetFormPropsType> = ({ sendCodeSetter }) => {
   const loginOnClickHandler = () => {
     setLogin('');
     setTimeout(() => {
-      if (loginRegExp.test(login)) {
+      if (emailRegExp.test(login)) {
         if (Math.random() < 0.5) {
           sendCodeSetter('error');
         } else {
@@ -77,9 +75,9 @@ export const ResetForm: React.FC<ResetFormPropsType> = ({ sendCodeSetter }) => {
       <div className={css.buttons}>
         <button
           type="button"
-          disabled={!loginRegExp.test(login) || login.trim() === ''}
+          disabled={!emailRegExp.test(login) || login.trim() === ''}
           className={
-            !loginRegExp.test(login) || login.trim() === ''
+            !emailRegExp.test(login) || login.trim() === ''
               ? css.disable
               : css.enable
           }

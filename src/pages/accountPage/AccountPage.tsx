@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { AccountInfo } from '../accountInfo/AccountInfo';
-import { Carousel } from '../carousel/Carousel';
-import { CommentForm } from '../commentForm/CommentForm';
-import { Footer } from '../footer/Footer';
-import { Greetings } from '../greetings/Greetings';
-import { Header } from '../header/Header';
-import { Toast } from '../toast/Toast';
+import { AccountInfo } from './accountInfo/AccountInfo';
+import { Carousel } from './carousel/Carousel';
+import { CommentForm } from 'components/commentForm/CommentForm';
+import { Footer } from 'shared/ui/footer/Footer';
+import { Greetings } from './greetings/Greetings';
+import { Header } from 'shared/ui/header/Header';
+import { Toast } from 'shared/ui/toast/Toast';
 import vector from './img/vector.png';
 import css from './AccountPage.module.css';
 
