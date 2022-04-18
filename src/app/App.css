@@ -1,23 +1,18 @@
 .App {
   display: flex;
-  flex-direction: column;
   width: 100%;
-  align-items: center;
+  justify-content: center;
   background-color: #585cc6;
-  background-repeat: no-repeat;
-  background-position: right 250px top -20px;
+}
+.container {
+  display: flex;
+  width: 100%;
   min-height: 100vh;
 }
 
-@media (max-width: 820px) {
-  .App {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    align-items: center;
-    background-color: #585cc6;
-    background-repeat: no-repeat;
-    background-position: left top -190px;
+@media (min-width: 821px) {
+  .container {
+    max-width: 1440px;
   }
 }
 

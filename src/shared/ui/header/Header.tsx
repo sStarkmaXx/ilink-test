@@ -1,34 +1,39 @@
-import css from './Header.module.css';
-import ilink from './img/ilink.png';
-import academy from './img/ACADEMY.png';
+import css from './Header.module.scss';
+import logo from './img/white/Group 1.png';
 import myPhoto from 'pages/accountPage/img/my_photo.jpg';
+import { NavLink } from 'react-router-dom';
 
-export const Header = () => {
+type HeaderType =
+  | 'controlPanelHeader'
+  | 'entryPageHeader'
+  | 'accountPageHeader';
+
+type HeaderPropdType = {
+  type: HeaderType;
+};
+
+export const Header: React.FC<HeaderPropdType> = () => {
   let screenWidth = window.screen.width;
   return (
     <div className={css.header}>
-      <div className={css.wrap}>
-        <div className={css.headerGroup}>
-          <div className={css.accountGroup}>
-            <div
-              className={css.avatar}
-              style={{ backgroundImage: `url(${myPhoto})` }}
-            ></div>
-            <div className={css.accountName}>Макс</div>
-          </div>
-          <div className={css.academyName}>
-            <img src={ilink} className={css.ilink} alt=""></img>
-            <img src={academy} className={css.academy} alt=""></img>
-          </div>
-          <button
-            className={
-              screenWidth > 820 ? css.headerButton : css.miniHeaderButton
-            }
-          >
-            {screenWidth > 820 && 'Панель управления'}
-          </button>
+      <div className={css.headerGroup}>
+        <div className={css.accountGroup}>
+          <img src={myPhoto} alt="" />
+          <span>Макс Мясников</span>
         </div>
+        <span>Панель управления</span>
       </div>
+      <NavLink to="">
+        <img src={logo} className={css.ilink} alt=""></img>
+      </NavLink>
+
+      {/* <button
+          className={
+            screenWidth > 820 ? css.headerButton : css.miniHeaderButton
+          }
+        >
+          {screenWidth > 820 && 'Панель управления'}
+        </button> */}
     </div>
   );
 };

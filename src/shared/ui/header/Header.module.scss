@@ -1,0 +1,87 @@
+.header {
+  display: flex;
+  width: 100%;
+  height: 77px;
+  box-sizing: border-box;
+  padding: 17px 14px 18px 16px;
+  justify-content: space-between;
+  align-items: center;
+  > a {
+    display: flex;
+    width: 50px;
+    height: 31px;
+  }
+}
+
+.headerGroup {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  height: 100%;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 14px;
+  color: #ffffff;
+}
+.accountGroup {
+  display: flex;
+  height: 20px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  align-items: center;
+
+  > img {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    border-radius: 2px;
+    object-fit: cover;
+  }
+}
+
+.academyName {
+  display: flex;
+  flex-direction: column;
+  width: 50px;
+}
+
+@media (min-width: 821px) {
+  .header {
+    padding: 25px 80px 26px 80px;
+    height: 91px;
+    > a {
+      width: 54px;
+      height: 33px;
+    }
+  }
+  .headerGroup {
+    flex-direction: row;
+    height: 40px;
+    flex: 1;
+    align-items: center;
+    font-family: 'Factor A';
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 32px;
+    > span {
+      display: flex;
+      position: relative;
+      margin: 0 auto;
+      right: 60px;
+    }
+  }
+  .accountGroup {
+    height: 100%;
+    font-size: 18px;
+    line-height: 18px;
+    > img {
+      width: 40px;
+      height: 40px;
+      margin-right: 12px;
+    }
+  }
+}

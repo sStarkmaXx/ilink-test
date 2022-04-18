@@ -32,7 +32,7 @@ export const AccountPage = () => {
         className={css.accountPage}
         style={{ backgroundImage: `url(${vector})` }}
       >
-        <Header />
+        <Header type={'accountPageHeader'} />
         <Greetings />
         <AccountInfo />
         <Carousel openForm={openForm} />
