@@ -1,6 +1,6 @@
 import css from './Account.module.scss';
 
-type StatusType = 'studying' | 'expelled' | 'finished';
+type StatusType = 'Обучается' | 'Закончил' | 'Отчислен' | null;
 
 export type AccountType = {
   id: string;
@@ -19,19 +19,13 @@ export const Account: React.FC<AccountPropsType> = ({ account }) => {
   return (
     <div className={css.account}>
       <div className={css.accountGroup}>
-        <img src="" alt="" />
+        <div className={css.photo}>{account.photo}</div>
         <span>
           {account.name} {account.lastName}
         </span>
       </div>
       <div className={css.info}>{account.info}</div>
-      <div className={css.status}>
-        {account.status === 'studying'
-          ? 'Обучается'
-          : account.status === 'finished'
-          ? 'Закончил'
-          : 'Отчислен'}
-      </div>
+      <div className={css.status}>{account.status}</div>
     </div>
   );
 };

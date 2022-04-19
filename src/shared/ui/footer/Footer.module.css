@@ -29,7 +29,7 @@
   width: 100px;
   justify-content: space-between;
 }
-@media (min-width: 821px) {
+@media (min-width: 921px) {
   .footer {
     height: 64px;
   }
