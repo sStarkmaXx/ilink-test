@@ -12,17 +12,18 @@ import { accounts } from 'entities/account/model/accounts';
 export type FilterType = 'Все' | 'Обучается' | 'Закончил' | 'Отчислен';
 
 export const ControlPanelPage = () => {
-  debugger;
   const [filter, setFilter] = useState<FilterType>('Все');
   const [openDropDown, setOpenDropDown] = useState<boolean>(false);
   const [filteredAccounts, setFilteredAccounts] =
     useState<AccountType[]>(accounts);
 
   const filterAccount = (filter: FilterType) => {
-    let filteredAccs = [...filteredAccounts].filter(
-      (acc) => acc.status === filter
-    );
-    setFilteredAccounts(filteredAccs);
+    if (filter === 'Все') {
+      setFilteredAccounts(accounts);
+    } else {
+      let filteredAccs = accounts.filter((acc) => acc.status === filter);
+      setFilteredAccounts(filteredAccs);
+    }
   };
 
   const onClickFilter = (filter: FilterType) => {
@@ -90,7 +91,7 @@ export const ControlPanelPage = () => {
           <Routes>
             <Route
               path={'accounts'}
-              element={<AccountList filter={filter} />}
+              element={<AccountList filteredAccounts={filteredAccounts} />}
             ></Route>
             <Route path={'comments'} element={'Отзывы'}></Route>
             <Route path={'aboutMe'} element={'Обо мне'}></Route>

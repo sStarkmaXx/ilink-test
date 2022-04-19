@@ -1,24 +1,32 @@
-import { FilterType } from 'pages/controlPanelPage/ControlPanelPage';
 import { MouseEvent, useEffect, useState } from 'react';
 import { Account, AccountType } from '../ui/Account';
 import css from './AccountList.module.scss';
-import { accounts } from './accounts';
 
 type AccountListPropsType = {
-  filter: FilterType;
+  filteredAccounts: AccountType[];
 };
 
-export const AccountList: React.FC<AccountListPropsType> = ({ filter }) => {
-  useEffect(() => {
-    setAllPages(Math.ceil(accounts.length / step));
-  }, []);
-
-  const [startIndex, setStartIndex] = useState<number>(0);
-  useEffect(() => accountsForPageFilter(), [startIndex]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [allPages, setAllPages] = useState<number>(0);
-  const [accountsForPage, setAccountsForPage] = useState<AccountType[]>([]);
+export const AccountList: React.FC<AccountListPropsType> = ({
+  filteredAccounts,
+}) => {
   const step = 6;
+  const [allPages, setAllPages] = useState<number>(0);
+  const [backAllPages, setBackAllPages] = useState<number>(0);
+  const [startIndex, setStartIndex] = useState<number>(0);
+  const [accountsForPage, setAccountsForPage] = useState<AccountType[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const accountsForPageFilter = () => {
+    let filteredAccs = [];
+    for (let i = startIndex; i < startIndex + step; i++) {
+      if (filteredAccounts[i] === undefined) {
+        break;
+      } else {
+        filteredAccs.push(filteredAccounts[i]);
+      }
+    }
+    setAccountsForPage(filteredAccs);
+  };
 
   const onClickHandlerForward = () => {
     if (currentPage < allPages) {
@@ -58,27 +66,8 @@ export const AccountList: React.FC<AccountListPropsType> = ({ filter }) => {
     }
   };
 
-  const accountsForPageFilter = () => {
-    let filteredAccounts = accounts.filter((acc) => acc.status === filter);
-    for (let i = startIndex; i < startIndex + step; i++) {
-      if (accounts[i] === undefined) {
-        filteredAccounts.push({
-          id: '',
-          name: '',
-          lastName: '',
-          info: '',
-          status: null,
-          photo: '',
-        });
-      } else {
-        filteredAccounts.push(accounts[i]);
-      }
-    }
-    setAccountsForPage(filteredAccounts);
-  };
-
   const paginationButtons = () => {
-    let buttonsMas: number[] = [];
+    let buttonsMas = [];
     for (let i = 1; i <= allPages; i++) {
       buttonsMas.push(i);
     }
@@ -92,6 +81,19 @@ export const AccountList: React.FC<AccountListPropsType> = ({ filter }) => {
   ));
 
   const acc = accountsForPage.map((acc) => <Account account={acc} />);
+
+  useEffect(() => {
+    setBackAllPages(allPages);
+    setAllPages(Math.ceil(filteredAccounts.length / step));
+    if (Math.ceil(filteredAccounts.length / step) < backAllPages) {
+      setCurrentPage(1);
+      setStartIndex(0);
+      console.log('from useeffect', currentPage, startIndex, filteredAccounts);
+    }
+    accountsForPageFilter();
+    paginationButtons();
+  }, [startIndex, filteredAccounts]);
+
   return (
     <div className={css.accountList}>
       <div className={css.table}>

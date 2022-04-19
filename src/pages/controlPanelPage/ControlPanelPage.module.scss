@@ -30,7 +30,7 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 20px;
-    color: #8a8a8a;
+
     box-sizing: content-box;
   }
 }
@@ -38,6 +38,7 @@
 .chatActive,
 .paperActive {
   box-shadow: 0 4px 0 0 #585cc6;
+  color: #585cc6;
 }
 
 .content {
@@ -140,9 +141,11 @@
   }
 
   .party {
+    color: #8a8a8a;
     background-image: url('./img/normal/2 User.png');
     &:hover {
       background-image: url('./img/hover/2 User.png');
+      color: #585cc6;
     }
   }
   .partyActive,
@@ -150,6 +153,7 @@
   .paperActive {
     border-right: 4px solid #585cc6;
     box-shadow: 0 0 0 0;
+    color: #585cc6;
   }
 
   .partyActive {
@@ -157,18 +161,22 @@
   }
 
   .chat {
+    color: #8a8a8a;
     background-image: url('./img/normal/Chat.png');
     &:hover {
       background-image: url('./img/hover/Chat.png');
+      color: #585cc6;
     }
   }
   .chatActive {
     background-image: url('./img/selected/Chat.png');
   }
   .paper {
+    color: #8a8a8a;
     background-image: url('./img/normal/Paper.png');
     &:hover {
       background-image: url('./img/hover/Paper.png');
+      color: #585cc6;
     }
   }
   .paperActive {
