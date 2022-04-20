@@ -11,8 +11,7 @@ function App() {
       <Provider store={store}>
         <div className="App">
           <div className="container">
-            {/* <WithRouter /> */}
-            <ControlPanelPage />
+            <WithRouter />
           </div>
         </div>
       </Provider>

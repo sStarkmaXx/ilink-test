@@ -13,8 +13,6 @@ type carouselPropsType = {
 export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
   const [position, setPosition] = useState<number>(0);
 
-  let screenWidth = window.screen.width;
-
   const comments = useSelector<AppRootStateType, Array<commentType>>(
     (state) => state.comments
   );
@@ -43,9 +41,7 @@ export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
         <div className={css.carousel}>
           <div className={css.carouselHeader}>
             <div className={css.text}>Отзывы</div>
-            <button className={css.addCommentBtn} onClick={openForm}>
-              <img src={plus} alt="" /> {screenWidth > 820 && ' Добавить отзыв'}
-            </button>
+            <button className={css.addCommentBtn} onClick={openForm}></button>
           </div>
           <div className={css.commentWindow}>
             <div
@@ -56,28 +52,27 @@ export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
             </div>
           </div>
         </div>
-        {screenWidth > 820 && (
-          <div className={css.groupBtns}>
-            <button
-              className={
-                position === 0
-                  ? css.carouselBtnDisLeft
-                  : css.carouselBtnActiveLeft
-              }
-              onClick={handleLeft}
-              disabled={position === 0}
-            ></button>
-            <button
-              className={
-                position > (-543 * comments.length) / 2
-                  ? css.carouselBtnActiveRight
-                  : css.carouselBtnDisRight
-              }
-              onClick={handleRight}
-              disabled={!(position > (-543 * comments.length) / 2)}
-            ></button>
-          </div>
-        )}
+
+        <div className={css.groupBtns}>
+          <button
+            className={
+              position === 0
+                ? css.carouselBtnDisLeft
+                : css.carouselBtnActiveLeft
+            }
+            onClick={handleLeft}
+            disabled={position === 0}
+          ></button>
+          <button
+            className={
+              position > (-543 * comments.length) / 2
+                ? css.carouselBtnActiveRight
+                : css.carouselBtnDisRight
+            }
+            onClick={handleRight}
+            disabled={!(position > (-543 * comments.length) / 2)}
+          ></button>
+        </div>
       </div>
     </div>
   );

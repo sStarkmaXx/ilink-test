@@ -25,7 +25,9 @@ export const Account: React.FC<AccountPropsType> = ({ account }) => {
         </span>
       </div>
       <div className={css.info}>{account.info}</div>
-      <div className={css.status}>{account.status}</div>
+      <div className={css.status}>
+        <span data-style={account.status}>{account.status}</span>
+      </div>
     </div>
   );
 };

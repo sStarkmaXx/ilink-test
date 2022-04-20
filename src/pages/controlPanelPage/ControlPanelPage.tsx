@@ -42,7 +42,7 @@ export const ControlPanelPage = () => {
       <div className={css.container}>
         <div className={css.navBar}>
           <NavLink
-            to={'/accounts'}
+            to={'accounts'}
             className={({ isActive }) =>
               isActive ? css.partyActive : css.party
             }
@@ -68,9 +68,10 @@ export const ControlPanelPage = () => {
           <div className={css.header}>
             <span>{'Участники'}</span>
             <div className={css.dropdown}>
-              <div className={css.window}>
+              <div className={css.window} onClick={onClickDrop}>
                 {filter}
-                <img src={drDown} alt="" onClick={onClickDrop} />
+
+                <img src={drDown} alt="" />
               </div>
               {openDropDown && (
                 <ul>
@@ -90,7 +91,7 @@ export const ControlPanelPage = () => {
           </div>
           <Routes>
             <Route
-              path={'accounts'}
+              path={'/profile/controlPanel/accounts'}
               element={<AccountList filteredAccounts={filteredAccounts} />}
             ></Route>
             <Route path={'comments'} element={'Отзывы'}></Route>

@@ -11,6 +11,11 @@
     width: 50px;
     height: 31px;
   }
+  &[data-style='accountPageHeader'] {
+    width: 320px;
+    padding: 21px 16px 20px 16px;
+    background-color: black;
+  }
 }
 
 .headerGroup {

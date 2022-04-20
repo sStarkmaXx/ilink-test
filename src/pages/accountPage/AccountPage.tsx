@@ -3,11 +3,10 @@ import { AccountInfo } from './accountInfo/AccountInfo';
 import { Carousel } from './carousel/Carousel';
 import { CommentForm } from 'components/commentForm/CommentForm';
 import { Footer } from 'shared/ui/footer/Footer';
-import { Greetings } from './greetings/Greetings';
 import { Header } from 'shared/ui/header/Header';
 import { Toast } from 'shared/ui/toast/Toast';
 import vector from './img/vector.png';
-import css from './AccountPage.module.css';
+import css from './AccountPage.module.scss';
 
 export const AccountPage = () => {
   const [formState, setFormState] = useState<boolean>(false);
@@ -33,7 +32,9 @@ export const AccountPage = () => {
         style={{ backgroundImage: `url(${vector})` }}
       >
         <Header type={'accountPageHeader'} />
-        <Greetings />
+        <div className={css.greetings}>
+          Добро пожаловать <br></br>в академию!
+        </div>
         <AccountInfo />
         <Carousel openForm={openForm} />
         <Footer />

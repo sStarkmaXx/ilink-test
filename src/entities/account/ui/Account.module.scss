@@ -40,8 +40,7 @@
 }
 .info {
   width: 56%;
-  height: 34px;
-  padding-right: 117px;
+  padding: 19px 50px 19px 0;
   overflow: hidden;
   font-family: 'Gilroy';
   font-style: normal;
@@ -53,6 +52,30 @@
 .status {
   width: 15.5%;
   padding-right: 24px;
+  > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 138px;
+    height: 34px;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    &[data-style='Обучается'] {
+      background-color: rgba(240, 249, 237, 1);
+      color: rgba(97, 191, 74, 1);
+    }
+    &[data-style='Закончил'] {
+      background-color: rgba(245, 245, 245, 1);
+      color: #8a8a8a;
+    }
+    &[data-style='Отчислен'] {
+      background-color: rgba(253, 238, 238, 1);
+      color: rgba(235, 87, 87, 1);
+    }
+  }
 }
 
 @media (min-width: 921px) {
@@ -71,8 +94,6 @@
   }
   .info {
     width: 56%;
-    height: 34px;
-    padding-right: 117px;
     overflow: hidden;
     font-family: 'Gilroy';
     font-style: normal;

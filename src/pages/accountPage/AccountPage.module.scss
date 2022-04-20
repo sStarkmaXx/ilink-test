@@ -1,0 +1,36 @@
+.accountPage {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #585cc6;
+  background-repeat: no-repeat;
+  background-position: right 250px top -20px;
+  .greetings {
+    display: flex;
+    width: 100%;
+    height: 266px;
+    box-sizing: border-box;
+    padding-top: 43px;
+    padding-left: 16px;
+    font-family: 'Factor A';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 54px;
+    color: #ffffff;
+  }
+}
+
+@media (min-width: 921px) {
+  .accountPage {
+    background-position: left top -190px;
+    .greetings {
+      min-height: 477px;
+      padding-top: 93px;
+      padding-left: 80px;
+      font-size: 124px;
+      line-height: 148px;
+    }
+  }
+}

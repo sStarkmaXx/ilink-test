@@ -87,7 +87,7 @@
   color: #333333;
 }
 
-@media (min-width: 821px) {
+@media (min-width: 921px) {
   .accountCont {
     display: flex;
     justify-content: center;

@@ -1,4 +1,5 @@
 import { MouseEvent, useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Account, AccountType } from '../ui/Account';
 import css from './AccountList.module.scss';
 
@@ -48,7 +49,7 @@ export const AccountList: React.FC<AccountListPropsType> = ({
       console.log(currentPage, startIndex, accountsForPage);
     }
   };
-  const onClickHandler = (e: MouseEvent<HTMLDivElement>) => {
+  const onClickPaginationPage = (e: MouseEvent<HTMLAnchorElement>) => {
     let targetNumber = Number(e.currentTarget.innerText);
     let newStartIndex = 0;
     if (currentPage < targetNumber) {
@@ -64,6 +65,7 @@ export const AccountList: React.FC<AccountListPropsType> = ({
       setCurrentPage(targetNumber);
       console.log(targetNumber, accountsForPage);
     }
+    //e.currentTarget.setAttribute('data-active', 'active');
   };
 
   const paginationButtons = () => {
@@ -75,9 +77,9 @@ export const AccountList: React.FC<AccountListPropsType> = ({
   };
 
   const pagBut = paginationButtons().map((but) => (
-    <div className={css.paginationButton} onClick={onClickHandler}>
+    <NavLink onClick={onClickPaginationPage} to={''}>
       {but}
-    </div>
+    </NavLink>
   ));
 
   const acc = accountsForPage.map((acc) => <Account account={acc} />);
@@ -105,22 +107,17 @@ export const AccountList: React.FC<AccountListPropsType> = ({
         {acc}
       </div>
       <div className={css.pagination}>
-        <div className={css.paginationButton} onClick={onClickHandlerBack}>
-          {'<'}
-        </div>
-        {/* <div className={css.paginationButton} onClick={onClickHandler}>
-          {currentPage === 1 ? currentPage : currentPage - 1}
-        </div>
-        <div className={css.paginationButton} onClick={onClickHandler}>
-          {currentPage === allPages ? currentPage : currentPage + 1}
-        </div>
-        <div className={css.paginationButton} onClick={onClickHandler}>
-          {allPages}
-        </div> */}
+        <div
+          className={css.arrowLeft}
+          onClick={onClickHandlerBack}
+          data-style={currentPage === 1 ? 'disabled' : ''}
+        ></div>
         {pagBut}
-        <div className={css.paginationButton} onClick={onClickHandlerForward}>
-          {'>'}
-        </div>
+        <div
+          className={css.arrowRight}
+          onClick={onClickHandlerForward}
+          data-style={currentPage === allPages ? 'disabled' : ''}
+        ></div>
       </div>
     </div>
   );
