@@ -66,7 +66,7 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
     setPassword('');
     if (login === account.login) {
       if (password === account.password) {
-        document.location = '#/profile';
+        document.location = '/profile';
       } else {
         setTimeout(() => accountErrorSetter('Неверный пароль!'), 2000);
       }

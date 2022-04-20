@@ -1,13 +1,12 @@
 import { Provider } from 'react-redux';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { store } from 'store/store';
 import './App.css';
 import { WithRouter } from './providers/WithRouter';
-import { ControlPanelPage } from '../pages/controlPanelPage/ControlPanelPage';
 
 function App() {
   return (
-    <HashRouter basename="/">
+    <BrowserRouter basename="/">
       <Provider store={store}>
         <div className="App">
           <div className="container">
@@ -15,7 +14,7 @@ function App() {
           </div>
         </div>
       </Provider>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

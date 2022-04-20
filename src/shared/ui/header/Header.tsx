@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderPropdType> = ({ type }) => {
             </div>
             <span>Панель управления</span>
           </div>
-          <NavLink to="">
+          <NavLink to="/profile">
             <img src={logo} className={cssForControlPanel.ilink} alt=""></img>
           </NavLink>
         </div>
@@ -38,7 +38,7 @@ export const Header: React.FC<HeaderPropdType> = ({ type }) => {
             <span>Макс</span>
           </div>
           <img src={purpleLogo} alt="" />
-          <NavLink to="controlPanel"></NavLink>
+          <NavLink to="/controlPanel/accounts/1"></NavLink>
         </div>
       )}
     </>

@@ -54,18 +54,12 @@ export const AccountList: React.FC<AccountListPropsType> = ({
     let newStartIndex = 0;
     if (currentPage < targetNumber) {
       newStartIndex = (targetNumber - 1) * step;
-      setStartIndex(newStartIndex);
-      accountsForPageFilter();
-      setCurrentPage(targetNumber);
-      console.log(targetNumber);
     } else if (currentPage > targetNumber) {
       newStartIndex = (targetNumber - 1) * step;
-      setStartIndex(newStartIndex);
-      accountsForPageFilter();
-      setCurrentPage(targetNumber);
-      console.log(targetNumber, accountsForPage);
     }
-    //e.currentTarget.setAttribute('data-active', 'active');
+    setStartIndex(newStartIndex);
+    accountsForPageFilter();
+    setCurrentPage(targetNumber);
   };
 
   const paginationButtons = () => {
@@ -76,13 +70,20 @@ export const AccountList: React.FC<AccountListPropsType> = ({
     return buttonsMas;
   };
 
-  const pagBut = paginationButtons().map((but) => (
-    <NavLink onClick={onClickPaginationPage} to={''}>
-      {but}
+  const pagBut = paginationButtons().map((butt) => (
+    <NavLink
+      key={butt}
+      onClick={onClickPaginationPage}
+      to={`/controlPanel/accounts/${butt}`}
+      className={({ isActive }) => (isActive ? css.activePage : '')}
+    >
+      {butt}
     </NavLink>
   ));
 
-  const acc = accountsForPage.map((acc) => <Account account={acc} />);
+  const acc = accountsForPage.map((acc) => (
+    <Account key={acc.id} account={acc} />
+  ));
 
   useEffect(() => {
     setBackAllPages(allPages);
@@ -107,17 +108,23 @@ export const AccountList: React.FC<AccountListPropsType> = ({
         {acc}
       </div>
       <div className={css.pagination}>
-        <div
+        <NavLink
+          to={`/controlPanel/accounts/${
+            currentPage >= 2 ? currentPage - 1 : 1
+          }`}
           className={css.arrowLeft}
           onClick={onClickHandlerBack}
           data-style={currentPage === 1 ? 'disabled' : ''}
-        ></div>
+        ></NavLink>
         {pagBut}
-        <div
+        <NavLink
+          to={`/controlPanel/accounts/${
+            currentPage < allPages ? currentPage + 1 : allPages
+          }`}
           className={css.arrowRight}
           onClick={onClickHandlerForward}
           data-style={currentPage === allPages ? 'disabled' : ''}
-        ></div>
+        ></NavLink>
       </div>
     </div>
   );

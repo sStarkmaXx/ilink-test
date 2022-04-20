@@ -89,12 +89,8 @@
     line-height: 24px;
     text-align: center;
     color: #212b36;
-
-    // &[data-active='active'] {
-    //   border: 1px solid rgba(88, 92, 198, 1);
-    // }
   }
-  a.active {
+  .activePage {
     border: 1px solid rgba(88, 92, 198, 1);
   }
 }

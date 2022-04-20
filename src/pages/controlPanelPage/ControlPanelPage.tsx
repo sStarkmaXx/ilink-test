@@ -1,39 +1,33 @@
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { NavLink, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import { Footer } from 'shared/ui/footer/Footer';
 import { Header } from 'shared/ui/header/Header';
 import css from './ControlPanelPage.module.scss';
 import dataEmpty from './img/Group 137336586.png';
 import drDown from './img/Arrow - Down 2.png';
-import { AccountList } from '../../entities/account/model/AccountList';
 import { useState } from 'react';
-import { AccountType } from '../../entities/account/ui/Account';
-import { accounts } from 'entities/account/model/accounts';
+import { FilterType } from './HOCControlPanelPage';
 
-export type FilterType = 'Все' | 'Обучается' | 'Закончил' | 'Отчислен';
+type ControlPanelPagePropsType = {
+  changeFilter: (filter: FilterType) => void;
+  filter: FilterType;
+};
 
-export const ControlPanelPage = () => {
-  const [filter, setFilter] = useState<FilterType>('Все');
+export const ControlPanelPage: React.FC<ControlPanelPagePropsType> = ({
+  changeFilter,
+  filter,
+}) => {
+  const navigate = useNavigate();
+  const toFirstPage = () => navigate('/controlPanel/accounts/1');
   const [openDropDown, setOpenDropDown] = useState<boolean>(false);
-  const [filteredAccounts, setFilteredAccounts] =
-    useState<AccountType[]>(accounts);
 
-  const filterAccount = (filter: FilterType) => {
-    if (filter === 'Все') {
-      setFilteredAccounts(accounts);
-    } else {
-      let filteredAccs = accounts.filter((acc) => acc.status === filter);
-      setFilteredAccounts(filteredAccs);
-    }
-  };
-
-  const onClickFilter = (filter: FilterType) => {
-    setFilter(filter);
-    setOpenDropDown(false);
-    filterAccount(filter);
-  };
-
-  const onClickDrop = () => {
+  const showDropDown = () => {
     setOpenDropDown(true);
+  };
+
+  const setFilter = (filter: FilterType) => {
+    changeFilter(filter);
+    setOpenDropDown(false);
+    toFirstPage();
   };
 
   return (
@@ -42,7 +36,7 @@ export const ControlPanelPage = () => {
       <div className={css.container}>
         <div className={css.navBar}>
           <NavLink
-            to={'accounts'}
+            to={'/controlPanel/accounts'}
             className={({ isActive }) =>
               isActive ? css.partyActive : css.party
             }
@@ -50,13 +44,13 @@ export const ControlPanelPage = () => {
             Участники
           </NavLink>
           <NavLink
-            to={'/comments'}
+            to={'/controlPanel/comments'}
             className={({ isActive }) => (isActive ? css.chatActive : css.chat)}
           >
             Отзывы
           </NavLink>
           <NavLink
-            to={'/aboutMe'}
+            to={'/controlPanel/aboutMe'}
             className={({ isActive }) =>
               isActive ? css.paperActive : css.paper
             }
@@ -68,35 +62,22 @@ export const ControlPanelPage = () => {
           <div className={css.header}>
             <span>{'Участники'}</span>
             <div className={css.dropdown}>
-              <div className={css.window} onClick={onClickDrop}>
+              <div className={css.window} onClick={showDropDown}>
                 {filter}
 
                 <img src={drDown} alt="" />
               </div>
               {openDropDown && (
                 <ul>
-                  <li onClick={() => onClickFilter('Все')}>{'Все'}</li>
-                  <li onClick={() => onClickFilter('Отчислен')}>
-                    {'Отчислен'}
-                  </li>
-                  <li onClick={() => onClickFilter('Обучается')}>
-                    {'Обучается'}
-                  </li>
-                  <li onClick={() => onClickFilter('Закончил')}>
-                    {'Закончил'}
-                  </li>
+                  <li onClick={() => setFilter('Все')}>{'Все'}</li>
+                  <li onClick={() => setFilter('Отчислен')}>{'Отчислен'}</li>
+                  <li onClick={() => setFilter('Обучается')}>{'Обучается'}</li>
+                  <li onClick={() => setFilter('Закончил')}>{'Закончил'}</li>
                 </ul>
               )}
             </div>
           </div>
-          <Routes>
-            <Route
-              path={'/profile/controlPanel/accounts'}
-              element={<AccountList filteredAccounts={filteredAccounts} />}
-            ></Route>
-            <Route path={'comments'} element={'Отзывы'}></Route>
-            <Route path={'aboutMe'} element={'Обо мне'}></Route>
-          </Routes>
+          <Outlet />
         </div>
       </div>
       <Footer />
