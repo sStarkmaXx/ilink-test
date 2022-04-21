@@ -1,0 +1,185 @@
+.comment {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 520px;
+  box-sizing: border-box;
+  padding: 16px 12px;
+  background: #f5f5f5;
+  border-radius: 2px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  &[data-style='admitted'] {
+    background-color: #f8fff6;
+  }
+  &[data-style='rejected'] {
+    background-color: #fdeeee;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+    .accountGroup {
+      display: flex;
+      height: 40px;
+      align-items: center;
+      margin-bottom: 12px;
+      .photo {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        box-sizing: border-box;
+        border: 1px slategray solid;
+        box-sizing: 2px;
+        justify-content: center;
+        align-items: center;
+        margin-right: 8px;
+      }
+      > span {
+        font-family: 'Factor A';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: #333333;
+      }
+    }
+    > p {
+      display: flex;
+      box-sizing: border-box;
+      font-family: 'Factor A';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 14px;
+      color: #8a8a8a;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .commentText {
+    display: flex;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: #333333;
+    margin-bottom: 24px;
+  }
+  .footer {
+    display: flex;
+    width: 100%;
+    height: 42px;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    color: #61bf4a;
+    &[data-style='admitted'] {
+      justify-content: flex-start;
+    }
+    &[data-style='rejected'] {
+      justify-content: flex-start;
+      color: #eb5757;
+    }
+
+    .buttons {
+      display: flex;
+      height: 42px;
+      > button {
+        display: flex;
+        height: 100%;
+        font-family: 'Gilroy';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        color: #ffffff;
+        justify-content: center;
+        align-items: center;
+        border: 0;
+        border-radius: 2px;
+        background-color: #eb5757;
+        box-sizing: border-box;
+        margin-right: 6px;
+        width: 102px;
+        &:first-child {
+          background-color: #585cc6;
+          width: 108px;
+        }
+      }
+    }
+    .check {
+      display: flex;
+      width: 20px;
+      height: 20px;
+      background-image: url('./img/Fill 4.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #bce5b1;
+      border-radius: 5px;
+      margin-right: 6px;
+      &[data-style='rejected'] {
+        background-image: url('./img/Fill 1.png');
+        background-color: #f6b2b2;
+      }
+    }
+
+    > a {
+      display: flex;
+      width: 42px;
+      height: 100%;
+      background-image: url('./img/Edit.png');
+      background-color: #585cc6;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 2px;
+    }
+  }
+}
+
+@media (min-width: 921px) {
+  .comment {
+    width: 520px;
+    margin-bottom: 24px;
+    padding: 24px;
+    .header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      > p {
+        font-size: 14px;
+        line-height: 22px;
+      }
+    }
+    .footer {
+      font-size: 18px;
+      .check {
+        margin-right: 14px;
+      }
+      .buttons {
+        height: 52px;
+        > button {
+          width: 148px;
+          margin-right: 12px;
+          font-size: 18px;
+          &:first-child {
+            width: 179px;
+          }
+        }
+      }
+      > a {
+        height: 52px;
+        width: 52px;
+      }
+    }
+  }
+}

@@ -43,13 +43,13 @@ export const ResetForm: React.FC<ResetFormPropsType> = ({ sendCodeSetter }) => {
   return (
     <form className={css.form} action="">
       <div className={css.header}>
-        <NavLink to={'/'}>
+        <NavLink to={'/ilink-test/'}>
           <div className={css.arrow}></div>
         </NavLink>
         <p>Сброс пароля</p>
       </div>
       <label htmlFor="login">Электронная почта</label>
-      {/* <input type="text" placeholder="Valievaya@gmail.com" id="login" /> */}
+
       <div
         className={css.login}
         style={
@@ -85,7 +85,7 @@ export const ResetForm: React.FC<ResetFormPropsType> = ({ sendCodeSetter }) => {
         >
           Сбросить
         </button>
-        <NavLink to={'/'}>Отмена</NavLink>
+        <NavLink to={'/ilink-test/'}>Отмена</NavLink>
       </div>
     </form>
   );

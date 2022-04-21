@@ -66,7 +66,7 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
     setPassword('');
     if (login === account.login) {
       if (password === account.password) {
-        document.location = '/profile';
+        document.location = '/ilink-test/profile';
       } else {
         setTimeout(() => accountErrorSetter('Неверный пароль!'), 2000);
       }
@@ -145,7 +145,7 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
       >
         Войти
       </button>
-      <NavLink to={'/respas'}>Забыли пароль?</NavLink>
+      <NavLink to={'/ilink-test/respas'}>Забыли пароль?</NavLink>
     </form>
   );
 };

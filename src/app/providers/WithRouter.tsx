@@ -7,10 +7,13 @@ import { Route, Routes } from 'react-router-dom';
 export const WithRouter = () => {
   return (
     <Routes>
-      <Route path={'/'} element={<StartPage />} />
-      <Route path={'/respas'} element={<ResetPasswordPage />} />
-      <Route path={'/profile'} element={<AccountPage />} />
-      <Route path={'/controlPanel/*'} element={<HOCControlPanelPage />}></Route>
+      <Route path={'ilink-test/'} element={<StartPage />} />
+      <Route path={'ilink-test/respas'} element={<ResetPasswordPage />} />
+      <Route path={'ilink-test/profile'} element={<AccountPage />} />
+      <Route
+        path={'ilink-test/controlPanel/*'}
+        element={<HOCControlPanelPage />}
+      ></Route>
     </Routes>
   );
 };

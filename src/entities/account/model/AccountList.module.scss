@@ -4,13 +4,83 @@
   width: 100%;
   max-height: 100%;
   box-sizing: border-box;
+  .header {
+    display: flex;
+    width: 100%;
+    height: 146px;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 24px 0 20px 16px;
+    font-family: 'Factor A';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 32px;
+    color: #333333;
+    justify-content: space-between;
+    .dropdown {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      .window {
+        display: flex;
+        width: 144px;
+        height: 52px;
+        border: 1px solid rgba(224, 224, 224, 1);
+        border-radius: 2px;
+        box-sizing: border-box;
+        padding: 0 12px;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'Gilroy';
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        > img {
+          width: 16px;
+          height: 16px;
+        }
+      }
+      > ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        width: 144px;
+        height: 184px;
+        box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.16);
+        border-radius: 2px;
+        position: absolute;
+        top: 35px;
+        font-family: 'Gilroy';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        color: #333333;
+        box-sizing: border-box;
+        padding-left: 0;
+        background-color: #ffffff;
+        > li {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          height: 46px;
+          box-sizing: border-box;
+          padding-left: 12px;
+          &:hover {
+            background: rgba(245, 245, 245, 1);
+          }
+        }
+      }
+    }
+  }
   .table {
     display: flex;
     width: 100%;
     overflow: hidden;
     flex-direction: column;
     min-height: 439px;
-    .header {
+    .tableHeader {
       display: flex;
       width: 100%;
       height: 43px;
@@ -95,42 +165,20 @@
   }
 }
 
-@media (min-width: 821px) {
+@media (min-width: 921px) {
   .accountList {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-height: 100%;
-    box-sizing: border-box;
     padding: 0 80px 47px 24px;
+    .header {
+      flex-direction: row;
+      height: 130px;
+      padding: 0 80px 0 26px;
+      align-items: center;
+    }
     .table {
       min-height: 571px;
-      .header {
-        display: flex;
-        width: 100%;
-        height: 43px;
-        background-color: #f5f5f5;
-        border-radius: 6px;
-        font-family: 'Gilroy';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 12px;
-        line-height: 15px;
-        color: #464e5f;
-        align-items: center;
+      .tableHeader {
         > span:first-child {
-          display: flex;
-          width: 28.5%;
-          box-sizing: border-box;
           padding-left: 24px;
-        }
-        > span {
-          display: flex;
-          width: 56%;
-        }
-        > span:last-child {
-          display: flex;
-          width: 15.5%;
         }
       }
     }

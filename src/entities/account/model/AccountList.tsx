@@ -1,14 +1,20 @@
+import { AccountFilterType } from 'pages/controlPanelPage/HOCControlPanelPage';
 import { MouseEvent, useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Account, AccountType } from '../ui/Account';
 import css from './AccountList.module.scss';
+import drDown from './img/Arrow - Down 2.png';
 
 type AccountListPropsType = {
   filteredAccounts: AccountType[];
+  changeFilter: (accountFilter: AccountFilterType) => void;
+  accountFilter: AccountFilterType;
 };
 
 export const AccountList: React.FC<AccountListPropsType> = ({
   filteredAccounts,
+  changeFilter,
+  accountFilter,
 }) => {
   const step = 6;
   const [allPages, setAllPages] = useState<number>(0);
@@ -74,7 +80,7 @@ export const AccountList: React.FC<AccountListPropsType> = ({
     <NavLink
       key={butt}
       onClick={onClickPaginationPage}
-      to={`/controlPanel/accounts/${butt}`}
+      to={`/ilink-test/controlPanel/accounts/${butt}`}
       className={({ isActive }) => (isActive ? css.activePage : '')}
     >
       {butt}
@@ -97,10 +103,42 @@ export const AccountList: React.FC<AccountListPropsType> = ({
     paginationButtons();
   }, [startIndex, filteredAccounts]);
 
+  const navigate = useNavigate();
+  const toFirstPage = () => navigate('/ilink-test/controlPanel/accounts/1');
+  const [openDropDown, setOpenDropDown] = useState<boolean>(false);
+
+  const showDropDown = () => {
+    setOpenDropDown(true);
+  };
+
+  const setFilter = (accountFilter: AccountFilterType) => {
+    changeFilter(accountFilter);
+    setOpenDropDown(false);
+    toFirstPage();
+  };
+
   return (
     <div className={css.accountList}>
+      <div className={css.header}>
+        <span>{'Участники'}</span>
+        <div className={css.dropdown}>
+          <div className={css.window} onClick={showDropDown}>
+            {accountFilter}
+
+            <img src={drDown} alt="" />
+          </div>
+          {openDropDown && (
+            <ul>
+              <li onClick={() => setFilter('Все')}>{'Все'}</li>
+              <li onClick={() => setFilter('Отчислен')}>{'Отчислен'}</li>
+              <li onClick={() => setFilter('Обучается')}>{'Обучается'}</li>
+              <li onClick={() => setFilter('Закончил')}>{'Закончил'}</li>
+            </ul>
+          )}
+        </div>
+      </div>
       <div className={css.table}>
-        <div className={css.header}>
+        <div className={css.tableHeader}>
           <span>ИФ УЧЕНИКА</span>
           <span>КРАТКАЯ ИНФОРМАЦИЯ</span>
           <span>СТАТУС</span>
@@ -109,7 +147,7 @@ export const AccountList: React.FC<AccountListPropsType> = ({
       </div>
       <div className={css.pagination}>
         <NavLink
-          to={`/controlPanel/accounts/${
+          to={`/ilink-test/controlPanel/accounts/${
             currentPage >= 2 ? currentPage - 1 : 1
           }`}
           className={css.arrowLeft}
@@ -118,7 +156,7 @@ export const AccountList: React.FC<AccountListPropsType> = ({
         ></NavLink>
         {pagBut}
         <NavLink
-          to={`/controlPanel/accounts/${
+          to={`/ilink-test/controlPanel/accounts/${
             currentPage < allPages ? currentPage + 1 : allPages
           }`}
           className={css.arrowRight}
