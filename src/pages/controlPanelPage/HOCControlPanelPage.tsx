@@ -7,7 +7,8 @@ import { accounts } from 'entities/account/model/accounts';
 import { ControlPanelPage } from './ControlPanelPage';
 import { CommentList } from 'entities/comments/ui/CommentList';
 import { comments } from '../../entities/comments/comments';
-import { CommentType } from 'entities/comments/ui/Comment';
+import { CommentStatusType, CommentType } from 'entities/comments/ui/Comment';
+import { EditCommentsPage } from 'pages/editCommentsPage/EditCommentsPage';
 
 export type AccountFilterType = 'Все' | 'Обучается' | 'Закончил' | 'Отчислен';
 export type CommentFilterType = 'Все' | 'Допущен' | 'Отклонен' | 'На проверке';
@@ -35,25 +36,35 @@ export const HOCControlPanelPage = () => {
     useState<CommentType[]>(comments);
 
   const filterComments = (filter: CommentFilterType) => {
-    let admittedComments = [...comments]
+    let pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
+    let admittedComments = [...filteredComments]
       .filter((com) => com.status === 'Допущен')
       .sort(function (a, b) {
-        return Date.parse(a.time) - Date.parse(b.time);
+        return (
+          Date.parse(b.time.replace(pattern, '$3-$2-$1')) -
+          Date.parse(a.time.replace(pattern, '$3-$2-$1'))
+        );
       });
-    let rejectedComments = [...comments]
+    let rejectedComments = [...filteredComments]
       .filter((com) => com.status === 'Отклонен')
       .sort(function (a, b) {
-        return Date.parse(a.time) - Date.parse(b.time);
+        return (
+          Date.parse(b.time.replace(pattern, '$3-$2-$1')) -
+          Date.parse(a.time.replace(pattern, '$3-$2-$1'))
+        );
       });
-    let onRreviewComments = [...comments]
+    let onRreviewComments = [...filteredComments]
       .filter((com) => com.status === 'На проверке')
       .sort(function (a, b) {
-        return Date.parse(b.time) - Date.parse(a.time);
+        return (
+          Date.parse(b.time.replace(pattern, '$3-$2-$1')) -
+          Date.parse(a.time.replace(pattern, '$3-$2-$1'))
+        );
       });
 
     let sortedComments = [];
     if (filter === 'Все') {
-      setFilteredComments(comments);
+      setFilteredComments(filteredComments);
     }
     if (filter === 'На проверке') {
       sortedComments = [
@@ -86,31 +97,59 @@ export const HOCControlPanelPage = () => {
     filterComments(filter);
   };
 
+  const changeCommentStatus = (id: string, status: CommentStatusType) => {
+    setFilteredComments(
+      filteredComments.map((com) => (com.id === id ? { ...com, status } : com))
+    );
+  };
+
+  //-----------------------------------------------------------------------------------------
+  const [selectCom, setSelectCom] = useState<CommentType>();
+
+  const selecter = (id: string) => {
+    setSelectCom(filteredComments.find((com) => com.id === id));
+    console.log(id);
+  };
+
+  const changeCommentText = (commentText: string) => {
+    setFilteredComments(
+      [...filteredComments].map((com) =>
+        com.id === selectCom?.id ? { ...com, commentText } : com
+      )
+    );
+  };
+
   return (
-    <Routes>
-      <Route path={'/'} element={<ControlPanelPage />}>
-        <Route
-          path={'accounts/*'}
-          element={
-            <AccountList
-              filteredAccounts={filteredAccounts}
-              changeFilter={changeAccountFilter}
-              accountFilter={accountFilter}
-            />
-          }
-        ></Route>
-        <Route
-          path={'comments'}
-          element={
-            <CommentList
-              filteredComments={filteredComments}
-              changeCommentFilter={changeCommentFilter}
-              commentFilter={commentFilter}
-            />
-          }
-        ></Route>
-        <Route path={'aboutMe'} element={'Обо мне'}></Route>
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path={'/'} element={<ControlPanelPage />}>
+          <Route
+            path={'accounts/*'}
+            element={
+              <AccountList
+                filteredAccounts={filteredAccounts}
+                changeFilter={changeAccountFilter}
+                accountFilter={accountFilter}
+              />
+            }
+          ></Route>
+          <Route
+            path={'comments/*'}
+            element={
+              <CommentList
+                filteredComments={filteredComments}
+                changeCommentFilter={changeCommentFilter}
+                commentFilter={commentFilter}
+                changeCommentStatus={changeCommentStatus}
+                changeCommentText={changeCommentText}
+                selecter={selecter}
+                selectCom={selectCom!}
+              />
+            }
+          ></Route>
+          <Route path={'aboutMe'} element={'Обо мне'}></Route>
+        </Route>
+      </Routes>
+    </>
   );
 };

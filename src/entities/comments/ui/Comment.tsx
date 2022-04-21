@@ -1,7 +1,8 @@
-import { NavLink } from 'react-router-dom';
+import { EditCommentsPage } from 'pages/editCommentsPage/EditCommentsPage';
+import { NavLink, Route, Routes } from 'react-router-dom';
 import css from './Comment.module.scss';
 
-type CommentStatusType = 'Допущен' | 'Отклонен' | 'На проверке';
+export type CommentStatusType = 'Допущен' | 'Отклонен' | 'На проверке';
 
 export type CommentType = {
   id: string;
@@ -15,9 +16,19 @@ export type CommentType = {
 
 type CommentPropsType = {
   comment: CommentType;
+  changeCommentStatus: (id: string, status: CommentStatusType) => void;
+  changeCommentText: (newText: string) => void;
+  selecter: (id: string) => void;
+  selectCom?: CommentType;
 };
 
-export const Comment: React.FC<CommentPropsType> = ({ comment }) => {
+export const Comment: React.FC<CommentPropsType> = ({
+  comment,
+  changeCommentStatus,
+  changeCommentText,
+  selecter,
+  selectCom,
+}) => {
   let dataStyle = '';
 
   if (comment.status === 'Допущен') {
@@ -26,6 +37,7 @@ export const Comment: React.FC<CommentPropsType> = ({ comment }) => {
   if (comment.status === 'Отклонен') {
     dataStyle = 'rejected';
   }
+
   return (
     <div className={css.comment} data-style={dataStyle}>
       <div className={css.header}>
@@ -42,10 +54,24 @@ export const Comment: React.FC<CommentPropsType> = ({ comment }) => {
         {comment.status === 'На проверке' && (
           <>
             <div className={css.buttons}>
-              <button>Опубликовать</button>
-              <button>Отклонить</button>
+              <button
+                onClick={() => changeCommentStatus(comment.id, 'Допущен')}
+              >
+                Опубликовать
+              </button>
+              <button
+                onClick={() => changeCommentStatus(comment.id, 'Отклонен')}
+              >
+                Отклонить
+              </button>
             </div>
-            <NavLink to={''}></NavLink>
+            {/* <button onClick={() => openEditWidow(comment.id)}>
+              редактировать
+            </button> */}
+            <NavLink
+              to={`${comment.id}/editComment`}
+              onClick={() => selecter(comment.id)}
+            ></NavLink>
           </>
         )}
         {comment.status !== 'На проверке' && (
@@ -59,6 +85,17 @@ export const Comment: React.FC<CommentPropsType> = ({ comment }) => {
           </>
         )}
       </div>
+      <Routes>
+        <Route
+          path={':id/editComment'}
+          element={
+            <EditCommentsPage
+              comment={selectCom!}
+              changeCommentText={changeCommentText}
+            />
+          }
+        ></Route>
+      </Routes>
     </div>
   );
 };

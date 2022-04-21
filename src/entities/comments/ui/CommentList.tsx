@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CommentType } from './Comment';
+import { CommentStatusType, CommentType } from './Comment';
 import css from './CommentList.module.scss';
 import drDown from './img/Arrow - Down 2.png';
 import { Comment } from './Comment';
@@ -9,12 +9,20 @@ type CommentListPropsType = {
   filteredComments: CommentType[];
   changeCommentFilter: (commentFilter: CommentFilterType) => void;
   commentFilter: CommentFilterType;
+  changeCommentStatus: (id: string, status: CommentStatusType) => void;
+  changeCommentText: (newText: string) => void;
+  selecter: (id: string) => void;
+  selectCom: CommentType;
 };
 
 export const CommentList: React.FC<CommentListPropsType> = ({
   filteredComments,
   changeCommentFilter,
   commentFilter,
+  changeCommentStatus,
+  changeCommentText,
+  selecter,
+  selectCom,
 }) => {
   const [openDropDown, setOpenDropDown] = useState<boolean>(false);
 
@@ -27,7 +35,15 @@ export const CommentList: React.FC<CommentListPropsType> = ({
     setOpenDropDown(false);
   };
 
-  const comment = filteredComments.map((com) => <Comment comment={com} />);
+  const comment = filteredComments.map((com) => (
+    <Comment
+      comment={com}
+      changeCommentStatus={changeCommentStatus}
+      changeCommentText={changeCommentText}
+      selecter={selecter}
+      selectCom={selectCom}
+    />
+  ));
   let displayValue = '';
   if (commentFilter === 'Все') {
     displayValue = 'Все';
