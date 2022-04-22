@@ -9,6 +9,7 @@ import { CommentList } from 'entities/comments/ui/CommentList';
 import { comments } from '../../entities/comments/comments';
 import { CommentStatusType, CommentType } from 'entities/comments/ui/Comment';
 import { EditCommentsPage } from 'pages/editCommentsPage/EditCommentsPage';
+import { EditProfilePage } from 'pages/editProfilePage/EditProfilePage';
 
 export type AccountFilterType = 'Все' | 'Обучается' | 'Закончил' | 'Отчислен';
 export type CommentFilterType = 'Все' | 'Допущен' | 'Отклонен' | 'На проверке';
@@ -147,7 +148,7 @@ export const HOCControlPanelPage = () => {
               />
             }
           ></Route>
-          <Route path={'aboutMe'} element={'Обо мне'}></Route>
+          <Route path={'aboutMe'} element={<EditProfilePage />}></Route>
         </Route>
       </Routes>
     </>
