@@ -1,5 +1,7 @@
 import { EditCommentsPage } from 'pages/editCommentsPage/EditCommentsPage';
+import { useState } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
+import { Toast } from 'shared/ui/toast/Toast';
 import css from './Comment.module.scss';
 
 export type CommentStatusType = 'Допущен' | 'Отклонен' | 'На проверке';
@@ -37,6 +39,14 @@ export const Comment: React.FC<CommentPropsType> = ({
   if (comment.status === 'Отклонен') {
     dataStyle = 'rejected';
   }
+  const [toast, setToast] = useState<boolean>(false);
+  const showToast = () => {
+    setToast(true);
+    setTimeout(() => setToast(false), 3000);
+  };
+  const closeToast = () => {
+    setToast(false);
+  };
 
   return (
     <div className={css.comment} data-style={dataStyle}>
@@ -65,9 +75,6 @@ export const Comment: React.FC<CommentPropsType> = ({
                 Отклонить
               </button>
             </div>
-            {/* <button onClick={() => openEditWidow(comment.id)}>
-              редактировать
-            </button> */}
             <NavLink
               to={`${comment.id}/editComment`}
               onClick={() => selecter(comment.id)}
@@ -92,10 +99,18 @@ export const Comment: React.FC<CommentPropsType> = ({
             <EditCommentsPage
               comment={selectCom!}
               changeCommentText={changeCommentText}
+              showToast={showToast}
             />
           }
         ></Route>
       </Routes>
+      {toast && (
+        <Toast
+          closeToast={closeToast}
+          error={null}
+          text={'Отзыв успешно отредактирован!'}
+        />
+      )}
     </div>
   );
 };

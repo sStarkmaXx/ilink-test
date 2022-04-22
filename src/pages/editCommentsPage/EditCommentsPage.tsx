@@ -6,19 +6,25 @@ import { NavLink } from 'react-router-dom';
 type EditCommentsPagePropsType = {
   comment: CommentType;
   changeCommentText: (newText: string) => void;
+  showToast: () => void;
 };
 
 export const EditCommentsPage: React.FC<EditCommentsPagePropsType> = ({
   comment,
   changeCommentText,
+  showToast,
 }) => {
   const [text, setText] = useState<string>(comment.commentText);
   const changeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.currentTarget.value);
   };
 
+  const disabled = text.trim() === '';
   const onClickChangeComText = () => {
-    changeCommentText(text);
+    if (!disabled) {
+      changeCommentText(text);
+      showToast();
+    }
   };
 
   return (
@@ -26,7 +32,7 @@ export const EditCommentsPage: React.FC<EditCommentsPagePropsType> = ({
       <div className={css.editWindow}>
         <div className={css.header}>
           <p>Редактирование отзыва</p>
-          <button></button>
+          <NavLink to={'/ilink-test/controlPanel/comments/'}></NavLink>
         </div>
         <label>Отзыв</label>
         <div className={css.length} data-length={`${text.length}/200`}>
@@ -34,12 +40,15 @@ export const EditCommentsPage: React.FC<EditCommentsPagePropsType> = ({
             value={text}
             maxLength={200}
             onChange={changeText}
+            style={disabled ? { border: 'red 1px solid' } : {}}
+            placeholder={disabled ? 'Полее обязательно для заполнения!' : ''}
           ></textarea>
         </div>
         <div className={css.footer}>
           <NavLink
             to={'/ilink-test/controlPanel/comments/'}
             onClick={onClickChangeComText}
+            className={disabled ? css.disabled : ''}
           >
             Подтвердить редактирование
           </NavLink>

@@ -36,6 +36,7 @@ export const ControlPanelPage = () => {
           <Outlet />
         </div>
       </div>
+
       <Footer />
     </div>
   );
