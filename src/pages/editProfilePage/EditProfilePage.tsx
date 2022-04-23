@@ -3,6 +3,7 @@ import css from './EditProfilePage.module.scss';
 import { ChangeEvent, useState } from 'react';
 import { v1 } from 'uuid';
 import { nameLastNameRegEx } from 'shared/regexp/nameLastNameRegExp';
+import { cities } from './cities';
 
 type ProfileType = {
   id: string;
@@ -100,30 +101,50 @@ export const EditProfilePage = () => {
     );
   };
 
-  const nameError = name.trim() === '' || nameLastNameRegEx.test(name);
+  const nameError = name.trim() === '' || !nameLastNameRegEx.test(name);
   const lastNameError =
-    lastName.trim() === '' || nameLastNameRegEx.test(lastName);
+    lastName.trim() === '' || !nameLastNameRegEx.test(lastName);
+  const infoError = info.trim() === '';
+  const aboutError = about.trim() === '';
   const datePattern = /(\d{2})\.(\d{2})\.(\d{4})/;
   const dateError =
     new Date().getTime() <
     Date.parse(birthday.replace(datePattern, '$3-$2-$1'));
+  const saveButtonDisable =
+    nameError || lastNameError || aboutError || dateError || infoError;
 
-  let reader = new FileReader();
+  const [fileSize, setFileSize] = useState<number>(0);
+
+  const onClickSelectImg = (e: ChangeEvent<HTMLInputElement>) => {
+    let file = e.currentTarget.files ? e.currentTarget.files[0] : null;
+    if (file) {
+      setFileSize(file.size);
+    }
+  };
+
+  const fileError = fileSize > 5242880;
 
   return (
     <div className={css.aboutMe}>
       <span>{'Обо мне'}</span>
       <div className={css.header}>
         <div className={css.accountGroup}>
-          <img src="" alt="" />
+          <div className={css.ava}></div>
           <div className={css.text}>
             <p>Фото профиля</p>
-            <label htmlFor="loadFile">Изменить фото</label>
+            <label
+              htmlFor="loadFile"
+              data-size={fileError ? 'Размер файла должен быть меньше 5мб' : ''}
+              style={fileError ? { color: 'red' } : {}}
+            >
+              Изменить фото
+            </label>
             <input
               type={'file'}
               accept={'.png, .jpeg, .jpg'}
               id="loadFile"
               style={{ display: 'none' }}
+              onChange={onClickSelectImg}
             ></input>
           </div>
         </div>
@@ -172,10 +193,11 @@ export const EditProfilePage = () => {
         <div className={css.el}>
           <label>Город</label>
           <DropDown
-            valuesList={['Томск', 'Кемерово', 'Новосибирск']}
+            valuesList={cities}
             startValue={profile.city}
             canOpen={saveButton}
             clBack={onClickSetCity}
+            needSearch={true}
           />
         </div>
         <div className={css.el}>
@@ -204,6 +226,7 @@ export const EditProfilePage = () => {
               value={info}
               onChange={onChangeInfo}
               maxLength={99}
+              style={infoError ? { border: '1px red solid' } : {}}
             ></textarea>
           </div>
         </div>
@@ -216,12 +239,17 @@ export const EditProfilePage = () => {
               value={about}
               onChange={onChangeAbout}
               maxLength={300}
+              style={aboutError ? { border: '1px red solid' } : {}}
             ></textarea>
           </div>
         </div>
 
         {saveButton && (
-          <button className={css.button} onClick={onClickSave}>
+          <button
+            className={css.button}
+            onClick={onClickSave}
+            disabled={saveButtonDisable}
+          >
             Сохранить изменения
           </button>
         )}

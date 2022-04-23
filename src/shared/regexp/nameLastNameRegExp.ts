@@ -1,1 +1,1 @@
-export const nameLastNameRegEx = /[^\W\d]/g;
+export const nameLastNameRegEx = /^[a-zA-Zа-яёА-ЯЁ]+$/u;

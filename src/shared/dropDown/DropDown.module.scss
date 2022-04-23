@@ -40,6 +40,16 @@
     padding-left: 0;
     background-color: #ffffff;
     z-index: 10;
+    max-height: 230px;
+    overflow: scroll;
+    > input {
+      height: 42px;
+      border: 1px solid #e0e0e0;
+      box-sizing: border-box;
+      border-radius: 2px;
+      margin: 12px;
+      outline: none;
+    }
     .li {
       display: flex;
       align-items: center;

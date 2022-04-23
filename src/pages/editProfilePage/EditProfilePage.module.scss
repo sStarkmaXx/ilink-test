@@ -42,12 +42,47 @@
     .accountGroup {
       display: flex;
       margin-bottom: 20px;
-      > img {
+      .ava {
+        background-image: url('./img/my_photo.jpg');
         width: 64px;
         height: 64px;
-        border: #333333 1px solid;
         border-radius: 2px;
         margin-right: 16px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+
+        &:hover::after {
+          content: '';
+          display: flex;
+          height: 180px;
+          width: 180px;
+          box-sizing: border-box;
+          background-image: url('./img/my_photo.jpg');
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          position: absolute;
+          z-index: 12;
+          border-radius: 2px;
+          top: 93px;
+          right: -68px;
+        }
+        &:hover::before {
+          content: '';
+          display: flex;
+          height: 204px;
+          width: 204px;
+          box-sizing: border-box;
+          position: absolute;
+          z-index: 11;
+          border-radius: 2px;
+          top: 81px;
+          right: -81px;
+          background-color: #ffffff;
+          box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.16);
+        }
       }
       .text {
         display: flex;
@@ -78,6 +113,18 @@
           background-image: url('./img/Edit.png');
           background-position: left;
           background-repeat: no-repeat;
+          position: relative;
+          cursor: pointer;
+          &:hover::after {
+            content: attr(data-size);
+            display: flex;
+            position: absolute;
+            width: max-content;
+
+            font-size: 12px;
+            top: -15px;
+            left: 00px;
+          }
         }
       }
     }
