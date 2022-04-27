@@ -2,8 +2,6 @@ import css from './CommentForm.module.css';
 import close from './img/close.png';
 import { ChangeEvent, useState, KeyboardEvent } from 'react';
 import { Toast } from 'shared/ui/toast/Toast';
-import { useDispatch } from 'react-redux';
-import { addCommentAC } from '../../store/commentsReducer';
 
 type commentFormPropsType = {
   closeForm: () => void;
@@ -21,12 +19,6 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
   closeForm,
   showToast,
 }) => {
-  const dispatch = useDispatch();
-
-  const addComment = (name: string, text: string) => {
-    dispatch(addCommentAC(name, text));
-  };
-
   const [inputName, setInputName] = useState<string>('');
   const onChangeHandlerInputName = (e: ChangeEvent<HTMLInputElement>) => {
     setInputName(e.target.value);
@@ -53,7 +45,6 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
       setError('commentIsShort');
       setErrorText('Ваш комментарий не должен быть короче 30 символов');
     } else {
-      addComment(inputName, inputComment);
       closeForm();
       showToast();
     }

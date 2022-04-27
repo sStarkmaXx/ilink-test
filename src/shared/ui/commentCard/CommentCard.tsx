@@ -1,4 +1,4 @@
-import { commentType } from 'store/commentsReducer';
+import { commentType } from 'entities/comments/comments';
 import css from './CommentCard.module.css';
 import ava from './img/Path.png';
 
@@ -15,9 +15,11 @@ export const CommentCard: React.FC<commentCardType> = ({ comment }) => {
             className={css.avatar}
             style={{ backgroundImage: `url(${ava})` }}
           ></div>
-          <div className={css.accountName}>{comment.name}</div>
+          <div className={css.accountName}>{comment.authorName}</div>
         </div>
-        <div className={css.date}>{comment.date}</div>
+        <div className={css.date}>
+          {new Date(comment.createdAt).toLocaleDateString()}
+        </div>
       </div>
       <div className={css.commentText}>{comment.text}</div>
     </div>

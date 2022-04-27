@@ -1,8 +1,9 @@
 import css from './LoginForm.module.css';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { emailRegExp as loginRegExp } from 'shared/regexp/emailRegexp';
 import { passwordRegExp } from 'shared/regexp/passwordRegExp';
+import { createEffect, createEvent, forward } from 'effector';
 
 type LoginFormPropsType = {
   accountErrorSetter: (text: string) => void;
@@ -11,29 +12,23 @@ type LoginFormPropsType = {
 export const LoginForm: React.FC<LoginFormPropsType> = ({
   accountErrorSetter,
 }) => {
+  //-----------------------------------состояние компоненты-----------------------------------------------------
   const [passwordHide, setPasswordHiden] = useState<boolean>(true);
-
   const onClickHandler = () => {
     setPasswordHiden(!passwordHide);
   };
-
   const [login, setLogin] = useState<string>('');
-
   const loginHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value);
     setLoginError(null);
   };
-
   const [password, setPassword] = useState<string>('');
-
   const passwordHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
     setPassError(null);
   };
-
   const [loginError, setLoginError] = useState<string | null>(null);
   const [passError, setPassError] = useState<string | null>(null);
-
   const loginBlurHandler = () => {
     if (login.trim() !== '') {
       loginRegExp.test(login)
@@ -43,7 +38,6 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
       setLoginError('Введите Ваш логин!');
     }
   };
-
   const passBlurHandler = () => {
     if (password.trim() !== '') {
       passwordRegExp.test(password)
@@ -56,33 +50,44 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
     }
   };
 
-  const account = {
-    login: 'test@test.test',
-    password: 'qweQWE123!@#',
-  };
+  //-----------------------------------------запросы на серв-------------------------------------------
 
-  const formOnClickHandler = () => {
+  const accTok = 'Bearer' + ' ' + localStorage.getItem('accessToken');
+
+  const fetchAccessTokenFX = createEffect(async () => {
+    const url = 'https://academtest.ilink.dev/user/signIn';
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `email=${login}&password=${password}`,
+    })
+      .then((res) => {
+        if (res.status === 400) {
+          accountErrorSetter('Неверный пароль!');
+        }
+        if (res.status === 500) {
+          accountErrorSetter('Данный пользователь не зарегистрирован!');
+        }
+        return res.text();
+      })
+      .then((res) => JSON.parse(res))
+      .then((res) => {
+        localStorage.setItem('accessToken', res.accessToken);
+      })
+      .catch((er) => console.error('Ошибка!!!', er));
+    document.location = '/ilink-test/profile';
+    return resp;
+  });
+
+  const entryButtonClick = () => {
     setLogin('');
     setPassword('');
-    if (login === account.login) {
-      if (password === account.password) {
-        document.location = '/ilink-test/profile';
-      } else {
-        setTimeout(() => accountErrorSetter('Неверный пароль!'), 2000);
-      }
-    } else {
-      setTimeout(
-        () => accountErrorSetter('Данный пользователь не зарегистрирован!'),
-        2000
-      );
-    }
+    fetchAccessTokenFX();
+    console.log(localStorage.getItem('accessToken'));
   };
 
   return (
-    <form
-      className={css.form}
-      action="" //onSubmit={onSubmit}
-    >
+    <form className={css.form} action="">
       <p>Войти</p>
       <label htmlFor="login">Логин</label>
       <div
@@ -136,7 +141,7 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
       <button
         type="button"
         disabled={!loginRegExp.test(login) || !passwordRegExp.test(password)}
-        onClick={formOnClickHandler}
+        onClick={entryButtonClick}
         className={
           !loginRegExp.test(login) || !passwordRegExp.test(password)
             ? css.disable

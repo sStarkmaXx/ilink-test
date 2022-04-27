@@ -2,25 +2,39 @@ import css from './AccountInfo.module.css';
 import myPhoto from '../img/my_photo.jpg';
 import sex from '../img/sex.png';
 import pet from '../img/pet.png';
+import { useStore } from 'effector-react';
+import { accountModel } from '../accountModel';
 
 export const AccountInfo = () => {
+  const account = useStore(accountModel.$account);
+  const birthDate = new Date(account.birthDate);
+  const now = new Date();
+  let age = now.getFullYear() - birthDate.getFullYear();
+  if (
+    now.setFullYear(birthDate.getFullYear()) <
+    birthDate.setFullYear(birthDate.getFullYear())
+  ) {
+    age = age - 1;
+  }
   return (
     <div className={css.accountCont}>
       <div className={css.wrap}>
         <div className={css.accountImg}>
-          <img src={myPhoto} alt="" className={css.img} />
+          <img src={account.profileImage} alt="" className={css.img} />
         </div>
         <div className={css.accountInfo}>
           <div className={css.header}>
-            <div className={css.name}>Макс Мясников</div>
-            <div className={css.date}>01.06.1990</div>
+            <div className={css.name}>
+              {account.firstName} {account.lastName}
+            </div>
+            <div className={css.date}>{birthDate.toLocaleDateString()}</div>
           </div>
           <div className={css.info}>
             <div className={css.field}>
-              <b>Город: </b> Томск
+              <b>Город: </b> {account.cityOfResidence}
             </div>
             <div className={css.field}>
-              <b>Пол: </b> мужчина{' '}
+              <b>Пол: </b> {account.gender === 'male' ? 'Мужчина' : 'Женщина'}
               <img
                 src={sex}
                 alt=""
@@ -28,15 +42,11 @@ export const AccountInfo = () => {
               />
             </div>
             <div className={css.field}>
-              <b>Возраст: </b> 31
+              <b>Возраст: </b> {age}
             </div>
           </div>
           <div className={css.aboutMe}>
-            <b>О себе: </b> Всем Привет! Меня зовут Макс, мне 31 год. Работаю
-            конструктором в проектной конторе, учусь на FrontEnd разработчика.
-            Изучаю React, Redux, TypeScript. В данном проекте я использовал
-            Redux для добавления комментариев. Тосты реагируют на правильнось
-            заполнения полей.
+            <b>О себе: </b> {account.aboutMe}
           </div>
           <div className={css.pet}>
             <img
@@ -44,7 +54,7 @@ export const AccountInfo = () => {
               alt=""
               style={{ marginRight: '8px', height: '16px', width: '24px' }}
             />
-            <b> Домашнее животное: </b> кошка
+            <b> Домашнее животное: </b> {account.hasPet ? 'Есть' : 'Нет'}
           </div>
         </div>
       </div>

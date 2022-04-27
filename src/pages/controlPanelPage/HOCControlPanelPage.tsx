@@ -6,10 +6,10 @@ import { AccountType } from '../../entities/account/ui/Account';
 import { accounts } from 'entities/account/model/accounts';
 import { ControlPanelPage } from './ControlPanelPage';
 import { CommentList } from 'entities/comments/ui/CommentList';
-import { comments } from '../../entities/comments/comments';
 import { CommentStatusType, CommentType } from 'entities/comments/ui/Comment';
-import { EditCommentsPage } from 'pages/editCommentsPage/EditCommentsPage';
 import { EditProfilePage } from 'pages/editProfilePage/EditProfilePage';
+import { useStore } from 'effector-react';
+import { commentsModel } from 'entities/comments/comments';
 
 export type AccountFilterType = 'Все' | 'Обучается' | 'Закончил' | 'Отчислен';
 export type CommentFilterType = 'Все' | 'Допущен' | 'Отклонен' | 'На проверке';
@@ -32,9 +32,10 @@ export const HOCControlPanelPage = () => {
     filterAccount(filter);
   };
   //-----------------------------фильтр комментов-----------------------------------------
+
+  const comments = useStore(commentsModel.$comments);
   const [commentFilter, setCommentFilter] = useState<CommentFilterType>('Все');
-  const [filteredComments, setFilteredComments] =
-    useState<CommentType[]>(comments);
+  const [filteredComments, setFilteredComments] = useState<CommentType[]>([]);
 
   const filterComments = (filter: CommentFilterType) => {
     let pattern = /(\d{2})\.(\d{2})\.(\d{4})/;

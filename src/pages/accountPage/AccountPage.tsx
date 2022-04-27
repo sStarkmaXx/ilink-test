@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AccountInfo } from './accountInfo/AccountInfo';
 import { Carousel } from './carousel/Carousel';
 import { CommentForm } from 'components/commentForm/CommentForm';
@@ -7,8 +7,14 @@ import { Header } from 'shared/ui/header/Header';
 import { Toast } from 'shared/ui/toast/Toast';
 import vector from './img/vector.png';
 import css from './AccountPage.module.scss';
+import { accountModel } from './accountModel';
+import { commentsModel } from '../../entities/comments/comments';
 
 export const AccountPage = () => {
+  useEffect(() => {
+    accountModel.getAccount();
+    commentsModel.getComments();
+  }, []);
   const [formState, setFormState] = useState<boolean>(false);
   const openForm = () => {
     setFormState(true);
@@ -25,6 +31,7 @@ export const AccountPage = () => {
   const closeToast = () => {
     setShoeToast(false);
   };
+
   return (
     <>
       <div
