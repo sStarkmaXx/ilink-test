@@ -71,8 +71,8 @@ const getAccountFX = createEffect(async () => {
       return res.text();
     })
     .then((res) => JSON.parse(res));
-  console.log(response);
-  console.log(accessToken, token);
+  // console.log(response);
+  // console.log(accessToken, token);
   return response;
 });
 

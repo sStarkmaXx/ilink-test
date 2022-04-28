@@ -1,7 +1,11 @@
-import css from './CommentForm.module.css';
+import css from './CommentForm.module.scss';
 import close from './img/close.png';
 import { ChangeEvent, useState, KeyboardEvent } from 'react';
 import { Toast } from 'shared/ui/toast/Toast';
+import { useStore } from 'effector-react';
+import { capchaModel } from '../../entities/capcha/capcha';
+import { commentType, newCommentType } from 'entities/comments/comments';
+import { commentsModel } from '../../entities/comments/comments';
 
 type commentFormPropsType = {
   closeForm: () => void;
@@ -45,8 +49,11 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
       setError('commentIsShort');
       setErrorText('Ваш комментарий не должен быть короче 30 символов');
     } else {
-      closeForm();
-      showToast();
+      createNewComment();
+      //commentsModel.sendComment();
+      //showToast();
+
+      //console.log(commentsModel.$newComment.getState());
     }
   };
 
@@ -63,6 +70,56 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
     setError(null);
   };
 
+  const [capchaInput, setCapchaInput] = useState<number>(0);
+  const capchaInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCapchaInput(Number(e.currentTarget.value));
+  };
+
+  //--------------------------------CAPCHA----------------------------------
+  const capcha = useStore(capchaModel.$capcha);
+  const onClickGetCapcha = () => {
+    capchaModel.getCapcha();
+  };
+  //---------------------------------загркзка картинки--------------------------
+  const encodeImageFileAsURL = (e: ChangeEvent<HTMLInputElement>) => {
+    // var file = e.files[0];
+    // var reader = new FileReader();
+    // reader.onloadend = function () {
+    //   console.log('RESULT', reader.result);
+    // };
+    // reader.readAsDataURL(file);
+  };
+
+  const [fileSize, setFileSize] = useState<number>(0);
+
+  const onClickSelectImg = (e: ChangeEvent<HTMLInputElement>) => {
+    let file = e.currentTarget.files ? e.currentTarget.files[0] : null;
+    if (file) {
+      setFileSize(file.size);
+      if (!fileError) {
+        let reader = new FileReader();
+        reader.onloadend = () => {
+          console.log('RESULT', reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  };
+
+  const fileError = fileSize > 5242880;
+
+  const createNewComment = () => {
+    const newComment: newCommentType = {
+      authorName: inputName,
+      text: inputComment,
+      title: 'Test Review',
+      captchaKey: capcha.key,
+      captchaValue: capchaInput,
+    };
+
+    commentsModel.setNewComment(newComment);
+  };
+
   return (
     <div className={css.cont}>
       <div className={css.commentForm}>
@@ -76,7 +133,7 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
           />
         </div>
         <div className={css.label}>Как вас зовут?</div>
-        <div className={css.name_file}>
+        <div className={css.fileLoader}>
           <input
             type="text"
             value={inputName}
@@ -86,7 +143,20 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
             onChange={onChangeHandlerInputName}
             onKeyPress={onKeyPressHandler}
           />
-          <button className={css.addPhotoBtn}>+ Загрузить фото</button>
+          <label
+            htmlFor="loadFile"
+            data-size={fileError ? 'Размер файла должен быть меньше 5мб' : ''}
+            style={fileError ? { color: 'red' } : {}}
+          >
+            + Загрузить фото
+          </label>
+          <input
+            type={'file'}
+            accept={'.png, .jpeg, .jpg'}
+            id="loadFile"
+            style={{ display: 'none' }}
+            onChange={onClickSelectImg}
+          ></input>
         </div>
         <div className={css.label}>Все ли вам понравилос?</div>
 
@@ -99,11 +169,29 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
           onChange={onChangeHandlerInputComment}
           onKeyPress={onKeyPressHandler}
         ></textarea>
+        <div className={css.capchaGroup}>
+          <div className={css.capcha}>
+            <img src={capcha.base64Image} alt="" />
+            <button onClick={onClickGetCapcha}></button>
+          </div>
+          <div className={css.capchaIput}>
+            <div className={css.label}>Введите код с картинки:</div>
+            <input
+              type="text"
+              placeholder="0000"
+              className={css.nameInput}
+              value={capchaInput}
+              onChange={capchaInputOnChange}
+            />
+          </div>
+        </div>
+
         <div className={css.footer}>
           <button className={css.addCommentBtnActive} onClick={addCommentBtn}>
             Отправить отзыв
           </button>
           <div className={css.textFooter}>
+            <img src="" alt="" />
             Все отзывы проходят модерацию в течение 2 часов
           </div>
         </div>

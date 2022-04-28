@@ -52,8 +52,6 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
 
   //-----------------------------------------запросы на серв-------------------------------------------
 
-  const accTok = 'Bearer' + ' ' + localStorage.getItem('accessToken');
-
   const fetchAccessTokenFX = createEffect(async () => {
     const url = 'https://academtest.ilink.dev/user/signIn';
     const resp = await fetch(url, {
