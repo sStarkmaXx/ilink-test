@@ -35,7 +35,7 @@ const getCommentsFX = createEffect(async () => {
   })
     .then((res) => res.text())
     .then((res) => JSON.parse(res));
-  //console.log(response);
+  console.log(response);
   return response;
 });
 
@@ -59,7 +59,7 @@ export type newCommentType = {
   title: 'Test Review';
   text: string;
   captchaKey: string;
-  captchaValue: number;
+  captchaValue: string;
 };
 
 const setNewComment = createEvent<newCommentType>();
@@ -69,28 +69,37 @@ const $newComment = createStore<newCommentType>({
   text: '',
   title: 'Test Review',
   captchaKey: '',
-  captchaValue: 0,
+  captchaValue: '',
 });
 
-const newComment = $newComment.getState();
+$newComment.on(setNewComment, (state, comment) => ({
+  ...state,
+  authorName: comment.authorName,
+  text: comment.text,
+  title: comment.title,
+  captchaKey: comment.captchaKey,
+  captchaValue: comment.captchaValue,
+}));
 
-$newComment.on(setNewComment, (_, comment) => comment);
+forward({
+  from: setNewComment,
+  to: $newComment,
+});
 
-let body =
-  'authorName=' +
-  newComment.authorName +
-  '&title=' +
-  newComment.title +
-  '&text=' +
-  newComment.text +
-  '&captchaKey=' +
-  newComment.captchaKey +
-  '&captchaValue=' +
-  newComment.captchaValue;
-
-const sendCommentFX = createEffect(async () => {
+const sendCommentFX = createEffect(async (comment: newCommentType) => {
+  let body =
+    'authorName=' +
+    comment.authorName +
+    '&title=' +
+    comment.title +
+    '&text=' +
+    comment.text +
+    '&captchaKey=' +
+    comment.captchaKey +
+    '&captchaValue=' +
+    comment.captchaValue;
   const url = 'https://academtest.ilink.dev/reviews/create';
-  console.log(newComment);
+  console.log(comment);
   debugger;
   const response = await fetch(url, {
     method: 'POST',
@@ -107,8 +116,14 @@ const sendCommentFX = createEffect(async () => {
 
 sample({
   clock: $newComment,
-  fn: (clock) => clock,
+  source: $newComment,
+  fn: (source) => source,
   target: sendCommentFX,
+});
+
+forward({
+  from: sendCommentFX,
+  to: getCommentsFX,
 });
 
 export const commentsModel = {

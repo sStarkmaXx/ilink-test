@@ -10,6 +10,7 @@ type carouselPropsType = {
 
 export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
   const comments = useStore(commentsModel.$comments);
+  console.log('коменты из карусели', comments.length);
 
   const [position, setPosition] = useState<number>(0);
 
@@ -26,7 +27,7 @@ export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
 
   const handleRight = () => {
     const newPosition = position - 543;
-    if (position > (-543 * comments.length) / 2) {
+    if (position > -543 * comments.length) {
       setPosition(newPosition);
     }
   };
@@ -61,12 +62,12 @@ export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
           ></button>
           <button
             className={
-              position > (-543 * comments.length) / 2
+              position - 543 * 2 > -543 * comments.length
                 ? css.carouselBtnActiveRight
                 : css.carouselBtnDisRight
             }
             onClick={handleRight}
-            disabled={!(position > (-543 * comments.length) / 2)}
+            disabled={!(position - 543 * 2 > -543 * comments.length)}
           ></button>
         </div>
       </div>

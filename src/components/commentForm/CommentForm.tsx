@@ -1,10 +1,10 @@
 import css from './CommentForm.module.scss';
 import close from './img/close.png';
-import { ChangeEvent, useState, KeyboardEvent } from 'react';
+import { ChangeEvent, useState, KeyboardEvent, useEffect } from 'react';
 import { Toast } from 'shared/ui/toast/Toast';
 import { useStore } from 'effector-react';
 import { capchaModel } from '../../entities/capcha/capcha';
-import { commentType, newCommentType } from 'entities/comments/comments';
+import { newCommentType } from 'entities/comments/comments';
 import { commentsModel } from '../../entities/comments/comments';
 
 type commentFormPropsType = {
@@ -23,6 +23,8 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
   closeForm,
   showToast,
 }) => {
+  useEffect(() => capchaModel.getCapcha(), []);
+
   const [inputName, setInputName] = useState<string>('');
   const onChangeHandlerInputName = (e: ChangeEvent<HTMLInputElement>) => {
     setInputName(e.target.value);
@@ -50,10 +52,7 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
       setErrorText('Ваш комментарий не должен быть короче 30 символов');
     } else {
       createNewComment();
-      //commentsModel.sendComment();
       //showToast();
-
-      //console.log(commentsModel.$newComment.getState());
     }
   };
 
@@ -70,10 +69,19 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
     setError(null);
   };
 
-  const [capchaInput, setCapchaInput] = useState<number>(0);
+  const [capchaInput, setCapchaInput] = useState<string>('');
+  const [capchaError, setCapchaError] = useState<boolean>(false);
   const capchaInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCapchaInput(Number(e.currentTarget.value));
+    let value = e.currentTarget.value;
+    if (regexCapchaInput.test(value) || value === '') {
+      setCapchaInput(value);
+      setCapchaError(false);
+    } else {
+      setCapchaError(true);
+    }
   };
+
+  const regexCapchaInput = /^\d+$/;
 
   //--------------------------------CAPCHA----------------------------------
   const capcha = useStore(capchaModel.$capcha);
@@ -116,7 +124,7 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
       captchaKey: capcha.key,
       captchaValue: capchaInput,
     };
-
+    debugger;
     commentsModel.setNewComment(newComment);
   };
 
@@ -178,10 +186,11 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
             <div className={css.label}>Введите код с картинки:</div>
             <input
               type="text"
-              placeholder="0000"
+              placeholder={capchaError ? 'Введите цифры с картинки!' : '00000'}
               className={css.nameInput}
               value={capchaInput}
               onChange={capchaInputOnChange}
+              style={capchaError ? { border: '1px red solid' } : {}}
             />
           </div>
         </div>
