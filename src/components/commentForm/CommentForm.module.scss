@@ -151,7 +151,8 @@
   display: flex;
   flex-direction: column-reverse;
 }
-.addCommentBtnActive {
+.addCommentBtnActive,
+.addCommentBtnDis {
   display: flex;
   height: 42px;
   width: 256px;
@@ -167,6 +168,9 @@
   color: #ffffff;
   border: 0;
   margin-top: 12px;
+}
+.addCommentBtnDis {
+  background-color: #8a8a8a;
 }
 
 .addCommentBtnActive:hover {
@@ -289,7 +293,8 @@
     height: 52px;
     align-items: center;
   }
-  .addCommentBtnActive {
+  .addCommentBtnActive,
+  .addCommentBtnDis {
     height: 52px;
     min-width: 203px;
     margin-top: 0px;

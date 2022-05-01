@@ -3,15 +3,14 @@ import { CommentCard } from 'shared/ui/commentCard/CommentCard';
 import { useState } from 'react';
 import { useStore } from 'effector-react';
 import { commentsModel } from '../../../entities/comments/comments';
+import { modalWindowMadel } from '../../../entities/modalWindow/modalWindowModel';
 
-type carouselPropsType = {
-  openForm: () => void;
-};
-
-export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
+export const Carousel = () => {
   const comments = useStore(commentsModel.$comments);
   //console.log('коменты из карусели', comments.length);
-
+  const showModal = () => {
+    modalWindowMadel.showHideModal(true);
+  };
   const [position, setPosition] = useState<number>(0);
 
   const comment = comments.map((com) => {
@@ -38,7 +37,7 @@ export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
         <div className={css.carousel}>
           <div className={css.carouselHeader}>
             <div className={css.text}>Отзывы</div>
-            <button className={css.addCommentBtn} onClick={openForm}></button>
+            <button className={css.addCommentBtn} onClick={showModal}></button>
           </div>
           <div className={css.commentWindow}>
             <div

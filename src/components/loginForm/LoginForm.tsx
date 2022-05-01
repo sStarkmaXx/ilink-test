@@ -59,19 +59,21 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `email=${login}&password=${password}`,
     })
-      .then((res) => res.text())
+      .then((res) => {
+        return res.text();
+      })
       .then((res) => JSON.parse(res))
       .then((res) => {
         console.log(res);
-        if (res.status === 400) {
-          accountErrorSetter('Неверный пароль!');
-        }
-        if (res.status === 500) {
-          accountErrorSetter('Данный пользователь не зарегистрирован!');
-        }
-        if (res.accessToken) {
+        if (!res.statusCode) {
           localStorage.setItem('accessToken', res.accessToken);
           document.location = '/ilink-test/profile';
+        } else if (res.statusCode === 400) {
+          accountErrorSetter('Неверный пароль!');
+        } else if (res.statusCode === 500) {
+          accountErrorSetter('Данный пользователь не зарегистрирован!');
+        } else {
+          accountErrorSetter('Не известная ошибка, попробуйте позже!');
         }
       })
       .catch((er) => console.error('Ошибка!!!', er));

@@ -11,6 +11,8 @@ import { accountModel } from './accountModel';
 import { commentsModel } from '../../entities/comments/comments';
 import { useStore } from 'effector-react';
 import { Preloader } from 'shared/ui/preloader/Preloader';
+import { modalWindowMadel } from '../../entities/modalWindow/modalWindowModel';
+import { toastModel } from '../../shared/ui/toast/toastModel';
 
 export const AccountPage = () => {
   const isLoading = useStore(accountModel.$isLoading);
@@ -18,21 +20,17 @@ export const AccountPage = () => {
     accountModel.getAccount();
     commentsModel.getComments();
   }, []);
-  const [formState, setFormState] = useState<boolean>(false);
-  const openForm = () => {
-    setFormState(true);
-  };
-  const closeForm = () => {
-    setFormState(false);
-  };
 
-  const [toast, setShoeToast] = useState<boolean>(false);
+  const modalWindow = useStore(modalWindowMadel.$modalWindow);
+  const toast = useStore(toastModel.$toast);
+  //const [toast, setShoeToast] = useState<boolean>(false);
   const showToast = () => {
-    setShoeToast(true);
+    toastModel.showHideToast(true);
+    setTimeout(() => toastModel.showHideToast(false), 2000);
   };
 
   const closeToast = () => {
-    setShoeToast(false);
+    toastModel.showHideToast(false);
   };
 
   return (
@@ -50,12 +48,12 @@ export const AccountPage = () => {
               Добро пожаловать <br></br>в академию!
             </div>
             <AccountInfo />
-            <Carousel openForm={openForm} />
+            <Carousel />
             <Footer />
           </>
         )}
       </div>
-      {formState && <CommentForm closeForm={closeForm} showToast={showToast} />}
+      {modalWindow && <CommentForm showToast={showToast} />}
       {toast && (
         <Toast
           closeToast={closeToast}

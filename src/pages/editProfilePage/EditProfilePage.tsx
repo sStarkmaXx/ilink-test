@@ -1,9 +1,11 @@
 import { DropDown } from 'shared/dropDown/DropDown';
 import css from './EditProfilePage.module.scss';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import { v1 } from 'uuid';
 import { nameLastNameRegEx } from 'shared/regexp/nameLastNameRegExp';
 import { cities } from './cities';
+import { accountModel } from '../accountPage/accountModel';
+import { useStore } from 'effector-react';
 
 type ProfileType = {
   id: string;
@@ -17,20 +19,10 @@ type ProfileType = {
   about: string;
 };
 
-const profile: ProfileType = {
-  id: v1(),
-  name: 'Макс',
-  lastName: 'Мясников',
-  birthday: '01.06.1990',
-  city: 'Томск',
-  sex: 'Мужчина',
-  pet: 'Есть',
-  info: 'Машина - лучший психолог!',
-  about:
-    'Всем КУ!Меня зовут Макс, учусь на Fронтендера, работаю конструктором. В свободное время играю в видео игры ;)',
-};
-
 export const EditProfilePage = () => {
+  useEffect(() => accountModel.getAccount(), []);
+  const account = useStore(accountModel.$account);
+  const isLoading = accountModel.$isLoading;
   const [editButton, setEditButton] = useState<boolean>(true);
   const [saveButton, setSaveButton] = useState<boolean>(false);
   const onClickEdit = () => {
@@ -44,14 +36,16 @@ export const EditProfilePage = () => {
     save();
   };
 
-  const [name, setName] = useState<string>(profile.name);
-  const [lastName, setLastName] = useState<string>(profile.lastName);
-  const [birthday, setBirthday] = useState<string>(profile.birthday);
-  const [city, setCity] = useState<string>(profile.city);
-  const [sex, setSex] = useState<string>(profile.sex);
-  const [pet, setPet] = useState<string>(profile.pet);
-  const [info, setInfo] = useState<string>(profile.info);
-  const [about, setAbout] = useState<string>(profile.about);
+  const [name, setName] = useState<string>(account.firstName);
+  const [lastName, setLastName] = useState<string>(account.lastName);
+  const [birthday, setBirthday] = useState<string>(
+    new Date(account.birthDate).toLocaleDateString()
+  );
+  const [city, setCity] = useState<string>(account.cityOfResidence);
+  const [sex, setSex] = useState<string>(account.gender);
+  const [pet, setPet] = useState<boolean | string>(account.hasPet);
+  const [info, setInfo] = useState<string | null>(account.smallAboutMe);
+  const [about, setAbout] = useState<string>(account.aboutMe);
 
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     saveButton && setName(e.currentTarget.value);
@@ -78,21 +72,12 @@ export const EditProfilePage = () => {
     setSex(sex);
   };
 
-  const onClickSetPet = (pet: string) => {
+  const onClickSetPet = (pet: boolean | string) => {
     setPet(pet);
   };
 
   const save = () => {
-    profile.name = name;
-    profile.lastName = lastName;
-    profile.birthday = birthday;
-    profile.city = city;
-    profile.sex = sex;
-    profile.pet = pet;
-    profile.info = info;
-    profile.about = about;
     console.log(
-      profile,
       dateError,
       'сегодня',
       new Date().getTime(),
@@ -104,14 +89,14 @@ export const EditProfilePage = () => {
   const nameError = name.trim() === '' || !nameLastNameRegEx.test(name);
   const lastNameError =
     lastName.trim() === '' || !nameLastNameRegEx.test(lastName);
-  const infoError = info.trim() === '';
+
   const aboutError = about.trim() === '';
   const datePattern = /(\d{2})\.(\d{2})\.(\d{4})/;
   const dateError =
     new Date().getTime() <
     Date.parse(birthday.replace(datePattern, '$3-$2-$1'));
   const saveButtonDisable =
-    nameError || lastNameError || aboutError || dateError || infoError;
+    nameError || lastNameError || aboutError || dateError;
 
   const [fileSize, setFileSize] = useState<number>(0);
 
@@ -194,7 +179,7 @@ export const EditProfilePage = () => {
           <label>Город</label>
           <DropDown
             valuesList={cities}
-            startValue={profile.city}
+            startValue={account.cityOfResidence}
             canOpen={saveButton}
             clBack={onClickSetCity}
             needSearch={true}
@@ -204,7 +189,7 @@ export const EditProfilePage = () => {
           <label>Пол</label>
           <DropDown
             valuesList={['Мужчина', 'Женщина']}
-            startValue={profile.sex}
+            startValue={account.gender}
             canOpen={saveButton}
             clBack={onClickSetSex}
           />
@@ -213,20 +198,23 @@ export const EditProfilePage = () => {
           <label>Животное</label>
           <DropDown
             valuesList={['Есть', 'Нет']}
-            startValue={profile.pet}
+            startValue={account.hasPet ? 'Есть' : 'Нет'}
             canOpen={saveButton}
             clBack={onClickSetPet}
           />
         </div>
         <div className={css.el}>
           <label>Краткая информация</label>
-          <div className={css.length} data-length={`${info.length}/99`}>
+          <div
+            className={css.length}
+            data-length={`${info ? info.length : '0'}/99`}
+          >
             <textarea
               className={css.info}
-              value={info}
+              value={info ? info : ''}
               onChange={onChangeInfo}
               maxLength={99}
-              style={infoError ? { border: '1px red solid' } : {}}
+              //style={infoError ? { border: '1px red solid' } : {}}
             ></textarea>
           </div>
         </div>

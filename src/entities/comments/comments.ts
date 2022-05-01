@@ -1,4 +1,6 @@
 import { photoModel } from '../photo/photo';
+import { modalWindowMadel } from '../modalWindow/modalWindowModel';
+import { toastModel } from '../../shared/ui/toast/toastModel';
 import {
   createEffect,
   createStore,
@@ -35,8 +37,14 @@ const getCommentsFX = createEffect(async () => {
     method: 'GET',
     headers: { authorization: `${token}` },
   })
-    .then((res) => res.text())
+    .then((res) => {
+      if (res.status === 401) {
+        document.location = '/ilink-test/';
+      }
+      return res.text();
+    })
     .then((res) => JSON.parse(res));
+
   //console.log(response);
   return response;
 });
@@ -121,19 +129,22 @@ const sendCommentFX = createEffect(async (comment: newCommentType) => {
       console.log(res);
       return JSON.parse(res);
     });
-  if (response.status) {
-    if (response.status === 400) {
-      console.log(response.status);
-      setError('Вы ввели не верный код.');
-    } else if (response.status === 200) {
+
+  if (response.status === 'onCheck') {
+    if (photoModel.$photo.getState() !== null) {
+      debugger;
+      photoModel.setCommentId(response.id);
+    } else {
+      modalWindowMadel.showHideModal(false);
+      toastModel.showHideToast(true);
       setError(null);
     }
+  } else if (response.status === 400) {
+    setError('Вы ввели не верный код.');
+    console.log('ошибка 400');
+  } else {
+    setError('Ошибка отправки комментария, попробуйте позже!');
   }
-  if (photoModel.$photo !== null) {
-    photoModel.setCommentId(response.id);
-  }
-
-  //setError(null);
   return response;
 });
 

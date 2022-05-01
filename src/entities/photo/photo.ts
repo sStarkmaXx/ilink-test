@@ -1,3 +1,6 @@
+import { modalWindowMadel } from './../modalWindow/modalWindowModel';
+import { toastModel } from '../../shared/ui/toast/toastModel';
+import { commentsModel } from '../comments/comments';
 import {
   createEvent,
   createStore,
@@ -10,6 +13,15 @@ const $photo = createStore<File | null>(null);
 const $commentId = createStore<string>('');
 const setPhoto = createEvent<File | null>();
 const setCommentId = createEvent<string>();
+const $sendPhotoError = createStore<string | null>(null);
+const setSendPhotoError = createEvent<string | null>();
+sample({
+  clock: setSendPhotoError,
+  source: setSendPhotoError,
+  fn: (source) => source,
+  target: $sendPhotoError,
+});
+
 const sendPhotoFX = createEffect(async (comID: string) => {
   const url = `https://academtest.ilink.dev/reviews/updatePhoto/${comID}`;
   const formData = new FormData();
@@ -21,10 +33,20 @@ const sendPhotoFX = createEffect(async (comID: string) => {
     method: 'POST',
     body: formData,
   })
-    .then((res) => res.text())
-    .then((res) =>
-      console.log('ответ по картинке=', res, 'body=', formData, 'url=', url)
-    )
+    .then((res) => {
+      if (res.status >= 300) {
+        setSendPhotoError('Ошибка отправки картинки!');
+      } else {
+        modalWindowMadel.showHideModal(false);
+        toastModel.showHideToast(true);
+        commentsModel.getComments();
+      }
+      return res.text();
+    })
+    .then((res) => {
+      JSON.parse(res);
+      //console.log('ответ по картинке=', res);
+    })
     .catch((err) => console.log('error!', err));
   return response;
 });

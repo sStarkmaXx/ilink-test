@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CommentStatusType } from './Comment';
 import css from './CommentList.module.scss';
 import drDown from './img/Arrow - Down 2.png';
 import { Comment } from './Comment';
 import { CommentFilterType } from 'pages/controlPanelPage/HOCControlPanelPage';
-import { commentType } from '../comments';
+import { commentType, commentsModel } from '../comments';
+import { useStore } from 'effector-react';
 
 type CommentListPropsType = {
   filteredComments: commentType[];
@@ -25,6 +26,9 @@ export const CommentList: React.FC<CommentListPropsType> = ({
   selecter,
   selectCom,
 }) => {
+  useEffect(() => commentsModel.getComments(), []);
+  const comments = useStore(commentsModel.$comments);
+  console.log(comments);
   const [openDropDown, setOpenDropDown] = useState<boolean>(false);
   console.log(filteredComments);
   const showDropDown = () => {
@@ -36,7 +40,7 @@ export const CommentList: React.FC<CommentListPropsType> = ({
     setOpenDropDown(false);
   };
 
-  const comment = filteredComments.map((com) => (
+  const comment = comments.map((com) => (
     <Comment
       comment={com}
       changeCommentStatus={changeCommentStatus}

@@ -12,6 +12,7 @@ export const StartPage = () => {
 
   const accountErrorSetter = (text: string) => {
     setAccountError(text);
+    setTimeout(() => setAccountError(null), 2000);
   };
 
   const closeToast = () => {

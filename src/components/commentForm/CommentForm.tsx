@@ -10,75 +10,58 @@ import { Preloader } from '../../shared/ui/preloader/Preloader';
 import { photoModel } from '../../entities/photo/photo';
 import fileImg from './img/animation_500_l123b4fc 1.png';
 import del from './img/Delete.png';
+import { nameLastNameRegEx } from '../../shared/regexp/nameLastNameRegExp';
+import { modalWindowMadel } from '../../entities/modalWindow/modalWindowModel';
 
 type commentFormPropsType = {
-  closeForm: () => void;
   showToast: () => void;
 };
 
-type errorType =
-  | 'nameIsEmpty'
-  | 'commentIsEmpty'
-  | 'nameIsShort'
-  | 'commentIsShort'
-  | null;
-
-export const CommentForm: React.FC<commentFormPropsType> = ({
-  closeForm,
-  showToast,
-}) => {
+export const CommentForm: React.FC<commentFormPropsType> = ({ showToast }) => {
   useEffect(() => capchaModel.getCapcha(), []);
 
+  const closeModal = () => {
+    modalWindowMadel.showHideModal(false);
+  };
+
+  //-------------------------------------------field name----------------------------------------------
+  const [nameError, setNameError] = useState<boolean>(false);
   const [inputName, setInputName] = useState<string>('');
   const onChangeHandlerInputName = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputName(e.target.value);
-  };
-  const [inputComment, setInputComment] = useState<string>('');
-  const onChangeHandlerInputComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setInputComment(e.target.value);
-  };
-
-  const [error, setError] = useState<errorType>(null);
-  const [errorText, setErrorText] = useState<string>('');
-
-  const addCommentBtn = () => {
-    if (inputName.trim() === '') {
-      setError('nameIsEmpty');
-      setErrorText('Заполните поле с именем.');
-    } else if (inputName.length < 3) {
-      setError('nameIsShort');
-      setErrorText('Имя не должно быть короче трех букв');
-    } else if (inputComment.trim() === '') {
-      setError('commentIsEmpty');
-      setErrorText('Заполните поле с комментарием.');
-    } else if (inputComment.length < 30) {
-      setError('commentIsShort');
-      setErrorText('Ваш комментарий не должен быть короче 30 символов');
+    let value = e.currentTarget.value;
+    if (nameLastNameRegEx.test(value) || value === '') {
+      setInputName(e.target.value);
+      setNameError(false);
     } else {
-      createNewComment();
-      if (sendError !== null) {
-        console.log('asdadas', sendError);
-      } else {
-        closeForm();
-        showToast();
-      }
+      setNameError(true);
     }
   };
 
-  const onKeyPressHandler = (
-    e: KeyboardEvent<HTMLInputElement> | KeyboardEvent<HTMLTextAreaElement>
-  ) => {
-    setError(null);
-    if (e.code === '13') {
-      addCommentBtn();
+  const onBlureName = () => {
+    if (inputName.trim() === '') {
+      setNameError(true);
+    }
+  };
+
+  //------------------------------------------field comment----------------------------------------------------
+
+  const [inputComment, setInputComment] = useState<string>('');
+  const onChangeHandlerInputComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setInputComment(e.target.value);
+    setInputCommentError(false);
+  };
+
+  const [inputCommentError, setInputCommentError] = useState<boolean>(false);
+  const onBlurComment = () => {
+    if (inputComment.trim() === '') {
+      setInputCommentError(true);
     }
   };
 
   const closeToast = () => {
-    setError(null);
     commentsModel.setError(null);
   };
-
+  //--------------------------------CAPCHA----------------------------------
   const [capchaInput, setCapchaInput] = useState<string>('');
   const [capchaError, setCapchaError] = useState<boolean>(false);
   const capchaInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -91,9 +74,14 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
     }
   };
 
+  const onBlurCapcha = () => {
+    if (capchaInput.trim() === '') {
+      setCapchaError(true);
+    }
+  };
+
   const regexCapchaInput = /^\d+$/;
 
-  //--------------------------------CAPCHA----------------------------------
   const capcha = useStore(capchaModel.$capcha);
   const onClickGetCapcha = () => {
     capchaModel.getCapcha();
@@ -144,7 +132,28 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
 
   const sending = useStore(commentsModel.$sending);
   const sendError = useStore(commentsModel.$sendCommentError);
+  //-----------------------------------------------------------------------------------------------------
+  const isAddCommentBtnActive =
+    inputCommentError ||
+    nameError ||
+    capchaError ||
+    inputName.trim() === '' ||
+    inputComment.trim() === '' ||
+    capchaInput.trim() === '';
 
+  const addCommentBtn = () => {
+    createNewComment();
+  };
+
+  const onKeyPressHandler = (
+    e: KeyboardEvent<HTMLInputElement> | KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    if (e.code === '13') {
+      console.log(isAddCommentBtnActive);
+    }
+  };
+
+  //----------------------------------компонента-------------------------------------------------
   return (
     <div className={css.cont}>
       <div className={css.commentForm}>
@@ -158,7 +167,7 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
                 src={close}
                 style={{ width: '25px', height: '25px' }}
                 alt=""
-                onClick={closeForm}
+                onClick={closeModal}
               />
             </div>
             <div className={css.label}>Как вас зовут?</div>
@@ -167,12 +176,13 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
                 type="text"
                 value={inputName}
                 className={css.nameInput}
-                style={
-                  error === 'nameIsEmpty' ? { border: '1px solid red' } : {}
+                style={nameError ? { border: '1px solid red' } : {}}
+                placeholder={
+                  nameError ? 'Поле обязательно для заполнения' : 'Имя'
                 }
-                placeholder="Имя Фамилия"
                 onChange={onChangeHandlerInputName}
                 onKeyPress={onKeyPressHandler}
+                onBlur={onBlureName}
               />
               <label
                 htmlFor="loadFile"
@@ -202,14 +212,17 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
 
             <textarea
               className={css.commentText}
-              style={
-                error === 'commentIsEmpty' ? { border: '1px solid red' } : {}
-              }
+              style={inputCommentError ? { border: '1px solid red' } : {}}
               value={inputComment}
               maxLength={200}
-              placeholder="Напишите пару слов о вашем опыте..."
+              placeholder={
+                inputCommentError
+                  ? 'Пожалуйста напишите Ваш отзыв'
+                  : 'Напишите пару слов о вашем опыте...'
+              }
               onChange={onChangeHandlerInputComment}
               onKeyPress={onKeyPressHandler}
+              onBlur={onBlurComment}
             ></textarea>
             <div className={css.capchaGroup}>
               <div className={css.capcha}>
@@ -233,14 +246,20 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
                   value={capchaInput}
                   onChange={capchaInputOnChange}
                   style={capchaError ? { border: '1px red solid' } : {}}
+                  onBlur={onBlurCapcha}
                 />
               </div>
             </div>
 
             <div className={css.footer}>
               <button
-                className={css.addCommentBtnActive}
+                className={
+                  isAddCommentBtnActive
+                    ? css.addCommentBtnDis
+                    : css.addCommentBtnActive
+                }
                 onClick={addCommentBtn}
+                disabled={isAddCommentBtnActive}
               >
                 Отправить отзыв
               </button>
@@ -252,9 +271,9 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
           </>
         )}
       </div>
-      {error && (
+      {/* {error && (
         <Toast closeToast={closeToast} error={error} text={errorText} />
-      )}
+      )} */}
       {sendError && (
         <Toast closeToast={closeToast} error={sendError} text={sendError} />
       )}
