@@ -4,6 +4,8 @@ import logo from './img/white/Group 1.png';
 import myPhoto from 'pages/accountPage/img/my_photo.jpg';
 import purpleLogo from './img/LogoPurple.png';
 import { NavLink } from 'react-router-dom';
+import { useStore } from 'effector-react';
+import { accountModel } from '../../../pages/accountPage/accountModel';
 
 type HeaderType =
   | 'controlPanelHeader'
@@ -15,14 +17,18 @@ type HeaderPropdType = {
 };
 
 export const Header: React.FC<HeaderPropdType> = ({ type }) => {
+  const account = useStore(accountModel.$account);
+  const photo = ' https://academtest.ilink.dev/images/' + account.profileImage;
   return (
     <>
       {type === 'controlPanelHeader' && (
         <div className={cssForControlPanel.header}>
           <div className={cssForControlPanel.headerGroup}>
             <div className={cssForControlPanel.accountGroup}>
-              <img src={myPhoto} alt="" />
-              <span>Макс Мясников</span>
+              <img src={photo} alt="" />
+              <span>
+                {account.firstName} {account.lastName}
+              </span>
             </div>
             <span>Панель управления</span>
           </div>
@@ -34,8 +40,8 @@ export const Header: React.FC<HeaderPropdType> = ({ type }) => {
       {type === 'accountPageHeader' && (
         <div className={cssForAccountPage.header}>
           <div className={cssForAccountPage.accountGroup}>
-            <img src={myPhoto} alt="" />
-            <span>Макс</span>
+            <img src={photo} alt="" />
+            <span>{account.firstName}</span>
           </div>
           <img src={purpleLogo} alt="" />
           <NavLink to="/ilink-test/controlPanel/accounts/1"></NavLink>

@@ -10,7 +10,7 @@ type carouselPropsType = {
 
 export const Carousel: React.FC<carouselPropsType> = ({ openForm }) => {
   const comments = useStore(commentsModel.$comments);
-  console.log('коменты из карусели', comments.length);
+  //console.log('коменты из карусели', comments.length);
 
   const [position, setPosition] = useState<number>(0);
 

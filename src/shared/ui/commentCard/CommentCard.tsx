@@ -1,20 +1,20 @@
 import { commentType } from 'entities/comments/comments';
 import css from './CommentCard.module.css';
-import ava from './img/Path.png';
+import ava from './img/avatar.png';
 
 type commentCardType = {
   comment: commentType;
 };
 
 export const CommentCard: React.FC<commentCardType> = ({ comment }) => {
+  //console.log(comment);
+  const photo = ' https://academtest.ilink.dev/images/' + comment.authorImage;
+  const isPhoto = comment.authorImage !== null;
   return (
     <div className={css.commentCard}>
       <div className={css.cardHeader}>
         <div className={css.accountGroup}>
-          <div
-            className={css.avatar}
-            style={{ backgroundImage: `url(${ava})` }}
-          ></div>
+          <img className={css.photo} src={isPhoto ? photo : ava} alt="" />
           <div className={css.accountName}>{comment.authorName}</div>
         </div>
         <div className={css.date}>

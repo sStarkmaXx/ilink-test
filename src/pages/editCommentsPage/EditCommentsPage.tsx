@@ -1,10 +1,10 @@
-import { CommentType } from 'entities/comments/ui/Comment';
 import css from './EditCommentsPage.module.scss';
 import { ChangeEvent, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { commentType } from 'entities/comments/comments';
 
 type EditCommentsPagePropsType = {
-  comment: CommentType;
+  comment: commentType;
   changeCommentText: (newText: string) => void;
   showToast: () => void;
 };
@@ -14,7 +14,7 @@ export const EditCommentsPage: React.FC<EditCommentsPagePropsType> = ({
   changeCommentText,
   showToast,
 }) => {
-  const [text, setText] = useState<string>(comment.commentText);
+  const [text, setText] = useState<string>(comment.text);
   const changeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.currentTarget.value);
   };

@@ -6,6 +6,10 @@ import { useStore } from 'effector-react';
 import { capchaModel } from '../../entities/capcha/capcha';
 import { newCommentType } from 'entities/comments/comments';
 import { commentsModel } from '../../entities/comments/comments';
+import { Preloader } from '../../shared/ui/preloader/Preloader';
+import { photoModel } from '../../entities/photo/photo';
+import fileImg from './img/animation_500_l123b4fc 1.png';
+import del from './img/Delete.png';
 
 type commentFormPropsType = {
   closeForm: () => void;
@@ -52,7 +56,12 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
       setErrorText('Ваш комментарий не должен быть короче 30 символов');
     } else {
       createNewComment();
-      //showToast();
+      if (sendError !== null) {
+        console.log('asdadas', sendError);
+      } else {
+        closeForm();
+        showToast();
+      }
     }
   };
 
@@ -60,13 +69,14 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
     e: KeyboardEvent<HTMLInputElement> | KeyboardEvent<HTMLTextAreaElement>
   ) => {
     setError(null);
-    if (e.charCode === 13) {
+    if (e.code === '13') {
       addCommentBtn();
     }
   };
 
   const closeToast = () => {
     setError(null);
+    commentsModel.setError(null);
   };
 
   const [capchaInput, setCapchaInput] = useState<string>('');
@@ -88,34 +98,39 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
   const onClickGetCapcha = () => {
     capchaModel.getCapcha();
   };
+  const capchaIsLoading = useStore(capchaModel.$isLoading);
   //---------------------------------загркзка картинки--------------------------
-  const encodeImageFileAsURL = (e: ChangeEvent<HTMLInputElement>) => {
-    // var file = e.files[0];
-    // var reader = new FileReader();
-    // reader.onloadend = function () {
-    //   console.log('RESULT', reader.result);
-    // };
-    // reader.readAsDataURL(file);
-  };
-
   const [fileSize, setFileSize] = useState<number>(0);
+  const [fileName, setFileName] = useState<string | null>(null);
+  const delFile = () => {
+    photoModel.setPhoto(null);
+    setFileName(null);
+  };
+  const photo = useStore(photoModel.$photo);
 
   const onClickSelectImg = (e: ChangeEvent<HTMLInputElement>) => {
     let file = e.currentTarget.files ? e.currentTarget.files[0] : null;
     if (file) {
       setFileSize(file.size);
       if (!fileError) {
-        let reader = new FileReader();
-        reader.onloadend = () => {
-          console.log('RESULT', reader.result);
-        };
-        reader.readAsDataURL(file);
+        if (file.name.length > 20) {
+          setFileName(
+            file.name.substring(0, 9) +
+              '...' +
+              file.name.substring(file.name.length - 8)
+          );
+        } else {
+          setFileName(file.name);
+        }
+        photoModel.setPhoto(file);
+        console.log('file', file);
+        console.log('photo', photo);
       }
     }
   };
 
   const fileError = fileSize > 5242880;
-
+  //-----------------------------Новый коммент---------------------------------
   const createNewComment = () => {
     const newComment: newCommentType = {
       authorName: inputName,
@@ -124,89 +139,124 @@ export const CommentForm: React.FC<commentFormPropsType> = ({
       captchaKey: capcha.key,
       captchaValue: capchaInput,
     };
-    debugger;
     commentsModel.setNewComment(newComment);
   };
+
+  const sending = useStore(commentsModel.$sending);
+  const sendError = useStore(commentsModel.$sendCommentError);
 
   return (
     <div className={css.cont}>
       <div className={css.commentForm}>
-        <div className={css.header}>
-          <div className={css.text}>Отзыв</div>
-          <img
-            src={close}
-            style={{ width: '25px', height: '25px' }}
-            alt=""
-            onClick={closeForm}
-          />
-        </div>
-        <div className={css.label}>Как вас зовут?</div>
-        <div className={css.fileLoader}>
-          <input
-            type="text"
-            value={inputName}
-            className={css.nameInput}
-            style={error === 'nameIsEmpty' ? { border: '1px solid red' } : {}}
-            placeholder="Имя Фамилия"
-            onChange={onChangeHandlerInputName}
-            onKeyPress={onKeyPressHandler}
-          />
-          <label
-            htmlFor="loadFile"
-            data-size={fileError ? 'Размер файла должен быть меньше 5мб' : ''}
-            style={fileError ? { color: 'red' } : {}}
-          >
-            + Загрузить фото
-          </label>
-          <input
-            type={'file'}
-            accept={'.png, .jpeg, .jpg'}
-            id="loadFile"
-            style={{ display: 'none' }}
-            onChange={onClickSelectImg}
-          ></input>
-        </div>
-        <div className={css.label}>Все ли вам понравилос?</div>
+        {sending ? (
+          <Preloader />
+        ) : (
+          <>
+            <div className={css.header}>
+              <div className={css.text}>Отзыв</div>
+              <img
+                src={close}
+                style={{ width: '25px', height: '25px' }}
+                alt=""
+                onClick={closeForm}
+              />
+            </div>
+            <div className={css.label}>Как вас зовут?</div>
+            <div className={css.fileLoader}>
+              <input
+                type="text"
+                value={inputName}
+                className={css.nameInput}
+                style={
+                  error === 'nameIsEmpty' ? { border: '1px solid red' } : {}
+                }
+                placeholder="Имя Фамилия"
+                onChange={onChangeHandlerInputName}
+                onKeyPress={onKeyPressHandler}
+              />
+              <label
+                htmlFor="loadFile"
+                data-size={
+                  fileError ? 'Размер файла должен быть меньше 5мб' : ''
+                }
+                style={fileError ? { color: 'red' } : {}}
+              >
+                + Загрузить фото
+              </label>
+              <input
+                type={'file'}
+                accept={'.png, .jpeg, .jpg'}
+                id="loadFile"
+                style={{ display: 'none' }}
+                onChange={onClickSelectImg}
+              ></input>
+            </div>
+            {fileName && (
+              <div className={css.fileLoad}>
+                <img src={fileImg} alt="" />
+                <p>{fileName}</p>
+                <img src={del} alt="" onClick={delFile} />
+              </div>
+            )}
+            <div className={css.label}>Все ли вам понравилос?</div>
 
-        <textarea
-          className={css.commentText}
-          style={error === 'commentIsEmpty' ? { border: '1px solid red' } : {}}
-          value={inputComment}
-          maxLength={200}
-          placeholder="Напишите пару слов о вашем опыте..."
-          onChange={onChangeHandlerInputComment}
-          onKeyPress={onKeyPressHandler}
-        ></textarea>
-        <div className={css.capchaGroup}>
-          <div className={css.capcha}>
-            <img src={capcha.base64Image} alt="" />
-            <button onClick={onClickGetCapcha}></button>
-          </div>
-          <div className={css.capchaIput}>
-            <div className={css.label}>Введите код с картинки:</div>
-            <input
-              type="text"
-              placeholder={capchaError ? 'Введите цифры с картинки!' : '00000'}
-              className={css.nameInput}
-              value={capchaInput}
-              onChange={capchaInputOnChange}
-              style={capchaError ? { border: '1px red solid' } : {}}
-            />
-          </div>
-        </div>
+            <textarea
+              className={css.commentText}
+              style={
+                error === 'commentIsEmpty' ? { border: '1px solid red' } : {}
+              }
+              value={inputComment}
+              maxLength={200}
+              placeholder="Напишите пару слов о вашем опыте..."
+              onChange={onChangeHandlerInputComment}
+              onKeyPress={onKeyPressHandler}
+            ></textarea>
+            <div className={css.capchaGroup}>
+              <div className={css.capcha}>
+                <div className={css.load}>
+                  {capchaIsLoading ? (
+                    <Preloader />
+                  ) : (
+                    <img src={capcha.base64Image} alt="" />
+                  )}
+                </div>
+                <button onClick={onClickGetCapcha}></button>
+              </div>
+              <div className={css.capchaIput}>
+                <div className={css.label}>Введите код с картинки:</div>
+                <input
+                  type="text"
+                  placeholder={
+                    capchaError ? 'Введите цифры с картинки!' : '00000'
+                  }
+                  className={css.nameInput}
+                  value={capchaInput}
+                  onChange={capchaInputOnChange}
+                  style={capchaError ? { border: '1px red solid' } : {}}
+                />
+              </div>
+            </div>
 
-        <div className={css.footer}>
-          <button className={css.addCommentBtnActive} onClick={addCommentBtn}>
-            Отправить отзыв
-          </button>
-          <div className={css.textFooter}>
-            <img src="" alt="" />
-            Все отзывы проходят модерацию в течение 2 часов
-          </div>
-        </div>
+            <div className={css.footer}>
+              <button
+                className={css.addCommentBtnActive}
+                onClick={addCommentBtn}
+              >
+                Отправить отзыв
+              </button>
+              <div className={css.textFooter}>
+                <img src="" alt="" />
+                Все отзывы проходят модерацию в течение 2 часов
+              </div>
+            </div>
+          </>
+        )}
       </div>
       {error && (
         <Toast closeToast={closeToast} error={error} text={errorText} />
+      )}
+      {sendError && (
+        <Toast closeToast={closeToast} error={sendError} text={sendError} />
       )}
     </div>
   );

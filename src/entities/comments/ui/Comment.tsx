@@ -2,26 +2,19 @@ import { EditCommentsPage } from 'pages/editCommentsPage/EditCommentsPage';
 import { useState } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import { Toast } from 'shared/ui/toast/Toast';
+import { commentType } from '../comments';
 import css from './Comment.module.scss';
+import ava from './img/avatar.png';
 
-export type CommentStatusType = 'Допущен' | 'Отклонен' | 'На проверке';
-
-export type CommentType = {
-  id: string;
-  name: string;
-  lastName: string;
-  photo: string;
-  commentText: string;
-  status: CommentStatusType;
-  time: string;
-};
+export type CommentStatusType = string;
+//'Допущен' | 'Отклонен' | 'На проверке';
 
 type CommentPropsType = {
-  comment: CommentType;
+  comment: commentType;
   changeCommentStatus: (id: string, status: CommentStatusType) => void;
   changeCommentText: (newText: string) => void;
   selecter: (id: string) => void;
-  selectCom?: CommentType;
+  selectCom?: commentType;
 };
 
 export const Comment: React.FC<CommentPropsType> = ({
@@ -33,12 +26,12 @@ export const Comment: React.FC<CommentPropsType> = ({
 }) => {
   let dataStyle = '';
 
-  if (comment.status === 'Допущен') {
-    dataStyle = 'admitted';
-  }
-  if (comment.status === 'Отклонен') {
-    dataStyle = 'rejected';
-  }
+  // if (comment.status === 'Допущен') {
+  //   dataStyle = 'admitted';
+  // }
+  // if (comment.status === 'Отклонен') {
+  //   dataStyle = 'rejected';
+  // }
   const [toast, setToast] = useState<boolean>(false);
   const showToast = () => {
     setToast(true);
@@ -47,21 +40,24 @@ export const Comment: React.FC<CommentPropsType> = ({
   const closeToast = () => {
     setToast(false);
   };
+  const photo = ' https://academtest.ilink.dev/images/' + comment.authorImage;
 
   return (
     <div className={css.comment} data-style={dataStyle}>
       <div className={css.header}>
         <div className={css.accountGroup}>
-          <div className={css.photo}>{comment.photo}</div>
-          <span>
-            {comment.name} {comment.lastName}
-          </span>
+          <img
+            className={css.photo}
+            src={comment.authorImage ? photo : ava}
+            alt=""
+          />
+          <span>{comment.authorName}</span>
         </div>
-        <p>{comment.time}</p>
+        <p>{new Date(comment.createdAt).toLocaleDateString()}</p>
       </div>
-      <div className={css.commentText}>{comment.commentText}</div>
+      <div className={css.commentText}>{comment.text}</div>
       <div className={css.footer} data-style={dataStyle}>
-        {comment.status === 'На проверке' && (
+        {comment.status === 'onCheck' && (
           <>
             <div className={css.buttons}>
               <button
@@ -81,7 +77,7 @@ export const Comment: React.FC<CommentPropsType> = ({
             ></NavLink>
           </>
         )}
-        {comment.status !== 'На проверке' && (
+        {comment.status !== 'onCheck' && (
           <>
             <div className={css.check} data-style={dataStyle}></div>
             <span>

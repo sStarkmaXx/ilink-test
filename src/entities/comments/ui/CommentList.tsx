@@ -1,18 +1,19 @@
 import { useState } from 'react';
-import { CommentStatusType, CommentType } from './Comment';
+import { CommentStatusType } from './Comment';
 import css from './CommentList.module.scss';
 import drDown from './img/Arrow - Down 2.png';
 import { Comment } from './Comment';
 import { CommentFilterType } from 'pages/controlPanelPage/HOCControlPanelPage';
+import { commentType } from '../comments';
 
 type CommentListPropsType = {
-  filteredComments: CommentType[];
+  filteredComments: commentType[];
   changeCommentFilter: (commentFilter: CommentFilterType) => void;
   commentFilter: CommentFilterType;
   changeCommentStatus: (id: string, status: CommentStatusType) => void;
   changeCommentText: (newText: string) => void;
   selecter: (id: string) => void;
-  selectCom: CommentType;
+  selectCom: commentType;
 };
 
 export const CommentList: React.FC<CommentListPropsType> = ({
@@ -25,7 +26,7 @@ export const CommentList: React.FC<CommentListPropsType> = ({
   selectCom,
 }) => {
   const [openDropDown, setOpenDropDown] = useState<boolean>(false);
-
+  console.log(filteredComments);
   const showDropDown = () => {
     setOpenDropDown(true);
   };
@@ -45,8 +46,8 @@ export const CommentList: React.FC<CommentListPropsType> = ({
     />
   ));
   let displayValue = '';
-  if (commentFilter === 'Все') {
-    displayValue = 'Все';
+  if (commentFilter === 'onCheck') {
+    displayValue = 'onCheck';
   }
   if (commentFilter === 'Допущен') {
     displayValue = 'Сначала опубликованные';
@@ -70,8 +71,8 @@ export const CommentList: React.FC<CommentListPropsType> = ({
           </div>
           {openDropDown && (
             <ul>
-              <li onClick={() => setFilter('Все')}>{'Все'}</li>
-              <li onClick={() => setFilter('На проверке')}>
+              <li onClick={() => setFilter('onCheck')}>{'onCheck'}</li>
+              <li onClick={() => setFilter('onCheck')}>
                 {'Сначала неопубликованные'}
               </li>
               <li onClick={() => setFilter('Допущен')}>

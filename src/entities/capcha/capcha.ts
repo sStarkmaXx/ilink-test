@@ -40,7 +40,10 @@ sample({
   target: $capcha,
 });
 
+const $isLoading = getCapchaFX.pending;
+
 export const capchaModel = {
   $capcha,
   getCapcha,
+  $isLoading,
 };

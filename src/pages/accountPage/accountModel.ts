@@ -55,6 +55,7 @@ const initState = {
 };
 
 const $account = createStore<accountType>(initState);
+
 const accessToken = localStorage.getItem('accessToken');
 const token = 'Bearer' + ' ' + accessToken;
 
@@ -76,6 +77,8 @@ const getAccountFX = createEffect(async () => {
   return response;
 });
 
+const $isLoading = getAccountFX.pending;
+
 const getAccount = createEvent();
 
 forward({
@@ -92,4 +95,5 @@ sample({
 export const accountModel = {
   $account,
   getAccount,
+  $isLoading,
 };

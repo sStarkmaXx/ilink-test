@@ -60,12 +60,15 @@ export const DropDown: React.FC<DropDownPropsType> = ({
       {openDropDown && (
         <div className={css.ul}>
           {needSearch && (
-            <input
-              type="text"
-              placeholder="Поиск города"
-              value={search}
-              onChange={onChangeSearch}
-            />
+            <>
+              <input
+                type="text"
+                placeholder="Поиск города"
+                value={search}
+                onChange={onChangeSearch}
+              />
+              <div className={css.substrate}></div>
+            </>
           )}
           {list}
         </div>

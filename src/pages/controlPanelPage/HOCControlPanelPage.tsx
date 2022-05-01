@@ -6,13 +6,15 @@ import { AccountType } from '../../entities/account/ui/Account';
 import { accounts } from 'entities/account/model/accounts';
 import { ControlPanelPage } from './ControlPanelPage';
 import { CommentList } from 'entities/comments/ui/CommentList';
-import { CommentStatusType, CommentType } from 'entities/comments/ui/Comment';
+import { CommentStatusType } from 'entities/comments/ui/Comment';
 import { EditProfilePage } from 'pages/editProfilePage/EditProfilePage';
 import { useStore } from 'effector-react';
-import { commentsModel } from 'entities/comments/comments';
+import { commentsModel, commentType } from 'entities/comments/comments';
 
-export type AccountFilterType = 'Все' | 'Обучается' | 'Закончил' | 'Отчислен';
-export type CommentFilterType = 'Все' | 'Допущен' | 'Отклонен' | 'На проверке';
+export type AccountFilterType = string;
+//'Все' | 'Обучается' | 'Закончил' | 'Отчислен';
+export type CommentFilterType = string;
+//'Все' | 'Допущен' | 'Отклонен' | 'На проверке';
 
 export const HOCControlPanelPage = () => {
   //-----------------------------фильтр аккаунтов-----------------------------------------
@@ -34,41 +36,32 @@ export const HOCControlPanelPage = () => {
   //-----------------------------фильтр комментов-----------------------------------------
 
   const comments = useStore(commentsModel.$comments);
-  const [commentFilter, setCommentFilter] = useState<CommentFilterType>('Все');
-  const [filteredComments, setFilteredComments] = useState<CommentType[]>([]);
+  const [commentFilter, setCommentFilter] =
+    useState<CommentFilterType>('onCheck');
+  const [filteredComments, setFilteredComments] =
+    useState<commentType[]>(comments);
+
+  const sortByTime = (a: commentType, b: commentType) => {
+    return Date.parse(b.createdAt) - Date.parse(a.createdAt);
+  };
 
   const filterComments = (filter: CommentFilterType) => {
-    let pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
+    //let pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
     let admittedComments = [...filteredComments]
       .filter((com) => com.status === 'Допущен')
-      .sort(function (a, b) {
-        return (
-          Date.parse(b.time.replace(pattern, '$3-$2-$1')) -
-          Date.parse(a.time.replace(pattern, '$3-$2-$1'))
-        );
-      });
+      .sort((a, b) => sortByTime(a, b));
     let rejectedComments = [...filteredComments]
-      .filter((com) => com.status === 'Отклонен')
-      .sort(function (a, b) {
-        return (
-          Date.parse(b.time.replace(pattern, '$3-$2-$1')) -
-          Date.parse(a.time.replace(pattern, '$3-$2-$1'))
-        );
-      });
+      .filter((com) => com.status === 'Не допущен')
+      .sort((a, b) => sortByTime(a, b));
     let onRreviewComments = [...filteredComments]
-      .filter((com) => com.status === 'На проверке')
-      .sort(function (a, b) {
-        return (
-          Date.parse(b.time.replace(pattern, '$3-$2-$1')) -
-          Date.parse(a.time.replace(pattern, '$3-$2-$1'))
-        );
-      });
+      .filter((com) => com.status === 'onCheck')
+      .sort((a, b) => sortByTime(a, b));
 
     let sortedComments = [];
-    if (filter === 'Все') {
+    if (filter === 'onCheck') {
       setFilteredComments(filteredComments);
     }
-    if (filter === 'На проверке') {
+    if (filter === 'onCheck') {
       sortedComments = [
         ...onRreviewComments,
         ...admittedComments,
@@ -106,7 +99,7 @@ export const HOCControlPanelPage = () => {
   };
 
   //-----------------------------------------------------------------------------------------
-  const [selectCom, setSelectCom] = useState<CommentType>();
+  const [selectCom, setSelectCom] = useState<commentType>();
 
   const selecter = (id: string) => {
     setSelectCom(filteredComments.find((com) => com.id === id));

@@ -1,5 +1,4 @@
 import css from './AccountInfo.module.css';
-import myPhoto from '../img/my_photo.jpg';
 import sex from '../img/sex.png';
 import pet from '../img/pet.png';
 import { useStore } from 'effector-react';
@@ -10,6 +9,7 @@ export const AccountInfo = () => {
   const birthDate = new Date(account.birthDate);
   const now = new Date();
   let age = now.getFullYear() - birthDate.getFullYear();
+  const photo = ' https://academtest.ilink.dev/images/' + account.profileImage;
   if (
     now.setFullYear(birthDate.getFullYear()) <
     birthDate.setFullYear(birthDate.getFullYear())
@@ -20,7 +20,7 @@ export const AccountInfo = () => {
     <div className={css.accountCont}>
       <div className={css.wrap}>
         <div className={css.accountImg}>
-          <img src={account.profileImage} alt="" className={css.img} />
+          <img src={photo} alt="" className={css.img} />
         </div>
         <div className={css.accountInfo}>
           <div className={css.header}>

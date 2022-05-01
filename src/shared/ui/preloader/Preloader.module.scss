@@ -1,0 +1,102 @@
+.layer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  justify-content: center;
+  align-items: center;
+  .preloader {
+    display: flex;
+    width: 45px;
+    height: 45px;
+    position: relative;
+
+    .first,
+    .second,
+    .third {
+      display: flex;
+      width: 19px;
+      height: 19px;
+      border-radius: 3px;
+      background-color: #c7c9f2;
+      position: absolute;
+      animation-name: first-box;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+    .second {
+      background-color: #8a8eeb;
+      animation-name: second-box;
+    }
+    .third {
+      background-color: #585cc6;
+      animation-name: third-box;
+    }
+  }
+}
+@keyframes first-box {
+  0% {
+    top: 0px;
+    left: 0px;
+  }
+  25% {
+    top: 0px;
+    left: 25px;
+  }
+  50% {
+    top: 25px;
+    left: 25px;
+  }
+  75% {
+    top: 25px;
+    left: 0px;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+  }
+}
+@keyframes second-box {
+  0% {
+    top: 0px;
+    left: 25px;
+  }
+  25% {
+    top: 25px;
+    left: 25px;
+  }
+  50% {
+    top: 25px;
+    left: 0px;
+  }
+  75% {
+    top: 0px;
+    left: 0px;
+  }
+  100% {
+    top: 0px;
+    left: 25px;
+  }
+}
+@keyframes third-box {
+  0% {
+    top: 25px;
+    left: 0px;
+  }
+  25% {
+    top: 0px;
+    left: 0px;
+  }
+  50% {
+    top: 0px;
+    left: 25px;
+  }
+  75% {
+    top: 25px;
+    left: 25px;
+  }
+  100% {
+    top: 25px;
+    left: 0px;
+  }
+}

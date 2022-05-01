@@ -7,7 +7,7 @@ import imgError from './img/error.png';
 type toastPropsType = {
   closeToast: () => void;
   error: string | null;
-  text: string;
+  text: string | null;
 };
 
 export const Toast: React.FC<toastPropsType> = ({

@@ -1,9 +1,9 @@
 import css from './LoginForm.module.css';
-import { ChangeEvent, useState, useEffect } from 'react';
+import { ChangeEvent, useState, KeyboardEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { emailRegExp as loginRegExp } from 'shared/regexp/emailRegexp';
 import { passwordRegExp } from 'shared/regexp/passwordRegExp';
-import { createEffect, createEvent, forward } from 'effector';
+import { createEffect } from 'effector';
 
 type LoginFormPropsType = {
   accountErrorSetter: (text: string) => void;
@@ -59,21 +59,23 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `email=${login}&password=${password}`,
     })
+      .then((res) => res.text())
+      .then((res) => JSON.parse(res))
       .then((res) => {
+        console.log(res);
         if (res.status === 400) {
           accountErrorSetter('Неверный пароль!');
         }
         if (res.status === 500) {
           accountErrorSetter('Данный пользователь не зарегистрирован!');
         }
-        return res.text();
-      })
-      .then((res) => JSON.parse(res))
-      .then((res) => {
-        localStorage.setItem('accessToken', res.accessToken);
+        if (res.accessToken) {
+          localStorage.setItem('accessToken', res.accessToken);
+          document.location = '/ilink-test/profile';
+        }
       })
       .catch((er) => console.error('Ошибка!!!', er));
-    document.location = '/ilink-test/profile';
+
     return resp;
   });
 
@@ -82,6 +84,12 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
     setPassword('');
     fetchAccessTokenFX();
     console.log(localStorage.getItem('accessToken'));
+  };
+
+  const onKeyEntry = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === 'Enter') {
+      entryButtonClick();
+    }
   };
 
   return (
@@ -129,6 +137,7 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
           onChange={passwordHandler}
           value={password}
           onBlur={passBlurHandler}
+          onKeyDown={onKeyEntry}
         />
         <div
           className={passwordHide ? css.hide : css.show}

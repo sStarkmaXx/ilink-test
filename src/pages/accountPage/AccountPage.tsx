@@ -9,8 +9,11 @@ import vector from './img/vector.png';
 import css from './AccountPage.module.scss';
 import { accountModel } from './accountModel';
 import { commentsModel } from '../../entities/comments/comments';
+import { useStore } from 'effector-react';
+import { Preloader } from 'shared/ui/preloader/Preloader';
 
 export const AccountPage = () => {
+  const isLoading = useStore(accountModel.$isLoading);
   useEffect(() => {
     accountModel.getAccount();
     commentsModel.getComments();
@@ -38,16 +41,28 @@ export const AccountPage = () => {
         className={css.accountPage}
         style={{ backgroundImage: `url(${vector})` }}
       >
-        <Header type={'accountPageHeader'} />
-        <div className={css.greetings}>
-          Добро пожаловать <br></br>в академию!
-        </div>
-        <AccountInfo />
-        <Carousel openForm={openForm} />
-        <Footer />
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          <>
+            <Header type={'accountPageHeader'} />
+            <div className={css.greetings}>
+              Добро пожаловать <br></br>в академию!
+            </div>
+            <AccountInfo />
+            <Carousel openForm={openForm} />
+            <Footer />
+          </>
+        )}
       </div>
       {formState && <CommentForm closeForm={closeForm} showToast={showToast} />}
-      {toast && <Toast closeToast={closeToast} error={null} text={''} />}
+      {toast && (
+        <Toast
+          closeToast={closeToast}
+          error={null}
+          text={'Спасибо за отзыв о нашей компании!'}
+        />
+      )}
     </>
   );
 };

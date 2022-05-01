@@ -1,3 +1,4 @@
+import { photoModel } from '../photo/photo';
 import {
   createEffect,
   createStore,
@@ -6,7 +7,8 @@ import {
   sample,
 } from 'effector';
 
-type commentStatusType = 'onCheck';
+type commentStatusType = string;
+//'onCheck';
 
 export type commentType = {
   authorImage: string;
@@ -35,7 +37,7 @@ const getCommentsFX = createEffect(async () => {
   })
     .then((res) => res.text())
     .then((res) => JSON.parse(res));
-  console.log(response);
+  //console.log(response);
   return response;
 });
 
@@ -86,6 +88,15 @@ forward({
   to: $newComment,
 });
 
+const $sendCommentError = createStore<string | null>(null);
+const setError = createEvent<string | null>();
+
+sample({
+  clock: setError,
+  fn: (clock) => clock,
+  target: $sendCommentError,
+});
+
 const sendCommentFX = createEffect(async (comment: newCommentType) => {
   let body =
     'authorName=' +
@@ -100,7 +111,6 @@ const sendCommentFX = createEffect(async (comment: newCommentType) => {
     comment.captchaValue;
   const url = 'https://academtest.ilink.dev/reviews/create';
   console.log(comment);
-  debugger;
   const response = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -111,6 +121,19 @@ const sendCommentFX = createEffect(async (comment: newCommentType) => {
       console.log(res);
       return JSON.parse(res);
     });
+  if (response.status) {
+    if (response.status === 400) {
+      console.log(response.status);
+      setError('Вы ввели не верный код.');
+    } else if (response.status === 200) {
+      setError(null);
+    }
+  }
+  if (photoModel.$photo !== null) {
+    photoModel.setCommentId(response.id);
+  }
+
+  //setError(null);
   return response;
 });
 
@@ -126,9 +149,14 @@ forward({
   to: getCommentsFX,
 });
 
+const $sending = sendCommentFX.pending;
+
 export const commentsModel = {
   $comments,
   getComments,
   setNewComment,
   $newComment,
+  $sending,
+  $sendCommentError,
+  setError,
 };
