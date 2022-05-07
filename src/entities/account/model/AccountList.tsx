@@ -4,6 +4,10 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { Account, AccountType } from '../ui/Account';
 import css from './AccountList.module.scss';
 import drDown from './img/Arrow - Down 2.png';
+import { accountsModel } from './accountsModel';
+import { useStore } from 'effector-react';
+import { accountType } from 'pages/accountPage/accountModel';
+import { AccountSkeleton } from '../ui/accountSkeleton/AccountSkeleton';
 
 type AccountListPropsType = {
   filteredAccounts: AccountType[];
@@ -12,15 +16,17 @@ type AccountListPropsType = {
 };
 
 export const AccountList: React.FC<AccountListPropsType> = ({
-  filteredAccounts,
   changeFilter,
   accountFilter,
 }) => {
+  const filteredAccounts = useStore(accountsModel.$accounts);
+  useEffect(() => accountsModel.getAccounts(), []);
+  const isLoading = useStore(accountsModel.$loadingAccounts);
   const step = 6;
   const [allPages, setAllPages] = useState<number>(0);
   const [backAllPages, setBackAllPages] = useState<number>(0);
   const [startIndex, setStartIndex] = useState<number>(0);
-  const [accountsForPage, setAccountsForPage] = useState<AccountType[]>([]);
+  const [accountsForPage, setAccountsForPage] = useState<accountType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const accountsForPageFilter = () => {
@@ -143,7 +149,18 @@ export const AccountList: React.FC<AccountListPropsType> = ({
           <span>КРАТКАЯ ИНФОРМАЦИЯ</span>
           <span>СТАТУС</span>
         </div>
-        {acc}
+        {isLoading ? (
+          <>
+            <AccountSkeleton />
+            <AccountSkeleton />
+            <AccountSkeleton />
+            <AccountSkeleton />
+            <AccountSkeleton />
+            <AccountSkeleton />
+          </>
+        ) : (
+          acc
+        )}
       </div>
       <div className={css.pagination}>
         <NavLink

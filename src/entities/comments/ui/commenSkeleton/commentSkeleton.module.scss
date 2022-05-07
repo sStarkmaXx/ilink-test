@@ -1,0 +1,21 @@
+.gradient {
+  display: flex;
+  width: 288px;
+  height: 374px;
+  background: linear-gradient(
+    89.87deg,
+    #e0e0e0 17.61%,
+    rgba(224, 224, 224, 0) 48.66%,
+    #e0e0e0 84.11%
+  );
+  opacity: 0.2;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+@media (min-width: 921px) {
+  .gradient {
+    width: 519px;
+    height: 363px;
+    margin-bottom: 24px;
+  }
+}

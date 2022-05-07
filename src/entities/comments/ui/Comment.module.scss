@@ -58,6 +58,7 @@
 
   .commentText {
     display: flex;
+    width: 100%;
     font-family: 'Gilroy';
     font-style: normal;
     font-weight: 400;
@@ -65,6 +66,7 @@
     line-height: 20px;
     color: #333333;
     margin-bottom: 24px;
+    word-wrap: break-word;
   }
   .footer {
     display: flex;

@@ -2,7 +2,7 @@ import { EditCommentsPage } from 'pages/editCommentsPage/EditCommentsPage';
 import { useState } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import { Toast } from 'shared/ui/toast/Toast';
-import { commentType } from '../comments';
+import { commentType, commentsModel } from '../comments';
 import css from './Comment.module.scss';
 import ava from './img/avatar.png';
 
@@ -42,6 +42,10 @@ export const Comment: React.FC<CommentPropsType> = ({
   };
   const photo = ' https://academtest.ilink.dev/images/' + comment.authorImage;
 
+  const selectCommentFN = () => {
+    commentsModel.setSelectComment(comment.id);
+  };
+
   return (
     <div className={css.comment} data-style={dataStyle}>
       <div className={css.header}>
@@ -73,7 +77,7 @@ export const Comment: React.FC<CommentPropsType> = ({
             </div>
             <NavLink
               to={`${comment.id}/editComment`}
-              onClick={() => selecter(comment.id)}
+              onClick={selectCommentFN}
             ></NavLink>
           </>
         )}

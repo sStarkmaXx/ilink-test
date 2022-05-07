@@ -1,3 +1,4 @@
+import { accountType } from 'pages/accountPage/accountModel';
 import css from './Account.module.scss';
 
 type StatusType = 'Обучается' | 'Закончил' | 'Отчислен' | null;
@@ -12,21 +13,27 @@ export type AccountType = {
 };
 
 type AccountPropsType = {
-  account: AccountType;
+  account: accountType;
 };
 
 export const Account: React.FC<AccountPropsType> = ({ account }) => {
+  const photo = ' https://academtest.ilink.dev/images/' + account.profileImage;
   return (
     <div className={css.account}>
       <div className={css.accountGroup}>
-        <div className={css.photo}>{account.photo}</div>
+        <img src={photo} />
         <span>
-          {account.name} {account.lastName}
+          {account.firstName} {account.lastName}
         </span>
       </div>
-      <div className={css.info}>{account.info}</div>
+
+      <div className={css.info}>{account.aboutMe}</div>
       <div className={css.status}>
-        <span data-style={account.status}>{account.status}</span>
+        <span data-style={account.academyStatus}>
+          {account.academyStatus === 'studies'
+            ? 'Обучается'
+            : 'не понятный статус)'}
+        </span>
       </div>
     </div>
   );

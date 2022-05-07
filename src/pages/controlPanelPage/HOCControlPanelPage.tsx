@@ -2,7 +2,6 @@ import { Route, Routes } from 'react-router-dom';
 import dataEmpty from './img/Group 137336586.png';
 import { AccountList } from '../../entities/account/model/AccountList';
 import { useState } from 'react';
-import { AccountType } from '../../entities/account/ui/Account';
 import { accounts } from 'entities/account/model/accounts';
 import { ControlPanelPage } from './ControlPanelPage';
 import { CommentList } from 'entities/comments/ui/CommentList';
@@ -10,6 +9,7 @@ import { CommentStatusType } from 'entities/comments/ui/Comment';
 import { EditProfilePage } from 'pages/editProfilePage/EditProfilePage';
 import { useStore } from 'effector-react';
 import { commentsModel, commentType } from 'entities/comments/comments';
+import { AccountType } from 'entities/account/ui/Account';
 
 export type AccountFilterType = string;
 //'Все' | 'Обучается' | 'Закончил' | 'Отчислен';
@@ -102,6 +102,7 @@ export const HOCControlPanelPage = () => {
   const [selectCom, setSelectCom] = useState<commentType>();
 
   const selecter = (id: string) => {
+    debugger;
     setSelectCom(filteredComments.find((com) => com.id === id));
     console.log(id);
   };

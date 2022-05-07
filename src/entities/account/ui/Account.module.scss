@@ -26,22 +26,21 @@
   font-size: 12px;
   line-height: 15px;
   color: #464e5f;
-  .photo {
+  > img {
     display: flex;
     width: 20px;
     height: 20px;
     border-radius: 2px;
-    border: #464e5f 1px solid;
     box-sizing: border-box;
     margin-right: 8px;
-    justify-content: center;
-    align-items: center;
+    object-fit: cover;
   }
 }
+
 .info {
-  width: 56%;
+  min-width: 500px;
   padding: 19px 50px 19px 0;
-  overflow: hidden;
+
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
@@ -63,7 +62,7 @@
     font-weight: 600;
     font-size: 14px;
     line-height: 17px;
-    &[data-style='Обучается'] {
+    &[data-style='studies'] {
       background-color: rgba(240, 249, 237, 1);
       color: rgba(97, 191, 74, 1);
     }
@@ -86,12 +85,13 @@
     padding-left: 24px;
     font-size: 14px;
     line-height: 17px;
-    .photo {
+    > img {
       width: 40px;
       height: 40px;
       margin-right: 12px;
     }
   }
+
   .info {
     width: 56%;
     overflow: hidden;

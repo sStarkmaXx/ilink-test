@@ -6,6 +6,7 @@ import { Comment } from './Comment';
 import { CommentFilterType } from 'pages/controlPanelPage/HOCControlPanelPage';
 import { commentType, commentsModel } from '../comments';
 import { useStore } from 'effector-react';
+import { CommentSkeleton } from './commenSkeleton/CommentSkeleton';
 
 type CommentListPropsType = {
   filteredComments: commentType[];
@@ -27,6 +28,7 @@ export const CommentList: React.FC<CommentListPropsType> = ({
   selectCom,
 }) => {
   useEffect(() => commentsModel.getComments(), []);
+  const isLoading = useStore(commentsModel.$loadingComments);
   const comments = useStore(commentsModel.$comments);
   console.log(comments);
   const [openDropDown, setOpenDropDown] = useState<boolean>(false);
@@ -42,6 +44,7 @@ export const CommentList: React.FC<CommentListPropsType> = ({
 
   const comment = comments.map((com) => (
     <Comment
+      key={com.id}
       comment={com}
       changeCommentStatus={changeCommentStatus}
       changeCommentText={changeCommentText}
@@ -89,7 +92,18 @@ export const CommentList: React.FC<CommentListPropsType> = ({
           )}
         </div>
       </div>
-      <div className={css.commentList}>{comment}</div>
+      <div className={css.commentList}>
+        {isLoading ? (
+          <>
+            <CommentSkeleton />
+            <CommentSkeleton />
+            <CommentSkeleton />
+            <CommentSkeleton />
+          </>
+        ) : (
+          comment
+        )}
+      </div>
     </div>
   );
 };

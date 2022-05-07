@@ -161,6 +161,93 @@ forward({
 });
 
 const $sending = sendCommentFX.pending;
+const $loadingComments = getCommentsFX.pending;
+
+//--------------------------------------редактирование коммента--------------------------------------
+
+const $selectComment = createStore<commentType>({
+  authorImage: '',
+  authorName: '',
+  createdAt: '',
+  deletedAt: null,
+  id: '',
+  status: '',
+  text: '',
+  title: 'Test Review',
+  updatedAt: '',
+  version: 1,
+});
+
+const setSelectComment = createEvent<string>();
+
+sample({
+  clock: setSelectComment,
+  source: $comments,
+  fn: (source, clock) => {
+    const selectCom = source.find((com) => com.id === clock);
+    return selectCom!;
+  },
+  target: $selectComment,
+});
+
+//const $newCommentText = createStore<string>('');
+
+const sendEditedCommentFX = createEffect(async (text: string) => {
+  const id = $selectComment.getState().id;
+  debugger;
+  const url = `https://academtest.ilink.dev/reviews/updateInfo/${id}`;
+  // const body = new FormData();
+  // body.append('text', text);
+  const body = 'text=' + text;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      authorization: `${token}`,
+    },
+    body: body,
+  })
+    .then((res) => {
+      if (res.status === 401) {
+        document.location = '/ilink-test/';
+      }
+
+      return res.text();
+    })
+    .then((res) => {
+      console.log('редактирование отзыва', JSON.parse(res));
+      return JSON.parse(res);
+    });
+
+  //console.log(response);
+  return response;
+});
+
+const setNewCommentText = createEvent<string>();
+//const sendEditComment = createEvent<string>();
+
+// forward({
+//   from: setNewCommentText,
+//   to: $newCommentText,
+// });
+
+sample({
+  clock: setNewCommentText,
+  fn: (clock) => clock,
+  target: sendEditedCommentFX,
+});
+
+// forward({
+//   from: $editComment,
+//   to: sendEditComment,
+// });
+
+// sample({
+//   clock: sendEditComment,
+//   source: $editComment,
+//   fn: (source) => source,
+//   target: sendEditedCommentFX,
+// });
 
 export const commentsModel = {
   $comments,
@@ -170,4 +257,8 @@ export const commentsModel = {
   $sending,
   $sendCommentError,
   setError,
+  $loadingComments,
+  setSelectComment,
+  $selectComment,
+  setNewCommentText,
 };

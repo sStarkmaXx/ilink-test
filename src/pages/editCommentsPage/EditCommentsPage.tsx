@@ -2,6 +2,8 @@ import css from './EditCommentsPage.module.scss';
 import { ChangeEvent, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { commentType } from 'entities/comments/comments';
+import { useStore } from 'effector-react';
+import { commentsModel } from '../../entities/comments/comments';
 
 type EditCommentsPagePropsType = {
   comment: commentType;
@@ -10,11 +12,11 @@ type EditCommentsPagePropsType = {
 };
 
 export const EditCommentsPage: React.FC<EditCommentsPagePropsType> = ({
-  comment,
   changeCommentText,
   showToast,
 }) => {
-  const [text, setText] = useState<string>(comment.text);
+  const selectComment = useStore(commentsModel.$selectComment);
+  const [text, setText] = useState<string>(selectComment.text);
   const changeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.currentTarget.value);
   };
@@ -22,7 +24,7 @@ export const EditCommentsPage: React.FC<EditCommentsPagePropsType> = ({
   const disabled = text.trim() === '';
   const onClickChangeComText = () => {
     if (!disabled) {
-      changeCommentText(text);
+      commentsModel.setNewCommentText(text);
       showToast();
     }
   };
