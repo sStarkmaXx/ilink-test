@@ -1,18 +1,14 @@
 import css from './EditCommentsPage.module.scss';
 import { ChangeEvent, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { commentType } from 'entities/comments/comments';
 import { useStore } from 'effector-react';
 import { commentsModel } from '../../entities/comments/comments';
 
 type EditCommentsPagePropsType = {
-  comment: commentType;
-  changeCommentText: (newText: string) => void;
   showToast: () => void;
 };
 
 export const EditCommentsPage: React.FC<EditCommentsPagePropsType> = ({
-  changeCommentText,
   showToast,
 }) => {
   const selectComment = useStore(commentsModel.$selectComment);

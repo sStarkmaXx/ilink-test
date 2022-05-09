@@ -1,6 +1,7 @@
 import { modalWindowMadel } from './../modalWindow/modalWindowModel';
 import { toastModel } from '../../shared/ui/toast/toastModel';
 import { commentsModel } from '../comments/comments';
+import { accountModel } from '../../pages/accountPage/accountModel';
 import {
   createEvent,
   createStore,
@@ -87,9 +88,52 @@ sample({
   target: $commentId,
 });
 
+//----------------------------------------newPhotoForProfile--------------------------------------------
+
+const accessToken = localStorage.getItem('accessToken');
+const token = 'Bearer' + ' ' + accessToken;
+const updateProfilePhotoFX = createEffect(async () => {
+  const url = 'https://academtest.ilink.dev/user/updatePhoto';
+  const formData = new FormData();
+  const photo = $photo.getState();
+  if (photo) {
+    formData.append('profileImage', photo);
+  }
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      authorization: `${token}`,
+    },
+    body: formData,
+  })
+    .then((res) => {
+      if (res.status === 401) {
+        document.location = '/ilink-test/';
+      }
+      return res.text();
+    })
+    .then((res) => JSON.parse(res));
+
+  console.log('обнова фотки', response);
+  return response;
+});
+
+const updateProfilePhoto = createEvent();
+
+forward({
+  from: updateProfilePhoto,
+  to: updateProfilePhotoFX,
+});
+
+forward({
+  from: updateProfilePhotoFX.doneData,
+  to: accountModel.getAccount,
+});
+
 export const photoModel = {
   $photo,
   setPhoto,
   sendPhotoFX,
   setCommentId,
+  updateProfilePhoto,
 };

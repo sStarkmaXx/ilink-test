@@ -2,8 +2,10 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 100%;
+  min-height: 100%;
   box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
   .button {
     width: 288px;
     height: 42px;
@@ -42,8 +44,8 @@
     .accountGroup {
       display: flex;
       margin-bottom: 20px;
+      position: relative;
       .ava {
-        background-image: url('./img/my_photo.jpg');
         width: 64px;
         height: 64px;
         border-radius: 2px;
@@ -52,37 +54,22 @@
         background-repeat: no-repeat;
         background-size: cover;
         position: relative;
-
-        &:hover::after {
-          content: '';
-          display: flex;
-          height: 180px;
-          width: 180px;
-          box-sizing: border-box;
-          background-image: url('./img/my_photo.jpg');
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: cover;
-          position: absolute;
-          z-index: 12;
-          border-radius: 2px;
-          top: 93px;
-          right: -68px;
-        }
-        &:hover::before {
-          content: '';
-          display: flex;
-          height: 204px;
-          width: 204px;
-          box-sizing: border-box;
-          position: absolute;
-          z-index: 11;
-          border-radius: 2px;
-          top: 81px;
-          right: -81px;
-          background-color: #ffffff;
-          box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.16);
-        }
+      }
+      .bigAva {
+        display: flex;
+        height: 204px;
+        width: 204px;
+        box-sizing: border-box;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        z-index: 12;
+        border-radius: 2px;
+        top: 80px;
+        right: 177px;
+        box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.16);
+        border: 12px solid #ffffff;
       }
       .text {
         display: flex;

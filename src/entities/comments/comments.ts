@@ -9,8 +9,7 @@ import {
   sample,
 } from 'effector';
 
-type commentStatusType = string;
-//'onCheck';
+export type commentStatusType = 'onCheck' | 'approved' | 'declined';
 
 export type commentType = {
   authorImage: string;
@@ -171,7 +170,7 @@ const $selectComment = createStore<commentType>({
   createdAt: '',
   deletedAt: null,
   id: '',
-  status: '',
+  status: 'onCheck',
   text: '',
   title: 'Test Review',
   updatedAt: '',
@@ -190,14 +189,10 @@ sample({
   target: $selectComment,
 });
 
-//const $newCommentText = createStore<string>('');
-
 const sendEditedCommentFX = createEffect(async (text: string) => {
   const id = $selectComment.getState().id;
   debugger;
   const url = `https://academtest.ilink.dev/reviews/updateInfo/${id}`;
-  // const body = new FormData();
-  // body.append('text', text);
   const body = 'text=' + text;
   const response = await fetch(url, {
     method: 'POST',
@@ -219,17 +214,10 @@ const sendEditedCommentFX = createEffect(async (text: string) => {
       return JSON.parse(res);
     });
 
-  //console.log(response);
   return response;
 });
 
 const setNewCommentText = createEvent<string>();
-//const sendEditComment = createEvent<string>();
-
-// forward({
-//   from: setNewCommentText,
-//   to: $newCommentText,
-// });
 
 sample({
   clock: setNewCommentText,
@@ -237,17 +225,55 @@ sample({
   target: sendEditedCommentFX,
 });
 
-// forward({
-//   from: $editComment,
-//   to: sendEditComment,
-// });
+forward({
+  from: sendEditedCommentFX.doneData,
+  to: getCommentsFX,
+});
 
-// sample({
-//   clock: sendEditComment,
-//   source: $editComment,
-//   fn: (source) => source,
-//   target: sendEditedCommentFX,
-// });
+//-----------------------------------------------------------отклонение, подтверждение отзыва---------------------------------
+
+const setCommentStatusFX = createEffect(async (status: commentStatusType) => {
+  const id = $selectComment.getState().id;
+  const url = `https://academtest.ilink.dev/reviews/updateStatus/${id}`;
+  const body = 'status=' + status;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      authorization: `${token}`,
+    },
+    body: body,
+  })
+    .then((res) => {
+      if (res.status === 401) {
+        document.location = '/ilink-test/';
+      }
+
+      return res.text();
+    })
+    .then((res) => {
+      console.log('смена статуса отзыва', JSON.parse(res));
+      return JSON.parse(res);
+    });
+  return response;
+});
+
+const setCommentStatus = createEvent<commentStatusType>();
+
+forward({
+  from: setCommentStatus,
+  to: setCommentStatusFX,
+});
+
+sample({
+  clock: setCommentStatus,
+  fn: (clock) => clock,
+  target: setCommentStatusFX,
+});
+forward({
+  from: setCommentStatusFX.doneData,
+  to: getCommentsFX,
+});
 
 export const commentsModel = {
   $comments,
@@ -261,4 +287,5 @@ export const commentsModel = {
   setSelectComment,
   $selectComment,
   setNewCommentText,
+  setCommentStatus,
 };

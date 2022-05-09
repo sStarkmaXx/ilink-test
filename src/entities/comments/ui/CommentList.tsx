@@ -1,68 +1,100 @@
 import { useState, useEffect } from 'react';
-import { CommentStatusType } from './Comment';
 import css from './CommentList.module.scss';
 import drDown from './img/Arrow - Down 2.png';
 import { Comment } from './Comment';
-import { CommentFilterType } from 'pages/controlPanelPage/HOCControlPanelPage';
-import { commentType, commentsModel } from '../comments';
+import { commentType, commentsModel, commentStatusType } from '../comments';
 import { useStore } from 'effector-react';
 import { CommentSkeleton } from './commenSkeleton/CommentSkeleton';
 
-type CommentListPropsType = {
-  filteredComments: commentType[];
-  changeCommentFilter: (commentFilter: CommentFilterType) => void;
-  commentFilter: CommentFilterType;
-  changeCommentStatus: (id: string, status: CommentStatusType) => void;
-  changeCommentText: (newText: string) => void;
-  selecter: (id: string) => void;
-  selectCom: commentType;
-};
-
-export const CommentList: React.FC<CommentListPropsType> = ({
-  filteredComments,
-  changeCommentFilter,
-  commentFilter,
-  changeCommentStatus,
-  changeCommentText,
-  selecter,
-  selectCom,
-}) => {
-  useEffect(() => commentsModel.getComments(), []);
+export const CommentList = () => {
+  useEffect(() => {
+    commentsModel.getComments();
+    filterComments('onCheck');
+  }, []);
   const isLoading = useStore(commentsModel.$loadingComments);
   const comments = useStore(commentsModel.$comments);
-  console.log(comments);
-  const [openDropDown, setOpenDropDown] = useState<boolean>(false);
-  console.log(filteredComments);
-  const showDropDown = () => {
-    setOpenDropDown(true);
-  };
 
-  const setFilter = (commentFilter: CommentFilterType) => {
+  const setFilter = (commentFilter: commentStatusType) => {
     changeCommentFilter(commentFilter);
     setOpenDropDown(false);
   };
 
-  const comment = comments.map((com) => (
-    <Comment
-      key={com.id}
-      comment={com}
-      changeCommentStatus={changeCommentStatus}
-      changeCommentText={changeCommentText}
-      selecter={selecter}
-      selectCom={selectCom}
-    />
+  //---------------------------------------------------------commentFilter--------------------------------------------
+
+  const [filteredComments, setFilteredComments] =
+    useState<commentType[]>(comments);
+  const [commentFilter, setCommentFilter] =
+    useState<commentStatusType>('onCheck');
+
+  const changeCommentFilter = (filter: commentStatusType) => {
+    setCommentFilter(filter);
+    filterComments(filter);
+  };
+
+  const sortByTime = (a: commentType, b: commentType) => {
+    return Date.parse(b.createdAt) - Date.parse(a.createdAt);
+  };
+
+  const filterComments = (filter: commentStatusType) => {
+    //let pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
+    let admittedComments = [...filteredComments]
+      .filter((com) => com.status === 'approved')
+      .sort((a, b) => sortByTime(a, b));
+    let rejectedComments = [...filteredComments]
+      .filter((com) => com.status === 'declined')
+      .sort((a, b) => sortByTime(a, b));
+    let onRreviewComments = [...filteredComments]
+      .filter((com) => com.status === 'onCheck')
+      .sort((a, b) => sortByTime(a, b));
+
+    let sortedComments = [];
+    if (filter === 'onCheck') {
+      setFilteredComments(filteredComments);
+    }
+    if (filter === 'onCheck') {
+      sortedComments = [
+        ...onRreviewComments,
+        ...admittedComments,
+        ...rejectedComments,
+      ];
+      setFilteredComments(sortedComments);
+    }
+    if (filter === 'approved') {
+      sortedComments = [
+        ...admittedComments,
+        ...onRreviewComments,
+        ...rejectedComments,
+      ];
+      setFilteredComments(sortedComments);
+    }
+    if (filter === 'declined') {
+      sortedComments = [
+        ...rejectedComments,
+        ...onRreviewComments,
+        ...admittedComments,
+      ];
+      setFilteredComments(sortedComments);
+    }
+  };
+
+  const comment = filteredComments.map((com) => (
+    <Comment key={com.id} comment={com} />
   ));
+
+  //-------------------------------dropDawn---------------------------------------------------
+  const [openDropDown, setOpenDropDown] = useState<boolean>(false);
+  const showDropDown = () => {
+    setOpenDropDown(true);
+  };
+
   let displayValue = '';
-  if (commentFilter === 'onCheck') {
-    displayValue = 'onCheck';
-  }
-  if (commentFilter === 'Допущен') {
+  if (commentFilter === 'approved') {
     displayValue = 'Сначала опубликованные';
   }
-  if (commentFilter === 'Отклонен') {
+  if (commentFilter === 'declined') {
     displayValue = 'Сначала отклоненные';
   }
-  if (commentFilter === 'На проверке') {
+  if (commentFilter === 'onCheck') {
     displayValue = 'Сначала неопубликованные';
   }
 
@@ -78,14 +110,13 @@ export const CommentList: React.FC<CommentListPropsType> = ({
           </div>
           {openDropDown && (
             <ul>
-              <li onClick={() => setFilter('onCheck')}>{'onCheck'}</li>
               <li onClick={() => setFilter('onCheck')}>
                 {'Сначала неопубликованные'}
               </li>
-              <li onClick={() => setFilter('Допущен')}>
+              <li onClick={() => setFilter('approved')}>
                 {'Сначала опубликованные'}
               </li>
-              <li onClick={() => setFilter('Отклонен')}>
+              <li onClick={() => setFilter('declined')}>
                 {'Сначала отклоненные'}
               </li>
             </ul>
