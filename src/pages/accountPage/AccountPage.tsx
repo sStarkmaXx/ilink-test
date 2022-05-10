@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { AccountInfo } from './accountInfo/AccountInfo';
 import { Carousel } from './carousel/Carousel';
 import { CommentForm } from 'components/commentForm/CommentForm';
@@ -16,6 +16,7 @@ import { toastModel } from '../../shared/ui/toast/toastModel';
 
 export const AccountPage = () => {
   const isLoading = useStore(accountModel.$isLoading);
+  const toastText = useStore(toastModel.$toast);
   useEffect(() => {
     accountModel.getAccount();
     commentsModel.getComments();
@@ -23,14 +24,10 @@ export const AccountPage = () => {
 
   const modalWindow = useStore(modalWindowMadel.$modalWindow);
   const toast = useStore(toastModel.$toast);
-  //const [toast, setShoeToast] = useState<boolean>(false);
-  const showToast = () => {
-    toastModel.showHideToast(true);
-    setTimeout(() => toastModel.showHideToast(false), 2000);
-  };
 
+  console.log('toast', toast);
   const closeToast = () => {
-    toastModel.showHideToast(false);
+    toastModel.showHideToast(null);
   };
 
   return (
@@ -53,13 +50,9 @@ export const AccountPage = () => {
           </>
         )}
       </div>
-      {modalWindow && <CommentForm showToast={showToast} />}
+      {modalWindow && <CommentForm />}
       {toast && (
-        <Toast
-          closeToast={closeToast}
-          error={null}
-          text={'Спасибо за отзыв о нашей компании!'}
-        />
+        <Toast closeToast={closeToast} error={false} text={toastText} />
       )}
     </>
   );

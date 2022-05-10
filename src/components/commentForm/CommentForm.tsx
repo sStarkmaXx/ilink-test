@@ -13,11 +13,7 @@ import del from './img/Delete.png';
 import { nameLastNameRegEx } from '../../shared/regexp/nameLastNameRegExp';
 import { modalWindowMadel } from '../../entities/modalWindow/modalWindowModel';
 
-type commentFormPropsType = {
-  showToast: () => void;
-};
-
-export const CommentForm: React.FC<commentFormPropsType> = ({ showToast }) => {
+export const CommentForm = () => {
   useEffect(() => capchaModel.getCapcha(), []);
 
   const closeModal = () => {
@@ -275,7 +271,7 @@ export const CommentForm: React.FC<commentFormPropsType> = ({ showToast }) => {
         <Toast closeToast={closeToast} error={error} text={errorText} />
       )} */}
       {sendError && (
-        <Toast closeToast={closeToast} error={sendError} text={sendError} />
+        <Toast closeToast={closeToast} error={true} text={sendError} />
       )}
     </div>
   );

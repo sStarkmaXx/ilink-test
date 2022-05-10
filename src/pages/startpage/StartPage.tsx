@@ -30,11 +30,7 @@ export const StartPage = () => {
         <LoginForm accountErrorSetter={accountErrorSetter} />
       </div>
       {accountError && (
-        <Toast
-          closeToast={closeToast}
-          error={accountError}
-          text={accountError}
-        />
+        <Toast closeToast={closeToast} error={true} text={accountError} />
       )}
       <Footer />
     </div>

@@ -135,14 +135,17 @@ const sendCommentFX = createEffect(async (comment: newCommentType) => {
       photoModel.setCommentId(response.id);
     } else {
       modalWindowMadel.showHideModal(false);
-      toastModel.showHideToast(true);
+      toastModel.showHideToast('Спасибо за отзыв о нашей компании!');
+      setTimeout(() => toastModel.showHideToast(null), 2000);
       setError(null);
     }
   } else if (response.status === 400) {
     setError('Вы ввели не верный код.');
+    setTimeout(() => setError(null), 2000);
     console.log('ошибка 400');
   } else {
     setError('Ошибка отправки комментария, попробуйте позже!');
+    setTimeout(() => setError(null), 2000);
   }
   return response;
 });
@@ -191,7 +194,7 @@ sample({
 
 const sendEditedCommentFX = createEffect(async (text: string) => {
   const id = $selectComment.getState().id;
-  debugger;
+
   const url = `https://academtest.ilink.dev/reviews/updateInfo/${id}`;
   const body = 'text=' + text;
   const response = await fetch(url, {
@@ -206,11 +209,21 @@ const sendEditedCommentFX = createEffect(async (text: string) => {
       if (res.status === 401) {
         document.location = '/ilink-test/';
       }
-
+      if (res.status >= 200 && res.status < 300) {
+        toastModel.setToastError(false);
+        toastModel.showHideToast('Отзыв успешно отредактирован!');
+        setTimeout(() => toastModel.showHideToast(null), 2000);
+      }
+      if (res.status >= 300 && res.status < 500) {
+        toastModel.showHideToast('Ошибка, попробуйте позже!');
+        setTimeout(() => toastModel.showHideToast(null), 2000);
+        toastModel.setToastError(true);
+      }
+      console.log('редактирование отзыва', res);
       return res.text();
     })
     .then((res) => {
-      console.log('редактирование отзыва', JSON.parse(res));
+      //console.log('редактирование отзыва', res);
       return JSON.parse(res);
     });
 
@@ -229,7 +242,7 @@ forward({
   from: sendEditedCommentFX.doneData,
   to: getCommentsFX,
 });
-
+const $updatingComment = sendEditedCommentFX.pending;
 //-----------------------------------------------------------отклонение, подтверждение отзыва---------------------------------
 
 const setCommentStatusFX = createEffect(async (status: commentStatusType) => {
@@ -247,6 +260,16 @@ const setCommentStatusFX = createEffect(async (status: commentStatusType) => {
     .then((res) => {
       if (res.status === 401) {
         document.location = '/ilink-test/';
+      }
+      if (res.status >= 200 && res.status < 300) {
+        toastModel.setToastError(false);
+        toastModel.showHideToast('Статус отыва успешно изменен!');
+        setTimeout(() => toastModel.showHideToast(null), 2000);
+      }
+      if (res.status >= 300 && res.status < 500) {
+        toastModel.showHideToast('Ошибка, попробуйте позже!');
+        setTimeout(() => toastModel.showHideToast(null), 2000);
+        toastModel.setToastError(true);
       }
 
       return res.text();
@@ -288,4 +311,5 @@ export const commentsModel = {
   $selectComment,
   setNewCommentText,
   setCommentStatus,
+  $updatingComment,
 };

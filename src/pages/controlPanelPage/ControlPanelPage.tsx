@@ -1,9 +1,17 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { Footer } from 'shared/ui/footer/Footer';
 import { Header } from 'shared/ui/header/Header';
+import { Toast } from 'shared/ui/toast/Toast';
 import css from './ControlPanelPage.module.scss';
+import { useStore } from 'effector-react';
+import { toastModel } from '../../shared/ui/toast/toastModel';
 
 export const ControlPanelPage = () => {
+  const toast = useStore(toastModel.$toast);
+  const toastError = useStore(toastModel.$toastError);
+  const closeToast = () => {
+    toastModel.showHideToast(null);
+  };
   return (
     <div className={css.controlPanelPage}>
       <Header type={'controlPanelHeader'} />
@@ -38,6 +46,9 @@ export const ControlPanelPage = () => {
       </div>
 
       <Footer />
+      {toast && (
+        <Toast closeToast={closeToast} error={toastError} text={toast} />
+      )}
     </div>
   );
 };

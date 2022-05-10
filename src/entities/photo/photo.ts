@@ -35,12 +35,20 @@ const sendPhotoFX = createEffect(async (comID: string) => {
     body: formData,
   })
     .then((res) => {
-      if (res.status >= 300) {
-        setSendPhotoError('Ошибка отправки картинки!');
-      } else {
+      if (res.status === 401) {
+        document.location = '/ilink-test/';
+      }
+      if (res.status >= 200 && res.status < 300) {
         modalWindowMadel.showHideModal(false);
-        toastModel.showHideToast(true);
         commentsModel.getComments();
+        toastModel.setToastError(false);
+        toastModel.showHideToast('Спасибо за отзыв о нашей компании!');
+        setTimeout(() => toastModel.showHideToast(null), 2000);
+      }
+      if (res.status >= 300 && res.status < 500) {
+        toastModel.showHideToast('Ошибка отправки фотографии!!');
+        setTimeout(() => toastModel.showHideToast(null), 2000);
+        toastModel.setToastError(true);
       }
       return res.text();
     })
@@ -109,6 +117,16 @@ const updateProfilePhotoFX = createEffect(async () => {
     .then((res) => {
       if (res.status === 401) {
         document.location = '/ilink-test/';
+      }
+      if (res.status >= 200 && res.status < 300) {
+        toastModel.setToastError(false);
+        toastModel.showHideToast('Фотография успешно обновлена!');
+        setTimeout(() => toastModel.showHideToast(null), 2000);
+      }
+      if (res.status >= 300 && res.status < 500) {
+        toastModel.showHideToast('Ошибка, попробуйте позже!');
+        setTimeout(() => toastModel.showHideToast(null), 2000);
+        toastModel.setToastError(true);
       }
       return res.text();
     })

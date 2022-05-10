@@ -5,6 +5,7 @@ import {
   forward,
   sample,
 } from 'effector';
+import { toastModel } from 'shared/ui/toast/toastModel';
 
 export type genderType = 'male' | 'female';
 
@@ -109,68 +110,29 @@ export type newProfileInfoType = {
 
 const updateProfileInfoFX = createEffect(
   async (newProfileInfo: newProfileInfoType) => {
-    debugger;
     const url = 'https://academtest.ilink.dev/user/updateInfo';
-    // const body = new FormData();
-    // body.append('firstName', newProfileInfo.firstName);
-    // body.append('lastName', newProfileInfo.lastName);
-    // body.append('birthDate', newProfileInfo.birthDate);
-    // body.append('cityOfResidence', newProfileInfo.cityOfResidence);
-    // body.append('gender', newProfileInfo.gender);
-    // body.append('hasPet', newProfileInfo.hasPet.toString());
-    // body.append('smallAboutMe', newProfileInfo.smallAboutMe!);
-    // body.append('aboutMe', newProfileInfo.aboutMe);
-
-    // const body =
-    //   'firstName=' +
-    //   newProfileInfo.firstName +
-    //   '&lastName=' +
-    //   newProfileInfo.lastName +
-    //   '&birthDate=' +
-    //   newProfileInfo.birthDate +
-    //   '&cityOfResidence=' +
-    //   newProfileInfo.cityOfResidence +
-    //   '&gender=' +
-    //   newProfileInfo.gender +
-    //   '&hasPet=' +
-    //   newProfileInfo.hasPet +
-    //   '&smallAboutMe=' +
-    //   newProfileInfo.smallAboutMe +
-    //   '&aboutMe=' +
-    //   newProfileInfo.aboutMe;
-
-    const body = JSON.stringify({
-      firstName: 'Rick',
-      lastName: 'Stark',
-      birthDate: 'Mon May 09 2022',
-      cityOfResidence: 'бали',
-      gender: 'male',
-      hasPet: true,
-      smallAboutMe: 'test',
-      aboutMe: 'test',
-    });
+    const body = JSON.stringify(newProfileInfo);
     const response = await fetch(url, {
       method: 'POST',
       headers: {
+        'Content-type': 'application/json',
         authorization: `${token}`,
       },
-      // headers: {
-      //   'Content-Type': 'application/x-www-form-urlencoded',
-      //   authorization: `${token}`,
-      //   firstName: `${newProfileInfo.firstName}`,
-      //   lastName: `${newProfileInfo.lastName}`,
-      //   birthDate: `${newProfileInfo.birthDate}`,
-      //   cityOfResidence: `${newProfileInfo.cityOfResidence}`,
-      //   gender: `${newProfileInfo.gender}`,
-      //   hasPet: `${newProfileInfo.hasPet}`,
-      //   smallAboutMe: `${newProfileInfo.smallAboutMe}`,
-      //   aboutMe: `${newProfileInfo.aboutMe}`,
-      // },
       body: body,
     })
       .then((res) => {
         if (res.status === 401) {
           document.location = '/ilink-test/';
+        }
+        if (res.status >= 200 && res.status < 300) {
+          toastModel.setToastError(false);
+          toastModel.showHideToast('Информация успешно обновлена!');
+          setTimeout(() => toastModel.showHideToast(null), 2000);
+        }
+        if (res.status >= 300 && res.status < 500) {
+          toastModel.showHideToast('Ошибка, попробуйте позже!');
+          setTimeout(() => toastModel.showHideToast(null), 2000);
+          toastModel.setToastError(true);
         }
         return res.text();
       })

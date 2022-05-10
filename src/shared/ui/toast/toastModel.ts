@@ -1,21 +1,34 @@
 import { createEvent, createStore, forward, sample } from 'effector';
 
-const $toast = createStore<boolean>(false);
-const showHideToast = createEvent<boolean>();
+const $toast = createStore<null | string>(null);
 
-forward({
-  from: showHideToast,
-  to: $toast,
-});
+const showHideToast = createEvent<null | string>();
+
+const $toastError = createStore<boolean>(false);
+
+const setToastError = createEvent<boolean>();
+
+// forward({
+//   from: showHideToast,
+//   to: $toast,
+// });
 
 sample({
   clock: showHideToast,
-  source: showHideToast,
-  fn: (source) => source,
+
+  fn: (clock) => clock,
   target: $toast,
+});
+
+sample({
+  clock: setToastError,
+  fn: (clock) => clock,
+  target: $toastError,
 });
 
 export const toastModel = {
   $toast,
   showHideToast,
+  $toastError,
+  setToastError,
 };

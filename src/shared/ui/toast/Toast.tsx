@@ -6,7 +6,7 @@ import imgError from './img/error.png';
 
 type toastPropsType = {
   closeToast: () => void;
-  error: string | null;
+  error: boolean;
   text: string | null;
 };
 

@@ -32,14 +32,14 @@ export const ResetPasswordPage = () => {
       {(sendCode === 'success' && (
         <Toast
           closeToast={closeToast}
-          error={null}
+          error={false}
           text={'Код успешно отправлен!'}
         />
       )) ||
         (sendCode === 'error' && (
           <Toast
             closeToast={closeToast}
-            error={'Error'}
+            error={true}
             text={'Ошибка отправки кода!'}
           />
         ))}
