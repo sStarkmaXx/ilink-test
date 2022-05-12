@@ -30,9 +30,9 @@ const accessToken = localStorage.getItem('accessToken');
 const token = 'Bearer' + ' ' + accessToken;
 
 //-------------------------------------получаем все комменты----------------------------------
-const getCommentsFX = createEffect(async () => {
+const getCommentsFX = createEffect(() => {
   const url = 'https://academtest.ilink.dev/reviews/getAll';
-  const response = await fetch(url, {
+  const response = fetch(url, {
     method: 'GET',
     headers: { authorization: `${token}` },
   })
@@ -245,11 +245,11 @@ forward({
 const $updatingComment = sendEditedCommentFX.pending;
 //-----------------------------------------------------------отклонение, подтверждение отзыва---------------------------------
 
-const setCommentStatusFX = createEffect(async (status: commentStatusType) => {
+const setCommentStatusFX = createEffect((status: commentStatusType) => {
   const id = $selectComment.getState().id;
   const url = `https://academtest.ilink.dev/reviews/updateStatus/${id}`;
   const body = 'status=' + status;
-  const response = await fetch(url, {
+  const response = fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

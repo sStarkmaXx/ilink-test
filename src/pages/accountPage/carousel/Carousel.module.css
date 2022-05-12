@@ -127,6 +127,7 @@
   .commentWindow {
     max-width: 1062px;
     transform: translateX();
+    overflow: hidden;
   }
 
   .groupBtns {

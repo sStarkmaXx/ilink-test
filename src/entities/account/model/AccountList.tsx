@@ -1,27 +1,39 @@
-import { AccountFilterType } from 'pages/controlPanelPage/HOCControlPanelPage';
 import { MouseEvent, useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Account, AccountType } from '../ui/Account';
+import { Account } from '../ui/Account';
 import css from './AccountList.module.scss';
 import drDown from './img/Arrow - Down 2.png';
 import { accountsModel } from './accountsModel';
 import { useStore } from 'effector-react';
 import { accountType } from 'pages/accountPage/accountModel';
 import { AccountSkeleton } from '../ui/accountSkeleton/AccountSkeleton';
+import dataEmpty from '../../../pages/controlPanelPage/img/Group137336586.png';
 
-type AccountListPropsType = {
-  filteredAccounts: AccountType[];
-  changeFilter: (accountFilter: AccountFilterType) => void;
-  accountFilter: AccountFilterType;
-};
+export type AccountFilterType = string;
 
-export const AccountList: React.FC<AccountListPropsType> = ({
-  changeFilter,
-  accountFilter,
-}) => {
-  const filteredAccounts = useStore(accountsModel.$accounts);
+export const AccountList = () => {
+  const accounts = useStore(accountsModel.$accounts);
   useEffect(() => accountsModel.getAccounts(), []);
   const isLoading = useStore(accountsModel.$loadingAccounts);
+
+  //-----------------------------фильтр аккаунтов-----------------------------------------
+  const [accountFilter, setAccountFilter] = useState<AccountFilterType>('Все');
+  const [filteredAccounts, setFilteredAccounts] =
+    useState<accountType[]>(accounts);
+  const filterAccount = (filter: AccountFilterType) => {
+    if (filter === 'Все') {
+      setFilteredAccounts(accounts);
+    } else {
+      let filteredAccs = accounts.filter((acc) => acc.academyStatus === filter);
+      setFilteredAccounts(filteredAccs);
+    }
+  };
+  const changeAccountFilter = (filter: AccountFilterType) => {
+    setAccountFilter(filter);
+    filterAccount(filter);
+  };
+
+  //-----------------------------------------------------pagination--------------------------------------
   const step = 6;
   const [allPages, setAllPages] = useState<number>(0);
   const [backAllPages, setBackAllPages] = useState<number>(0);
@@ -118,7 +130,7 @@ export const AccountList: React.FC<AccountListPropsType> = ({
   };
 
   const setFilter = (accountFilter: AccountFilterType) => {
-    changeFilter(accountFilter);
+    changeAccountFilter(accountFilter);
     setOpenDropDown(false);
     toFirstPage();
   };
@@ -137,7 +149,7 @@ export const AccountList: React.FC<AccountListPropsType> = ({
             <ul>
               <li onClick={() => setFilter('Все')}>{'Все'}</li>
               <li onClick={() => setFilter('Отчислен')}>{'Отчислен'}</li>
-              <li onClick={() => setFilter('Обучается')}>{'Обучается'}</li>
+              <li onClick={() => setFilter('studies')}>{'Обучается'}</li>
               <li onClick={() => setFilter('Закончил')}>{'Закончил'}</li>
             </ul>
           )}
@@ -158,8 +170,10 @@ export const AccountList: React.FC<AccountListPropsType> = ({
             <AccountSkeleton />
             <AccountSkeleton />
           </>
-        ) : (
+        ) : filteredAccounts.length !== 0 ? (
           acc
+        ) : (
+          <img src={dataEmpty} alt="" />
         )}
       </div>
       <div className={css.pagination}>

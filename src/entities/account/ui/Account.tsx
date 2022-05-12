@@ -3,15 +3,6 @@ import css from './Account.module.scss';
 
 type StatusType = 'Обучается' | 'Закончил' | 'Отчислен' | null;
 
-export type AccountType = {
-  id: string;
-  name: string;
-  lastName: string;
-  photo: string;
-  info: string;
-  status: StatusType;
-};
-
 type AccountPropsType = {
   account: accountType;
 };

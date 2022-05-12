@@ -8,12 +8,16 @@ import { modalWindowMadel } from '../../../entities/modalWindow/modalWindowModel
 export const Carousel = () => {
   const comments = useStore(commentsModel.$comments);
   //console.log('коменты из карусели', comments.length);
+  const filteredComments = comments
+    .filter((com) => com.status === 'approved')
+    .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
+
   const showModal = () => {
     modalWindowMadel.showHideModal(true);
   };
   const [position, setPosition] = useState<number>(0);
 
-  const comment = comments.map((com) => {
+  const comment = filteredComments.map((com) => {
     return <CommentCard key={com.id} comment={com} />;
   });
 
@@ -26,7 +30,7 @@ export const Carousel = () => {
 
   const handleRight = () => {
     const newPosition = position - 543;
-    if (position > -543 * comments.length) {
+    if (position > -543 * filteredComments.length) {
       setPosition(newPosition);
     }
   };
@@ -61,12 +65,12 @@ export const Carousel = () => {
           ></button>
           <button
             className={
-              position - 543 * 2 > -543 * comments.length
+              position - 543 * 2 > -543 * filteredComments.length
                 ? css.carouselBtnActiveRight
                 : css.carouselBtnDisRight
             }
             onClick={handleRight}
-            disabled={!(position - 543 * 2 > -543 * comments.length)}
+            disabled={!(position - 543 * 2 > -543 * filteredComments.length)}
           ></button>
         </div>
       </div>
