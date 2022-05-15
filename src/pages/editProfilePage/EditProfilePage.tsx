@@ -11,11 +11,22 @@ import {
 import { useStore } from 'effector-react';
 import { Preloader } from 'shared/ui/preloader/Preloader';
 import { photoModel } from 'entities/photo/photo';
-import { dateRegExp } from 'shared/regexp/dateRegex';
 
 export const EditProfilePage = () => {
   useEffect(() => accountModel.getAccount(), []);
   const account = useStore(accountModel.$account);
+  useEffect(() => {
+    setName(account.firstName);
+    setLastName(account.lastName);
+    setBirthday(new Date(account.birthDate).toISOString().slice(0, 10));
+    setCity(account.cityOfResidence);
+    setSex(account.gender);
+    setPet(account.hasPet);
+    setInfo(account.smallAboutMe);
+    setAbout(account.aboutMe);
+  }, [account]);
+  console.log('editprofile rerender');
+
   const isLoading = useStore(accountModel.$isLoading);
   const [editButton, setEditButton] = useState<boolean>(true);
   const [saveButton, setSaveButton] = useState<boolean>(false);
@@ -36,11 +47,13 @@ export const EditProfilePage = () => {
   const [birthday, setBirthday] = useState<string>(
     new Date(account.birthDate).toISOString().slice(0, 10)
   );
-
   const [city, setCity] = useState<string>(account.cityOfResidence);
-
+  console.log('city', city);
   const [sex, setSex] = useState<genderType>(account.gender);
+  console.log('sex', sex);
   const [pet, setPet] = useState<boolean>(account.hasPet);
+  console.log('pet', pet);
+
   const [info, setInfo] = useState<string | null>(account.smallAboutMe);
   const [about, setAbout] = useState<string>(account.aboutMe);
 
@@ -221,7 +234,7 @@ export const EditProfilePage = () => {
               <label>Город</label>
               <DropDown
                 valuesList={cities}
-                startValue={city}
+                startValue={account.cityOfResidence}
                 canOpen={saveButton}
                 clBack={onClickSetCity}
                 needSearch={true}
@@ -231,7 +244,7 @@ export const EditProfilePage = () => {
               <label>Пол</label>
               <DropDown
                 valuesList={['Мужчина', 'Женщина']}
-                startValue={sex === 'male' ? 'Мужчина' : 'Женщина'}
+                startValue={account.gender === 'male' ? 'Мужчина' : 'Женщина'}
                 canOpen={saveButton}
                 clBack={onClickSetSex}
               />
@@ -240,7 +253,7 @@ export const EditProfilePage = () => {
               <label>Животное</label>
               <DropDown
                 valuesList={['Есть', 'Нет']}
-                startValue={pet ? 'Есть' : 'Нет'}
+                startValue={account.hasPet ? 'Есть' : 'Нет'}
                 canOpen={saveButton}
                 clBack={onClickSetPet}
               />

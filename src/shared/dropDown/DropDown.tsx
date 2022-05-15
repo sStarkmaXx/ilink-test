@@ -19,7 +19,7 @@ export const DropDown: React.FC<DropDownPropsType> = ({
 }) => {
   const [openDropDown, setOpenDropDown] = useState<boolean>(false);
   const [value, setValue] = useState<string>(startValue ? startValue : '');
-
+  console.log('value', value);
   const showDropDown = () => {
     if (canOpen) setOpenDropDown(!openDropDown);
   };

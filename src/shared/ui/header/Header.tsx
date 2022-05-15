@@ -1,7 +1,6 @@
 import cssForControlPanel from './HeaderForControlPanel.module.scss';
 import cssForAccountPage from './HeaderForAccountPage.module.scss';
 import logo from './img/white/Group 1.png';
-import myPhoto from 'pages/accountPage/img/my_photo.jpg';
 import purpleLogo from './img/LogoPurple.png';
 import { NavLink } from 'react-router-dom';
 import { useStore } from 'effector-react';

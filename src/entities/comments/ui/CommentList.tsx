@@ -9,10 +9,15 @@ import { CommentSkeleton } from './commenSkeleton/CommentSkeleton';
 export const CommentList = () => {
   useEffect(() => {
     commentsModel.getComments();
-    filterComments('onCheck');
   }, []);
-  const isLoading = useStore(commentsModel.$loadingComments);
   const comments = useStore(commentsModel.$comments);
+
+  useEffect(() => {
+    setFilteredComments(comments);
+    filterComments('onCheck');
+  }, [comments]);
+
+  const isLoading = useStore(commentsModel.$loadingComments);
 
   const setFilter = (commentFilter: commentStatusType) => {
     changeCommentFilter(commentFilter);
@@ -23,6 +28,7 @@ export const CommentList = () => {
 
   const [filteredComments, setFilteredComments] =
     useState<commentType[]>(comments);
+  console.log('filteredComments', filteredComments);
   const [commentFilter, setCommentFilter] =
     useState<commentStatusType>('onCheck');
 
@@ -37,13 +43,13 @@ export const CommentList = () => {
 
   const filterComments = (filter: commentStatusType) => {
     //let pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
-    let admittedComments = [...filteredComments]
+    let admittedComments = [...comments]
       .filter((com) => com.status === 'approved')
       .sort((a, b) => sortByTime(a, b));
-    let rejectedComments = [...filteredComments]
+    let rejectedComments = [...comments]
       .filter((com) => com.status === 'declined')
       .sort((a, b) => sortByTime(a, b));
-    let onRreviewComments = [...filteredComments]
+    let onRreviewComments = [...comments]
       .filter((com) => com.status === 'onCheck')
       .sort((a, b) => sortByTime(a, b));
 

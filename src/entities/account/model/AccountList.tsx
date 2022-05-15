@@ -13,13 +13,19 @@ export type AccountFilterType = string;
 
 export const AccountList = () => {
   const accounts = useStore(accountsModel.$accounts);
-  useEffect(() => accountsModel.getAccounts(), []);
+  useEffect(() => {
+    accountsModel.getAccounts();
+  }, []);
+  useEffect(() => {
+    setFilteredAccounts(accounts);
+  }, [accounts]);
   const isLoading = useStore(accountsModel.$loadingAccounts);
 
   //-----------------------------фильтр аккаунтов-----------------------------------------
   const [accountFilter, setAccountFilter] = useState<AccountFilterType>('Все');
   const [filteredAccounts, setFilteredAccounts] =
     useState<accountType[]>(accounts);
+
   const filterAccount = (filter: AccountFilterType) => {
     if (filter === 'Все') {
       setFilteredAccounts(accounts);
@@ -28,6 +34,7 @@ export const AccountList = () => {
       setFilteredAccounts(filteredAccs);
     }
   };
+
   const changeAccountFilter = (filter: AccountFilterType) => {
     setAccountFilter(filter);
     filterAccount(filter);
