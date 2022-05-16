@@ -5,6 +5,7 @@ import purpleLogo from './img/LogoPurple.png';
 import { NavLink } from 'react-router-dom';
 import { useStore } from 'effector-react';
 import { accountModel } from '../../../pages/accountPage/accountModel';
+import { useEffect } from 'react';
 
 type HeaderType =
   | 'controlPanelHeader'
@@ -16,6 +17,11 @@ type HeaderPropdType = {
 };
 
 export const Header: React.FC<HeaderPropdType> = ({ type }) => {
+  useEffect(() => {
+    if (type === 'controlPanelHeader') {
+      accountModel.getAccount();
+    }
+  }, []);
   const account = useStore(accountModel.$account);
   const photo = ' https://academtest.ilink.dev/images/' + account.profileImage;
   return (

@@ -25,7 +25,6 @@ export const EditProfilePage = () => {
     setInfo(account.smallAboutMe);
     setAbout(account.aboutMe);
   }, [account]);
-  console.log('editprofile rerender');
 
   const isLoading = useStore(accountModel.$isLoading);
   const [editButton, setEditButton] = useState<boolean>(true);
@@ -48,12 +47,8 @@ export const EditProfilePage = () => {
     new Date(account.birthDate).toISOString().slice(0, 10)
   );
   const [city, setCity] = useState<string>(account.cityOfResidence);
-  console.log('city', city);
   const [sex, setSex] = useState<genderType>(account.gender);
-  console.log('sex', sex);
   const [pet, setPet] = useState<boolean>(account.hasPet);
-  console.log('pet', pet);
-
   const [info, setInfo] = useState<string | null>(account.smallAboutMe);
   const [about, setAbout] = useState<string>(account.aboutMe);
 

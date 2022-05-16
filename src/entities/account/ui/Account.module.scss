@@ -1,6 +1,6 @@
 .account {
   display: flex;
-  width: 100%;
+  width: fit-content;
   min-height: 66px;
   border-bottom: 1px dashed rgba(224, 224, 224, 1);
   box-sizing: border-box;
@@ -16,8 +16,7 @@
   box-sizing: border-box;
 }
 .accountGroup {
-  min-width: 209px;
-  width: 28.5%;
+  width: 209px;
   padding-left: 16px;
   align-items: center;
   font-family: 'Gilroy';
@@ -38,9 +37,9 @@
 }
 
 .info {
-  min-width: 500px;
+  box-sizing: border-box;
+  width: 585px;
   padding: 19px 50px 19px 0;
-
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
@@ -49,14 +48,14 @@
   color: #464e5f;
 }
 .status {
-  width: 15.5%;
+  width: 127px;
   padding-right: 24px;
   > span {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 138px;
-    height: 34px;
+    width: 89px;
+    height: 39px;
     font-family: 'Gilroy';
     font-style: normal;
     font-weight: 600;
@@ -79,9 +78,11 @@
 
 @media (min-width: 921px) {
   .account {
+    width: 100%;
     min-height: 88px;
   }
   .accountGroup {
+    min-width: 302px;
     padding-left: 24px;
     font-size: 14px;
     line-height: 17px;
@@ -93,7 +94,7 @@
   }
 
   .info {
-    width: 56%;
+    width: 100%;
     overflow: hidden;
     font-family: 'Gilroy';
     font-style: normal;
@@ -103,7 +104,7 @@
     color: #464e5f;
   }
   .status {
-    width: 15.5%;
+    width: 163px;
     padding-right: 24px;
   }
 }

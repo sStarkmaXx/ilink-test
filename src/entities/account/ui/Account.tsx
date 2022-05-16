@@ -12,7 +12,7 @@ export const Account: React.FC<AccountPropsType> = ({ account }) => {
   return (
     <div className={css.account}>
       <div className={css.accountGroup}>
-        <img src={photo} />
+        <img src={photo} alt="" />
         <span>
           {account.firstName} {account.lastName}
         </span>

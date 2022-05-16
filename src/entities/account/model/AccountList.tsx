@@ -163,12 +163,22 @@ export const AccountList = () => {
         </div>
       </div>
       <div className={css.table}>
-        <div className={css.tableHeader}>
-          <span>ИФ УЧЕНИКА</span>
-          <span>КРАТКАЯ ИНФОРМАЦИЯ</span>
-          <span>СТАТУС</span>
+        <div className={css.accountName}>
+          <div className={css.tableHeader}>
+            <span>ИФ УЧЕНИКА</span>
+          </div>
+          {acc}
         </div>
-        {isLoading ? (
+        <div className={css.infoStatus}>
+          <div className={css.tableHeader}>
+            <span>ИФ УЧЕНИКА</span>
+            <span>КРАТКАЯ ИНФОРМАЦИЯ</span>
+            <span>СТАТУС</span>
+          </div>
+          {acc}
+        </div>
+
+        {/* {isLoading ? (
           <>
             <AccountSkeleton />
             <AccountSkeleton />
@@ -181,7 +191,7 @@ export const AccountList = () => {
           acc
         ) : (
           <img src={dataEmpty} alt="" />
-        )}
+        )} */}
       </div>
       <div className={css.pagination}>
         <NavLink

@@ -79,12 +79,27 @@
     width: 100%;
     overflow: hidden;
     flex-direction: column;
-    align-items: center;
     min-height: 439px;
+    position: relative;
 
+    .accountName {
+      display: flex;
+      flex-direction: column;
+      width: 209px;
+      position: absolute;
+      overflow: hidden;
+      background-color: #ffffff;
+      //border: 1px green solid;
+    }
+    .infoStatus {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      overflow-x: scroll;
+    }
     .tableHeader {
       display: flex;
-      width: 100%;
+      min-width: fit-content;
       height: 43px;
       background-color: #f5f5f5;
       border-radius: 6px;
@@ -95,20 +110,20 @@
       line-height: 15px;
       color: #464e5f;
       align-items: center;
+
+      > span {
+        display: flex;
+        width: 585px;
+      }
       > span:first-child {
         display: flex;
-        min-width: 209px;
-        width: 28.5%;
+        width: 209px;
         box-sizing: border-box;
         padding-left: 16px;
       }
-      > span {
-        display: flex;
-        width: 56%;
-      }
       > span:last-child {
         display: flex;
-        width: 15.5%;
+        width: 127px;
       }
     }
   }
@@ -178,9 +193,22 @@
     }
     .table {
       min-height: 571px;
+      .accountName {
+        display: none;
+      }
+      .infoStatus {
+        max-width: 100%;
+      }
       .tableHeader {
+        > span {
+          width: 100%;
+        }
         > span:first-child {
+          min-width: 302px;
           padding-left: 24px;
+        }
+        > span:last-child {
+          width: 163px;
         }
       }
     }

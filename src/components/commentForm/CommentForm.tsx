@@ -110,6 +110,7 @@ export const CommentForm = () => {
         console.log('file', file);
         console.log('photo', photo);
       }
+      e.target.value = '';
     }
   };
 
