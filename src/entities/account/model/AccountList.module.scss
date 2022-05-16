@@ -89,7 +89,6 @@
       position: absolute;
       overflow: hidden;
       background-color: #ffffff;
-      //border: 1px green solid;
     }
     .infoStatus {
       display: flex;
@@ -198,6 +197,7 @@
       }
       .infoStatus {
         max-width: 100%;
+        overflow-x: hidden;
       }
       .tableHeader {
         > span {
