@@ -1,7 +1,7 @@
-import { modalWindowMadel } from './../modalWindow/modalWindowModel';
-import { toastModel } from '../../shared/ui/toast/toastModel';
-import { commentsModel } from '../comments/comments';
-import { accountModel } from '../../pages/accountPage/accountModel';
+import { modalWindowMadel } from '../modalWindow/model/modalWindowModel';
+import { toastModel } from '../../shared/ui/toast/model/toastModel';
+import { commentsModel } from '../comment/model/comment';
+import { accountModel } from '../account/model/accountModel';
 import {
   createEvent,
   createStore,

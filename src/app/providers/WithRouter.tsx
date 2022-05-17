@@ -1,8 +1,8 @@
-import { AccountPage } from 'pages/accountPage/AccountPage';
-import { HOCControlPanelPage } from 'pages/controlPanelPage/HOCControlPanelPage';
-import { ResetPasswordPage } from 'pages/resetPasswordPage/ResetPasswordPage';
-import { StartPage } from 'pages/startpage/StartPage';
+import { AccountPage } from 'pages/accountPage';
+import { ResetPasswordPage } from 'pages/resetPasswordPage';
+import { StartPage } from 'pages/startpage';
 import { Route, Routes } from 'react-router-dom';
+import { ControlPanelPageRoutes } from 'pages/controlPanelPage';
 
 export const WithRouter = () => {
   return (
@@ -12,7 +12,7 @@ export const WithRouter = () => {
       <Route path={'ilink-test/profile'} element={<AccountPage />} />
       <Route
         path={'ilink-test/controlPanel/*'}
-        element={<HOCControlPanelPage />}
+        element={<ControlPanelPageRoutes />}
       ></Route>
     </Routes>
   );

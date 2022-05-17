@@ -1,0 +1,262 @@
+.form {
+  display: flex;
+  width: 288px;
+  height: 386px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.form > p {
+  display: flex;
+  margin-top: 16px;
+  margin-bottom: 0px;
+  font-family: 'Factor A';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: #333333;
+}
+
+.form > input {
+  width: 256px;
+  height: 52px;
+  border: 1px #e0e0e0 solid;
+  box-sizing: border-box;
+  border-radius: 2px;
+  outline: none;
+  padding-left: 12px;
+  box-sizing: border-box;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #333333;
+}
+
+.form > input::placeholder {
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #8a8a8a;
+}
+
+.form > label {
+  display: flex;
+  margin-top: 32px;
+  align-self: flex-start;
+  margin-left: 16px;
+  font-family: 'Factor A';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.0124em;
+  color: #333333;
+}
+.form > label:first-child {
+  margin-top: 24px;
+}
+
+.password,
+.login {
+  display: flex;
+  width: 256px;
+  height: 52px;
+  border: 1px #e0e0e0 solid;
+  box-sizing: border-box;
+  padding: 0px 18px 0px 11px;
+  border-radius: 2px;
+  align-items: center;
+}
+.login {
+  justify-content: space-between;
+}
+
+.login > input {
+  outline: none;
+  border: none;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  color: #333333;
+  flex: 1;
+  height: 46px;
+  box-sizing: border-box;
+}
+
+.password > input {
+  outline: none;
+  border: none;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  color: #333333;
+  flex: 1;
+  height: 46px;
+  box-sizing: border-box;
+}
+
+.login > input::placeholder {
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #8a8a8a;
+}
+
+.password > input::placeholder {
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #8a8a8a;
+}
+
+.show,
+.hide {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.show {
+  background-image: url(../img/normal/Show.png);
+}
+.show:hover {
+  background-image: url(../img/hover/Show.png);
+}
+
+.hide {
+  background-image: url(../img/normal/Hide.png);
+}
+
+.hide:hover {
+  background-image: url(../img/hover/Hide.png);
+}
+
+.enable,
+.disable {
+  display: flex;
+  width: 256px;
+  height: 42px;
+  background: #585cc6;
+  border-radius: 2px;
+  border: 0;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  margin-top: 40px;
+  margin-bottom: 16px;
+}
+
+.disable {
+  background: #8a8a8a;
+}
+
+.form > a {
+  display: flex;
+  margin-bottom: 16px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #585cc6;
+}
+
+.error {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  background-image: url(../img/normal/Info\ Square.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-left: 9px;
+  position: relative;
+}
+
+.error:hover {
+  background-image: url(../img/hover/Info\ Square.png);
+}
+
+.error:hover::after {
+  content: attr(data-title);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 164px;
+  box-sizing: border-box;
+  padding: 5px;
+  border-radius: 2px;
+  background-color: #f5f5f5;
+  position: absolute;
+  right: -10px;
+  top: -50px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  color: #333333;
+}
+
+@media (min-width: 821px) {
+  .form {
+    width: 628px;
+    height: 436px;
+    border-radius: 2px;
+    background-color: #ffffff;
+  }
+
+  .form > p {
+    margin-top: 40px;
+    font-size: 32px;
+  }
+
+  .password,
+  .login {
+    width: 548px;
+    height: 52px;
+  }
+
+  .form > label {
+    margin-left: 40px;
+  }
+  .form > label:first-child {
+    margin-top: 32px;
+  }
+
+  .enable,
+  .disable {
+    width: 108px;
+    height: 52px;
+    font-size: 18px;
+  }
+
+  .form > p:last-child {
+    margin-top: 16px;
+    margin-bottom: 24px;
+  }
+}

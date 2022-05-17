@@ -1,0 +1,266 @@
+.aboutMe {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  .button {
+    width: 288px;
+    height: 42px;
+    background: #585cc6;
+    border-radius: 2px;
+    border: 0;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    color: #ffffff;
+  }
+  > span {
+    display: flex;
+    height: 74px;
+    box-sizing: border-box;
+    align-items: flex-end;
+    padding-left: 16px;
+    padding-bottom: 16px;
+    font-family: 'Factor A';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 32px;
+    color: #333333;
+  }
+  .header {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0 16px;
+    margin-bottom: 24px;
+
+    .accountGroup {
+      display: flex;
+      margin-bottom: 20px;
+      position: relative;
+      .ava {
+        width: 64px;
+        height: 64px;
+        border-radius: 2px;
+        margin-right: 16px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+      }
+      .bigAva {
+        display: flex;
+        height: 204px;
+        width: 204px;
+        box-sizing: border-box;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        z-index: 12;
+        border-radius: 2px;
+        top: 80px;
+        right: 177px;
+        box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.16);
+        border: 12px solid #ffffff;
+      }
+      .text {
+        display: flex;
+        width: 240px;
+        flex-wrap: wrap;
+        > p {
+          font-family: 'Factor A';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 20px;
+          color: #8a8a8a;
+        }
+        > label {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          width: 150px;
+          height: 18px;
+          border: 0;
+          background-color: #ffffff;
+          font-family: 'Gilroy';
+          font-style: normal;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 18px;
+          color: #585cc6;
+          background-image: url('../img/Edit.png');
+          background-position: left;
+          background-repeat: no-repeat;
+          position: relative;
+          cursor: pointer;
+          &:hover::after {
+            content: attr(data-size);
+            display: flex;
+            position: absolute;
+            width: max-content;
+
+            font-size: 12px;
+            top: -15px;
+            left: 00px;
+          }
+        }
+      }
+    }
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 16px 80px 16px;
+    .el {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      box-sizing: border-box;
+      height: 76px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      &:nth-child(7) {
+        height: 98px;
+      }
+      &:nth-child(8) {
+        height: 274px;
+      }
+      > label {
+        font-family: 'Factor A';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        color: #333333;
+      }
+      > input {
+        width: 100%;
+        height: 52px;
+        border: 1px solid #e0e0e0;
+        box-sizing: border-box;
+        border-radius: 2px;
+        outline: none;
+        font-family: 'Gilroy';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        color: #333333;
+        padding-left: 12px;
+        &[data-style='error'] {
+          border: 1px solid red;
+        }
+      }
+      .length {
+        width: 100%;
+        position: relative;
+        .info,
+        .about {
+          width: 100%;
+          border: 1px solid #e0e0e0;
+          box-sizing: border-box;
+          border-radius: 2px;
+          word-wrap: break-word;
+          resize: none;
+          padding: 12px;
+          font-family: 'Gilroy';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 22px;
+          outline: none;
+        }
+        .info {
+          height: 73px;
+        }
+        .about {
+          height: 250px;
+        }
+        &::after {
+          content: attr(data-length);
+          display: flex;
+          width: 38px;
+          height: 14px;
+          position: absolute;
+          font-family: 'Gilroy';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 10px;
+          line-height: 14px;
+          text-align: right;
+          color: #8a8a8a;
+          bottom: 5px;
+          right: 0px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 921px) {
+  .aboutMe {
+    padding: 0 80px 47px 24px;
+    .button {
+      width: 248px;
+      height: 52px;
+      font-size: 18px;
+      margin-right: 22px;
+      margin-left: auto;
+    }
+    > span {
+      padding-left: 0;
+      height: 131px;
+      padding-bottom: 40px;
+    }
+    .header {
+      flex-direction: row;
+      height: 64px;
+      align-items: center;
+      padding: 0 23px 0 0;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      .button {
+        width: 188px;
+        margin: 0;
+      }
+    }
+    .container {
+      padding: 0;
+
+      .el {
+        width: 403px;
+        margin-right: 22px;
+        margin-bottom: 32px;
+        &:nth-child(3n) {
+          width: 209px;
+        }
+        &:nth-child(7) {
+          width: 100%;
+          height: 76px;
+        }
+        &:nth-child(8) {
+          width: 100%;
+          height: 142px;
+          margin-bottom: 40px;
+        }
+        .length {
+          .about {
+            height: 118px;
+          }
+        }
+      }
+    }
+  }
+}

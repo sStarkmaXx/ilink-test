@@ -5,7 +5,7 @@ import {
   forward,
   sample,
 } from 'effector';
-import { accountType } from 'pages/accountPage/accountModel';
+import { accountType } from 'entities/account/model/accountModel';
 
 type accountsStoreType = Array<accountType>;
 
