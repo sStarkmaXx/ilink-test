@@ -108,7 +108,6 @@ const sendCommentFX = createEffect(async (comment: newCommentType) => {
 
   if (response.status === 'onCheck') {
     if (photoModel.$photo.getState() !== null) {
-      debugger;
       photoModel.setCommentId(response.id);
     } else {
       modalWindowMadel.showHideModal(false);
