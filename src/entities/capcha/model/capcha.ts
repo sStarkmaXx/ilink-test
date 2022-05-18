@@ -1,3 +1,4 @@
+import { captchaApi } from '../api/captchaApi';
 import {
   createStore,
   createEffect,
@@ -16,14 +17,11 @@ const $capcha = createStore<capchaType>({
   key: '',
 });
 
-const getCapchaFX = createEffect(async () => {
-  const url = 'https://academtest.ilink.dev/reviews/getCaptcha';
-  const response = await fetch(url, {
-    method: 'GET',
-  })
+const getCapchaFX = createEffect(() => {
+  const response = captchaApi
+    .getCaptcha()
     .then((res) => res.text())
     .then((res) => JSON.parse(res));
-  console.log(response);
   return response;
 });
 

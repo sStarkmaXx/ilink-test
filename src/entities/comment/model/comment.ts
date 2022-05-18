@@ -1,6 +1,7 @@
-import { photoModel } from 'entities/photo/photo';
+import { photoModel } from 'entities/photo/model/photo';
 import { modalWindowMadel } from 'entities/modalWindow/model/modalWindowModel';
 import { toastModel } from 'shared/ui/toast/model/toastModel';
+import { commentApi } from '../api/commentApi';
 import {
   createEffect,
   createStore,
@@ -26,16 +27,10 @@ export type commentType = {
 
 const $comments = createStore<commentType[]>([]);
 
-const accessToken = localStorage.getItem('accessToken');
-const token = 'Bearer' + ' ' + accessToken;
-
 //-------------------------------------получаем все комменты----------------------------------
 const getCommentsFX = createEffect(() => {
-  const url = 'https://academtest.ilink.dev/reviews/getAll';
-  const response = fetch(url, {
-    method: 'GET',
-    headers: { authorization: `${token}` },
-  })
+  const response = commentApi
+    .getAllComments()
     .then((res) => {
       if (res.status === 401) {
         document.location = '/ilink-test/';
@@ -43,8 +38,6 @@ const getCommentsFX = createEffect(() => {
       return res.text();
     })
     .then((res) => JSON.parse(res));
-
-  //console.log(response);
   return response;
 });
 
@@ -105,24 +98,8 @@ sample({
 });
 
 const sendCommentFX = createEffect(async (comment: newCommentType) => {
-  let body =
-    'authorName=' +
-    comment.authorName +
-    '&title=' +
-    comment.title +
-    '&text=' +
-    comment.text +
-    '&captchaKey=' +
-    comment.captchaKey +
-    '&captchaValue=' +
-    comment.captchaValue;
-  const url = 'https://academtest.ilink.dev/reviews/create';
-  console.log(comment);
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: body,
-  })
+  const response = await commentApi
+    .sendNewComment(comment)
     .then((res) => res.text())
     .then((res) => {
       console.log(res);
@@ -192,19 +169,10 @@ sample({
   target: $selectComment,
 });
 
-const sendEditedCommentFX = createEffect(async (text: string) => {
+const sendEditedCommentFX = createEffect((text: string) => {
   const id = $selectComment.getState().id;
-
-  const url = `https://academtest.ilink.dev/reviews/updateInfo/${id}`;
-  const body = 'text=' + text;
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      authorization: `${token}`,
-    },
-    body: body,
-  })
+  const response = commentApi
+    .updateComment(id, text)
     .then((res) => {
       if (res.status === 401) {
         document.location = '/ilink-test/';
@@ -219,11 +187,9 @@ const sendEditedCommentFX = createEffect(async (text: string) => {
         setTimeout(() => toastModel.showHideToast(null), 2000);
         toastModel.setToastError(true);
       }
-      console.log('редактирование отзыва', res);
       return res.text();
     })
     .then((res) => {
-      //console.log('редактирование отзыва', res);
       return JSON.parse(res);
     });
 
@@ -247,16 +213,8 @@ const $updatingComment = sendEditedCommentFX.pending;
 
 const setCommentStatusFX = createEffect((status: commentStatusType) => {
   const id = $selectComment.getState().id;
-  const url = `https://academtest.ilink.dev/reviews/updateStatus/${id}`;
-  const body = 'status=' + status;
-  const response = fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      authorization: `${token}`,
-    },
-    body: body,
-  })
+  const response = commentApi
+    .changeCommentStatus(id, status)
     .then((res) => {
       if (res.status === 401) {
         document.location = '/ilink-test/';
@@ -271,11 +229,9 @@ const setCommentStatusFX = createEffect((status: commentStatusType) => {
         setTimeout(() => toastModel.showHideToast(null), 2000);
         toastModel.setToastError(true);
       }
-
       return res.text();
     })
     .then((res) => {
-      console.log('смена статуса отзыва', JSON.parse(res));
       return JSON.parse(res);
     });
   return response;

@@ -3,15 +3,9 @@ import { ChangeEvent, useState, KeyboardEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { emailRegExp as loginRegExp } from 'shared/regexp/emailRegexp';
 import { passwordRegExp } from 'shared/regexp/passwordRegExp';
-import { createEffect } from 'effector';
+import { accessTokenModel } from 'entities/accessToken/model/accessToken';
 
-type LoginFormPropsType = {
-  accountErrorSetter: (text: string) => void;
-};
-
-export const LoginForm: React.FC<LoginFormPropsType> = ({
-  accountErrorSetter,
-}) => {
+export const LoginForm = () => {
   //-----------------------------------состояние компоненты-----------------------------------------------------
   const [passwordHide, setPasswordHiden] = useState<boolean>(true);
   const onClickHandler = () => {
@@ -52,39 +46,10 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({
 
   //-----------------------------------------запросы на серв-------------------------------------------
 
-  const fetchAccessTokenFX = createEffect(async () => {
-    const url = 'https://academtest.ilink.dev/user/signIn';
-    const resp = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `email=${login}&password=${password}`,
-    })
-      .then((res) => {
-        return res.text();
-      })
-      .then((res) => JSON.parse(res))
-      .then((res) => {
-        console.log(res);
-        if (!res.statusCode) {
-          localStorage.setItem('accessToken', res.accessToken);
-          document.location = '/ilink-test/profile';
-        } else if (res.statusCode === 400) {
-          accountErrorSetter('Неверный пароль!');
-        } else if (res.statusCode === 500) {
-          accountErrorSetter('Данный пользователь не зарегистрирован!');
-        } else {
-          accountErrorSetter('Не известная ошибка, попробуйте позже!');
-        }
-      })
-      .catch((er) => console.error('Ошибка!!!', er));
-
-    return resp;
-  });
-
   const entryButtonClick = () => {
     setLogin('');
     setPassword('');
-    fetchAccessTokenFX();
+    accessTokenModel.getAccessToken({ login: login, password: password });
     console.log(localStorage.getItem('accessToken'));
   };
 

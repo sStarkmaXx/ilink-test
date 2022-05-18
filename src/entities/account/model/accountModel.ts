@@ -6,6 +6,7 @@ import {
   sample,
 } from 'effector';
 import { toastModel } from 'shared/ui/toast/model/toastModel';
+import { accountApi } from '../api/accountApi';
 
 export type genderType = 'male' | 'female';
 
@@ -57,17 +58,12 @@ const initState: accountType = {
   version: 1,
 };
 
+//-------------------------------------------------getAccount----------------------------------
 const $account = createStore<accountType>(initState);
 
-const accessToken = localStorage.getItem('accessToken');
-const token = 'Bearer' + ' ' + accessToken;
-
-const getAccountFX = createEffect(async () => {
-  const url = 'https://academtest.ilink.dev/user/getUserProfile ';
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: { authorization: `${token}` },
-  })
+const getAccountFX = createEffect(() => {
+  const response = accountApi
+    .getAccount()
     .then((res) => {
       if (res.status === 401) {
         document.location = '/ilink-test/';
@@ -75,8 +71,6 @@ const getAccountFX = createEffect(async () => {
       return res.text();
     })
     .then((res) => JSON.parse(res));
-  console.log('prifile', response);
-  // console.log(accessToken, token);
   return response;
 });
 
@@ -109,17 +103,9 @@ export type newProfileInfoType = {
 };
 
 const updateProfileInfoFX = createEffect(
-  async (newProfileInfo: newProfileInfoType) => {
-    const url = 'https://academtest.ilink.dev/user/updateInfo';
-    const body = JSON.stringify(newProfileInfo);
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        authorization: `${token}`,
-      },
-      body: body,
-    })
+  (newProfileInfo: newProfileInfoType) => {
+    const response = accountApi
+      .updateProfileInfo(newProfileInfo)
       .then((res) => {
         if (res.status === 401) {
           document.location = '/ilink-test/';
@@ -137,8 +123,6 @@ const updateProfileInfoFX = createEffect(
         return res.text();
       })
       .then((res) => JSON.parse(res));
-    console.log('updateProfileInfo', response);
-    // console.log(accessToken, token);
     return response;
   }
 );
@@ -157,9 +141,44 @@ sample({
   target: updateProfileInfoFX,
 });
 
+//---------------------------------------------------getAllAccounts--------------------------------
+type accountsStoreType = Array<accountType>;
+
+const $accounts = createStore<accountsStoreType>([]);
+const getAccounts = createEvent();
+
+const getAccountsFX = createEffect(() => {
+  const response = accountApi
+    .getAllAccounts()
+    .then((res) => {
+      if (res.status === 401) {
+        document.location = '/ilink-test/';
+      }
+      return res.text();
+    })
+    .then((res) => JSON.parse(res));
+  return response;
+});
+
+forward({
+  from: getAccounts,
+  to: getAccountsFX,
+});
+
+sample({
+  clock: getAccountsFX.doneData,
+  fn: (clock) => clock,
+  target: $accounts,
+});
+
+const $loadingAccounts = getAccountsFX.pending;
+
 export const accountModel = {
   $account,
   getAccount,
   $isLoading,
   updateProfileInfo,
+  $accounts,
+  getAccounts,
+  $loadingAccounts,
 };

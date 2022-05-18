@@ -10,7 +10,7 @@ import {
 } from 'entities/account/model/accountModel';
 import { useStore } from 'effector-react';
 import { Preloader } from 'shared/ui/preloader';
-import { photoModel } from 'entities/photo/photo';
+import { photoModel } from 'entities/photo/model/photo';
 
 export const EditProfilePage = () => {
   useEffect(() => accountModel.getAccount(), []);

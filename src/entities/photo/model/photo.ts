@@ -1,7 +1,8 @@
-import { modalWindowMadel } from '../modalWindow/model/modalWindowModel';
-import { toastModel } from '../../shared/ui/toast/model/toastModel';
-import { commentsModel } from '../comment/model/comment';
-import { accountModel } from '../account/model/accountModel';
+import { modalWindowMadel } from '../../modalWindow/model/modalWindowModel';
+import { toastModel } from '../../../shared/ui/toast/model/toastModel';
+import { commentsModel } from '../../comment/model/comment';
+import { accountModel } from '../../account/model/accountModel';
+import { photoApi } from '../api/photoApi';
 import {
   createEvent,
   createStore,
@@ -23,17 +24,14 @@ sample({
   target: $sendPhotoError,
 });
 
-const sendPhotoFX = createEffect(async (comID: string) => {
-  const url = `https://academtest.ilink.dev/reviews/updatePhoto/${comID}`;
-  const formData = new FormData();
+const sendPhotoFX = createEffect((comID: string) => {
+  const body = new FormData();
   const photo = $photo.getState();
   if (photo) {
-    formData.append('authorImage', photo);
+    body.append('authorImage', photo);
   }
-  const response = await fetch(url, {
-    method: 'POST',
-    body: formData,
-  })
+  const response = photoApi
+    .sendPhoto(comID, body)
     .then((res) => {
       if (res.status === 401) {
         document.location = '/ilink-test/';
@@ -54,7 +52,6 @@ const sendPhotoFX = createEffect(async (comID: string) => {
     })
     .then((res) => {
       JSON.parse(res);
-      //console.log('ответ по картинке=', res);
     })
     .catch((err) => console.log('error!', err));
   return response;
@@ -98,22 +95,14 @@ sample({
 
 //----------------------------------------newPhotoForProfile--------------------------------------------
 
-const accessToken = localStorage.getItem('accessToken');
-const token = 'Bearer' + ' ' + accessToken;
-const updateProfilePhotoFX = createEffect(async () => {
-  const url = 'https://academtest.ilink.dev/user/updatePhoto';
-  const formData = new FormData();
+const updateProfilePhotoFX = createEffect(() => {
+  const body = new FormData();
   const photo = $photo.getState();
   if (photo) {
-    formData.append('profileImage', photo);
+    body.append('profileImage', photo);
   }
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      authorization: `${token}`,
-    },
-    body: formData,
-  })
+  const response = photoApi
+    .updateProfilePhoto(body)
     .then((res) => {
       if (res.status === 401) {
         document.location = '/ilink-test/';
@@ -131,8 +120,6 @@ const updateProfilePhotoFX = createEffect(async () => {
       return res.text();
     })
     .then((res) => JSON.parse(res));
-
-  console.log('обнова фотки', response);
   return response;
 });
 

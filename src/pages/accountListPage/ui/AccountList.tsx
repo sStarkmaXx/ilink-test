@@ -3,23 +3,23 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { Account } from 'pages/account';
 import css from './AccountList.module.scss';
 import drDown from '../img/Arrow - Down 2.png';
-import { accountsModel } from 'entities/account/model/accountsModel';
 import { useStore } from 'effector-react';
 import { accountType } from 'entities/account/model/accountModel';
 import { AccountSkeleton } from 'pages/account/ui/accountSkeleton/AccountSkeleton';
 import dataEmpty from '../../../pages/controlPanelPage/img/Group137336586.png';
+import { accountModel } from '../../../entities/account/model/accountModel';
 
 export type AccountFilterType = string;
 
 export const AccountList = () => {
-  const accounts = useStore(accountsModel.$accounts);
+  const accounts = useStore(accountModel.$accounts);
   useEffect(() => {
-    accountsModel.getAccounts();
+    accountModel.getAccounts();
   }, []);
   useEffect(() => {
     setFilteredAccounts(accounts);
   }, [accounts]);
-  const isLoading = useStore(accountsModel.$loadingAccounts);
+  const isLoading = useStore(accountModel.$loadingAccounts);
 
   //-----------------------------фильтр аккаунтов-----------------------------------------
   const [accountFilter, setAccountFilter] = useState<AccountFilterType>('Все');

@@ -6,7 +6,7 @@ import { useStore } from 'effector-react';
 import { capchaModel } from 'entities/capcha/model/capcha';
 import { newCommentType, commentsModel } from 'entities/comment/model/comment';
 import { Preloader } from 'shared/ui/preloader';
-import { photoModel } from 'entities/photo/photo';
+import { photoModel } from 'entities/photo/model/photo';
 import fileImg from './img/animation_500_l123b4fc 1.png';
 import del from './img/Delete.png';
 import { nameLastNameRegEx } from 'shared/regexp/nameLastNameRegExp';

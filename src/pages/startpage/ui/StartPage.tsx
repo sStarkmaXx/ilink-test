@@ -4,19 +4,13 @@ import css from './StartPage.module.css';
 import academy from '../img/academy.png';
 import ilink from '../img/ilink.png';
 import vector from '../img/vector.png';
-import { useState } from 'react';
-import { Toast } from 'shared/ui/toast';
+import { Toast, toastModel } from 'shared/ui/toast';
+import { useStore } from 'effector-react';
 
 export const StartPage = () => {
-  const [accountError, setAccountError] = useState<string | null>(null);
-
-  const accountErrorSetter = (text: string) => {
-    setAccountError(text);
-    setTimeout(() => setAccountError(null), 2000);
-  };
-
+  const toastText = useStore(toastModel.$toast);
   const closeToast = () => {
-    setAccountError(null);
+    toastModel.showHideToast(null);
   };
 
   return (
@@ -27,10 +21,10 @@ export const StartPage = () => {
       <img src={ilink} alt="" />
       <img src={academy} alt="" />
       <div className={css.content}>
-        <LoginForm accountErrorSetter={accountErrorSetter} />
+        <LoginForm />
       </div>
-      {accountError && (
-        <Toast closeToast={closeToast} error={true} text={accountError} />
+      {toastText && (
+        <Toast closeToast={closeToast} error={true} text={toastText} />
       )}
       <Footer />
     </div>
