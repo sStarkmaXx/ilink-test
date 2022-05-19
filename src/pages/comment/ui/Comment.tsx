@@ -2,11 +2,12 @@ import { EditCommentsPage } from 'pages/editCommentsPage';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import {
   commentType,
-  commentModel,
   commentStatusType,
+  commentIdStatusType,
 } from 'entities/comment/model/comment';
 import css from './Comment.module.scss';
 import ava from './img/avatar.png';
+import { changeCommentStatus } from 'features/changeCommentStatus';
 
 type CommentPropsType = {
   comment: commentType;
@@ -24,13 +25,12 @@ export const Comment: React.FC<CommentPropsType> = ({ comment }) => {
 
   const photo = ' https://academtest.ilink.dev/images/' + comment.authorImage;
 
-  const selectCommentFN = () => {
-    commentModel.setSelectComment(comment.id);
-  };
-
   const setCommentStatus = (filter: commentStatusType) => {
-    selectCommentFN();
-    commentModel.setCommentStatus(filter);
+    const changeComment: commentIdStatusType = {
+      id: comment.id,
+      status: filter,
+    };
+    changeCommentStatus(changeComment);
   };
 
   return (
@@ -58,10 +58,7 @@ export const Comment: React.FC<CommentPropsType> = ({ comment }) => {
                 Отклонить
               </button>
             </div>
-            <NavLink
-              to={`${comment.id}/editComment`}
-              onClick={selectCommentFN}
-            ></NavLink>
+            <NavLink to={`${comment.id}/editComment`}></NavLink>
           </>
         )}
         {comment.status !== 'onCheck' && (

@@ -15,14 +15,6 @@ const $photo = createStore<File | null>(null);
 const $commentId = createStore<string>('');
 const setPhoto = createEvent<File | null>();
 const setCommentId = createEvent<string>();
-const $sendPhotoError = createStore<string | null>(null);
-const setSendPhotoError = createEvent<string | null>();
-sample({
-  clock: setSendPhotoError,
-  source: setSendPhotoError,
-  fn: (source) => source,
-  target: $sendPhotoError,
-});
 
 const sendPhotoFX = createEffect((comID: string) => {
   const body = new FormData();

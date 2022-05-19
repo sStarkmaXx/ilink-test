@@ -11,6 +11,8 @@ import {
 import { useStore } from 'effector-react';
 import { Preloader } from 'shared/ui/preloader';
 import { photoModel } from 'entities/photo/model/photo';
+import { sendEditProfileInfo } from 'features/editProfile';
+import { updateProfilePhoto } from 'features/updateProfilePhoto';
 
 export const EditProfilePage = () => {
   useEffect(() => accountModel.getAccount(), []);
@@ -47,7 +49,7 @@ export const EditProfilePage = () => {
       smallAboutMe: info,
       aboutMe: about,
     };
-    accountModel.updateProfileInfo(newProfileInfo);
+    sendEditProfileInfo(newProfileInfo);
   };
 
   const photo = ' https://academtest.ilink.dev/images/' + account.profileImage;
@@ -116,7 +118,7 @@ export const EditProfilePage = () => {
       setFileSize(file.size);
       if (!fileError) {
         photoModel.setPhoto(file);
-        photoModel.updateProfilePhoto();
+        updateProfilePhoto();
       }
     }
   };
@@ -258,7 +260,6 @@ export const EditProfilePage = () => {
                   value={info ? info : ''}
                   onChange={onChangeInfo}
                   maxLength={99}
-                  //style={infoError ? { border: '1px red solid' } : {}}
                 ></textarea>
               </div>
             </div>

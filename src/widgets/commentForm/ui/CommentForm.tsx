@@ -6,12 +6,12 @@ import { capchaModel } from 'entities/capcha/model/capcha';
 import { newCommentType } from 'entities/comment/model/comment';
 import { commentModel } from 'entities/comment/model/comment';
 import { Preloader } from 'shared/ui/preloader';
-import { photoModel } from 'entities/photo/model/photo';
 import fileImg from '../img/animation_500_l123b4fc 1.png';
 import del from '../img/Delete.png';
-import { nameLastNameRegEx } from 'shared/regexp/nameLastNameRegExp';
 import { modalWindowMadel } from 'entities/modalWindow/model/modalWindowModel';
 import { addNewComment } from 'features/addComment';
+import { addPhotoToComment } from 'features/addPhotoToComment';
+import { nameInCommentForm } from 'shared/regexp/nameInCommentForm';
 
 export const CommentForm = () => {
   useEffect(() => capchaModel.getCapcha(), []);
@@ -23,10 +23,11 @@ export const CommentForm = () => {
   const [inputName, setInputName] = useState<string>('');
   const onChangeHandlerInputName = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.currentTarget.value;
-    if (nameLastNameRegEx.test(value) || value === '') {
+    if (nameInCommentForm.test(value) || value === '') {
       setInputName(e.target.value);
       setNameError(false);
-    } else {
+    }
+    if (value.trim() === '') {
       setNameError(true);
     }
   };
@@ -82,7 +83,7 @@ export const CommentForm = () => {
   const [fileSize, setFileSize] = useState<number>(0);
   const [fileName, setFileName] = useState<string | null>(null);
   const delFile = () => {
-    photoModel.setPhoto(null);
+    addPhotoToComment(null);
     setFileName(null);
   };
 
@@ -100,7 +101,7 @@ export const CommentForm = () => {
         } else {
           setFileName(file.name);
         }
-        photoModel.setPhoto(file);
+        addPhotoToComment(file);
       }
       e.target.value = '';
     }

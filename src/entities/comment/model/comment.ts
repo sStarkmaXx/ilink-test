@@ -168,29 +168,35 @@ forward({
 const $updatingComment = sendEditedCommentFX.pending;
 //-----------------------------------------------------------отклонение, подтверждение отзыва---------------------------------
 
-const setCommentStatusFX = createEffect((status: commentStatusType) => {
-  const id = $selectComment.getState().id;
-  const response = commentApi
-    .changeCommentStatus(id, status)
-    .then((res) => {
-      if (res.status === 401) {
-        document.location = '/ilink-test/';
-      }
-      if (res.status >= 200 && res.status < 300) {
-        toastModel.success('Статус отыва успешно изменен!');
-      }
-      if (res.status >= 300 && res.status < 500) {
-        toastModel.error('Ошибка, попробуйте позже!');
-      }
-      return res.text();
-    })
-    .then((res) => {
-      return JSON.parse(res);
-    });
-  return response;
-});
+export type commentIdStatusType = {
+  id: string;
+  status: commentStatusType;
+};
 
-const setCommentStatus = createEvent<commentStatusType>();
+const setCommentStatusFX = createEffect(
+  ({ id, status }: commentIdStatusType) => {
+    const response = commentApi
+      .changeCommentStatus(id, status)
+      .then((res) => {
+        if (res.status === 401) {
+          document.location = '/ilink-test/';
+        }
+        if (res.status >= 200 && res.status < 300) {
+          toastModel.success('Статус отыва успешно изменен!');
+        }
+        if (res.status >= 300 && res.status < 500) {
+          toastModel.error('Ошибка, попробуйте позже!');
+        }
+        return res.text();
+      })
+      .then((res) => {
+        return JSON.parse(res);
+      });
+    return response;
+  }
+);
+
+const setCommentStatus = createEvent<commentIdStatusType>();
 
 forward({
   from: setCommentStatus,
