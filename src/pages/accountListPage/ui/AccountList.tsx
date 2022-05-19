@@ -147,8 +147,7 @@ export const AccountList = () => {
         <span>{'Участники'}</span>
         <div className={css.dropdown}>
           <div className={css.window} onClick={showDropDown}>
-            {accountFilter}
-
+            {accountFilter === 'studies' ? 'Обучается' : accountFilter}
             <img src={drDown} alt="" />
           </div>
           {openDropDown && (

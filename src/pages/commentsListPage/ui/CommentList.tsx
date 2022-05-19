@@ -4,7 +4,7 @@ import drDown from 'pages/accountListPage/img/Arrow - Down 2.png';
 import { Comment } from 'pages/comment';
 import {
   commentType,
-  commentsModel,
+  commentModel,
   commentStatusType,
 } from 'entities/comment/model/comment';
 import { useStore } from 'effector-react';
@@ -13,16 +13,16 @@ import dataEmpty from 'pages/controlPanelPage/img/Group137336586.png';
 
 export const CommentList = () => {
   useEffect(() => {
-    commentsModel.getComments();
+    commentModel.getComments();
   }, []);
-  const comments = useStore(commentsModel.$comments);
+  const comments = useStore(commentModel.$comments);
 
   useEffect(() => {
     setFilteredComments(comments);
     filterComments('onCheck');
   }, [comments]);
 
-  const isLoading = useStore(commentsModel.$loadingComments);
+  const isLoading = useStore(commentModel.$loadingComments);
 
   const setFilter = (commentFilter: commentStatusType) => {
     changeCommentFilter(commentFilter);

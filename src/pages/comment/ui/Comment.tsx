@@ -2,7 +2,7 @@ import { EditCommentsPage } from 'pages/editCommentsPage';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import {
   commentType,
-  commentsModel,
+  commentModel,
   commentStatusType,
 } from 'entities/comment/model/comment';
 import css from './Comment.module.scss';
@@ -25,12 +25,12 @@ export const Comment: React.FC<CommentPropsType> = ({ comment }) => {
   const photo = ' https://academtest.ilink.dev/images/' + comment.authorImage;
 
   const selectCommentFN = () => {
-    commentsModel.setSelectComment(comment.id);
+    commentModel.setSelectComment(comment.id);
   };
 
   const setCommentStatus = (filter: commentStatusType) => {
     selectCommentFN();
-    commentsModel.setCommentStatus(filter);
+    commentModel.setCommentStatus(filter);
   };
 
   return (

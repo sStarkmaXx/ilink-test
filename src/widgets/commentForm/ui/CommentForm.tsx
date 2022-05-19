@@ -1,25 +1,23 @@
 import css from './CommentForm.module.scss';
 import close from '../img/close.png';
 import { ChangeEvent, useState, KeyboardEvent, useEffect } from 'react';
-import { Toast } from 'shared/ui/toast';
 import { useStore } from 'effector-react';
 import { capchaModel } from 'entities/capcha/model/capcha';
 import { newCommentType } from 'entities/comment/model/comment';
-import { commentsModel } from 'entities/comment/model/comment';
+import { commentModel } from 'entities/comment/model/comment';
 import { Preloader } from 'shared/ui/preloader';
 import { photoModel } from 'entities/photo/model/photo';
 import fileImg from '../img/animation_500_l123b4fc 1.png';
 import del from '../img/Delete.png';
 import { nameLastNameRegEx } from 'shared/regexp/nameLastNameRegExp';
 import { modalWindowMadel } from 'entities/modalWindow/model/modalWindowModel';
+import { addNewComment } from 'features/addComment';
 
 export const CommentForm = () => {
   useEffect(() => capchaModel.getCapcha(), []);
-
   const closeModal = () => {
     modalWindowMadel.showHideModal(false);
   };
-
   //-------------------------------------------field name----------------------------------------------
   const [nameError, setNameError] = useState<boolean>(false);
   const [inputName, setInputName] = useState<string>('');
@@ -54,9 +52,6 @@ export const CommentForm = () => {
     }
   };
 
-  const closeToast = () => {
-    commentsModel.setError(null);
-  };
   //--------------------------------CAPCHA----------------------------------
   const [capchaInput, setCapchaInput] = useState<string>('');
   const [capchaError, setCapchaError] = useState<boolean>(false);
@@ -90,7 +85,6 @@ export const CommentForm = () => {
     photoModel.setPhoto(null);
     setFileName(null);
   };
-  const photo = useStore(photoModel.$photo);
 
   const onClickSelectImg = (e: ChangeEvent<HTMLInputElement>) => {
     let file = e.currentTarget.files ? e.currentTarget.files[0] : null;
@@ -107,8 +101,6 @@ export const CommentForm = () => {
           setFileName(file.name);
         }
         photoModel.setPhoto(file);
-        console.log('file', file);
-        console.log('photo', photo);
       }
       e.target.value = '';
     }
@@ -116,7 +108,7 @@ export const CommentForm = () => {
 
   const fileError = fileSize > 5242880;
   //-----------------------------Новый коммент---------------------------------
-  const createNewComment = () => {
+  const addNewCommentOnBtnClick = () => {
     const newComment: newCommentType = {
       authorName: inputName,
       text: inputComment,
@@ -124,11 +116,18 @@ export const CommentForm = () => {
       captchaKey: capcha.key,
       captchaValue: capchaInput,
     };
-    commentsModel.setNewComment(newComment);
+    addNewComment(newComment);
   };
 
-  const sending = useStore(commentsModel.$sending);
-  const sendError = useStore(commentsModel.$sendCommentError);
+  const addNewCommentOnKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (!isAddCommentBtnActive) {
+      if (e.code === 'Enter') {
+        addNewCommentOnBtnClick();
+      }
+    }
+  };
+
+  const sending = useStore(commentModel.$sending);
   //-----------------------------------------------------------------------------------------------------
   const isAddCommentBtnActive =
     inputCommentError ||
@@ -138,19 +137,6 @@ export const CommentForm = () => {
     inputComment.trim() === '' ||
     capchaInput.trim() === '';
 
-  const addCommentBtn = () => {
-    createNewComment();
-  };
-
-  const onKeyPressHandler = (
-    e: KeyboardEvent<HTMLInputElement> | KeyboardEvent<HTMLTextAreaElement>
-  ) => {
-    if (e.code === '13') {
-      console.log(isAddCommentBtnActive);
-    }
-  };
-
-  //----------------------------------компонента-------------------------------------------------
   return (
     <div className={css.cont}>
       <div className={css.commentForm}>
@@ -178,7 +164,6 @@ export const CommentForm = () => {
                   nameError ? 'Поле обязательно для заполнения' : 'Имя'
                 }
                 onChange={onChangeHandlerInputName}
-                onKeyPress={onKeyPressHandler}
                 onBlur={onBlureName}
               />
               <label
@@ -218,7 +203,6 @@ export const CommentForm = () => {
                   : 'Напишите пару слов о вашем опыте...'
               }
               onChange={onChangeHandlerInputComment}
-              onKeyPress={onKeyPressHandler}
               onBlur={onBlurComment}
             ></textarea>
             <div className={css.capchaGroup}>
@@ -244,6 +228,7 @@ export const CommentForm = () => {
                   onChange={capchaInputOnChange}
                   style={capchaError ? { border: '1px red solid' } : {}}
                   onBlur={onBlurCapcha}
+                  onKeyDown={addNewCommentOnKeyDown}
                 />
               </div>
             </div>
@@ -255,7 +240,7 @@ export const CommentForm = () => {
                     ? css.addCommentBtnDis
                     : css.addCommentBtnActive
                 }
-                onClick={addCommentBtn}
+                onClick={addNewCommentOnBtnClick}
                 disabled={isAddCommentBtnActive}
               >
                 Отправить отзыв
@@ -268,12 +253,6 @@ export const CommentForm = () => {
           </>
         )}
       </div>
-      {/* {error && (
-        <Toast closeToast={closeToast} error={error} text={errorText} />
-      )} */}
-      {sendError && (
-        <Toast closeToast={closeToast} error={true} text={sendError} />
-      )}
     </div>
   );
 };

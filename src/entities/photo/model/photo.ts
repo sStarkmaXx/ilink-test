@@ -1,6 +1,6 @@
 import { modalWindowMadel } from '../../modalWindow/model/modalWindowModel';
 import { toastModel } from '../../../shared/ui/toast/model/toastModel';
-import { commentsModel } from '../../comment/model/comment';
+import { commentModel } from '../../comment/model/comment';
 import { accountModel } from '../../account/model/accountModel';
 import { photoApi } from '../api/photoApi';
 import {
@@ -38,15 +38,11 @@ const sendPhotoFX = createEffect((comID: string) => {
       }
       if (res.status >= 200 && res.status < 300) {
         modalWindowMadel.showHideModal(false);
-        commentsModel.getComments();
-        toastModel.setToastError(false);
-        toastModel.showHideToast('Спасибо за отзыв о нашей компании!');
-        setTimeout(() => toastModel.showHideToast(null), 2000);
+        commentModel.getComments();
+        toastModel.success('Спасибо за отзыв о нашей компании!');
       }
       if (res.status >= 300 && res.status < 500) {
-        toastModel.showHideToast('Ошибка отправки фотографии!!');
-        setTimeout(() => toastModel.showHideToast(null), 2000);
-        toastModel.setToastError(true);
+        toastModel.error('Ошибка отправки фотографии!');
       }
       return res.text();
     })
@@ -104,19 +100,14 @@ const updateProfilePhotoFX = createEffect(() => {
   const response = photoApi
     .updateProfilePhoto(body)
     .then((res) => {
-      debugger;
       if (res.status === 401) {
         document.location = '/ilink-test/';
       }
       if (res.status >= 200 && res.status < 300) {
-        toastModel.setToastError(false);
-        toastModel.showHideToast('Фотография успешно обновлена!');
-        setTimeout(() => toastModel.showHideToast(null), 2000);
+        toastModel.success('Фотография успешно обновлена!');
       }
       if (res.status >= 300 && res.status < 500) {
-        toastModel.showHideToast('Ошибка, попробуйте позже!');
-        setTimeout(() => toastModel.showHideToast(null), 2000);
-        toastModel.setToastError(true);
+        toastModel.error('Ошибка, попробуйте позже!');
       }
       return res.text();
     })

@@ -2,11 +2,11 @@ import css from './Carousel.module.css';
 import { CommentCard } from 'shared/ui/commentCard';
 import { useState } from 'react';
 import { useStore } from 'effector-react';
-import { commentsModel } from 'entities/comment/model/comment';
+import { commentModel } from 'entities/comment/model/comment';
 import { modalWindowMadel } from 'entities/modalWindow/model/modalWindowModel';
 
 export const Carousel = () => {
-  const comments = useStore(commentsModel.$comments);
+  const comments = useStore(commentModel.$comments);
   //console.log('коменты из карусели', comments.length);
   const filteredComments = comments
     .filter((com) => com.status === 'approved')

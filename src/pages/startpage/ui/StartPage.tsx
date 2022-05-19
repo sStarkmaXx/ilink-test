@@ -8,7 +8,7 @@ import { Toast, toastModel } from 'shared/ui/toast';
 import { useStore } from 'effector-react';
 
 export const StartPage = () => {
-  const toastText = useStore(toastModel.$toast);
+  const toast = useStore(toastModel.$toast);
   const closeToast = () => {
     toastModel.showHideToast(null);
   };
@@ -23,9 +23,7 @@ export const StartPage = () => {
       <div className={css.content}>
         <LoginForm />
       </div>
-      {toastText && (
-        <Toast closeToast={closeToast} error={true} text={toastText} />
-      )}
+      {toast && <Toast closeToast={closeToast} error={true} text={toast} />}
       <Footer />
     </div>
   );

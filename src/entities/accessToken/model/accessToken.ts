@@ -16,23 +16,18 @@ const fetchAccessTokenFX = createEffect(
       })
       .then((res) => JSON.parse(res))
       .then((res) => {
-        console.log(res);
         if (!res.statusCode) {
           localStorage.setItem('accessToken', res.accessToken);
           document.location = '/ilink-test/profile';
         } else if (res.statusCode === 400) {
-          toastModel.showHideToast('Неверный пароль!');
-          setTimeout(() => toastModel.showHideToast(null), 2000);
+          toastModel.error('Неверный пароль!');
         } else if (res.statusCode === 500) {
-          toastModel.showHideToast('Данный пользователь не зарегистрирован!');
-          setTimeout(() => toastModel.showHideToast(null), 2000);
+          toastModel.error('Данный пользователь не зарегистрирован!');
         } else {
-          toastModel.showHideToast('Не известная ошибка, попробуйте позже!');
-          setTimeout(() => toastModel.showHideToast(null), 2000);
+          toastModel.error('Не известная ошибка, попробуйте позже!');
         }
       })
       .catch((er) => console.error('Ошибка!!!', er));
-
     return resp;
   }
 );

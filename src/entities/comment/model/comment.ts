@@ -64,39 +64,6 @@ export type newCommentType = {
   captchaValue: string;
 };
 
-const setNewComment = createEvent<newCommentType>();
-
-const $newComment = createStore<newCommentType>({
-  authorName: '',
-  text: '',
-  title: 'Test Review',
-  captchaKey: '',
-  captchaValue: '',
-});
-
-$newComment.on(setNewComment, (state, comment) => ({
-  ...state,
-  authorName: comment.authorName,
-  text: comment.text,
-  title: comment.title,
-  captchaKey: comment.captchaKey,
-  captchaValue: comment.captchaValue,
-}));
-
-forward({
-  from: setNewComment,
-  to: $newComment,
-});
-
-const $sendCommentError = createStore<string | null>(null);
-const setError = createEvent<string | null>();
-
-sample({
-  clock: setError,
-  fn: (clock) => clock,
-  target: $sendCommentError,
-});
-
 const sendCommentFX = createEffect(async (comment: newCommentType) => {
   const response = await commentApi
     .sendNewComment(comment)
@@ -110,29 +77,26 @@ const sendCommentFX = createEffect(async (comment: newCommentType) => {
       photoModel.setCommentId(response.id);
     } else {
       modalWindowMadel.showHideModal(false);
-      toastModel.showHideToast('Спасибо за отзыв о нашей компании!');
-      setTimeout(() => toastModel.showHideToast(null), 2000);
-      setError(null);
+      toastModel.success('Спасибо за отзыв о нашей компании!');
     }
   } else if (response.status === 400) {
-    setError('Вы ввели не верный код.');
-    setTimeout(() => setError(null), 2000);
+    toastModel.error('Вы ввели не верный код.');
   } else {
-    setError('Ошибка отправки комментария, попробуйте позже!');
-    setTimeout(() => setError(null), 2000);
+    toastModel.error('Ошибка отправки комментария, попробуйте позже');
   }
   return response;
 });
 
+const sendNewComment = createEvent<newCommentType>();
+
 sample({
-  clock: $newComment,
-  source: $newComment,
-  fn: (source) => source,
+  clock: sendNewComment,
+  fn: (clock) => clock,
   target: sendCommentFX,
 });
 
 forward({
-  from: sendCommentFX,
+  from: sendCommentFX.doneData,
   to: getCommentsFX,
 });
 
@@ -175,14 +139,10 @@ const sendEditedCommentFX = createEffect((text: string) => {
         document.location = '/ilink-test/';
       }
       if (res.status >= 200 && res.status < 300) {
-        toastModel.setToastError(false);
-        toastModel.showHideToast('Отзыв успешно отредактирован!');
-        setTimeout(() => toastModel.showHideToast(null), 2000);
+        toastModel.success('Отзыв успешно отредактирован!');
       }
       if (res.status >= 300 && res.status < 500) {
-        toastModel.showHideToast('Ошибка, попробуйте позже!');
-        setTimeout(() => toastModel.showHideToast(null), 2000);
-        toastModel.setToastError(true);
+        toastModel.error('Ошибка, попробуйте позже!');
       }
       return res.text();
     })
@@ -217,14 +177,10 @@ const setCommentStatusFX = createEffect((status: commentStatusType) => {
         document.location = '/ilink-test/';
       }
       if (res.status >= 200 && res.status < 300) {
-        toastModel.setToastError(false);
-        toastModel.showHideToast('Статус отыва успешно изменен!');
-        setTimeout(() => toastModel.showHideToast(null), 2000);
+        toastModel.success('Статус отыва успешно изменен!');
       }
       if (res.status >= 300 && res.status < 500) {
-        toastModel.showHideToast('Ошибка, попробуйте позже!');
-        setTimeout(() => toastModel.showHideToast(null), 2000);
-        toastModel.setToastError(true);
+        toastModel.error('Ошибка, попробуйте позже!');
       }
       return res.text();
     })
@@ -251,18 +207,15 @@ forward({
   to: getCommentsFX,
 });
 
-export const commentsModel = {
+export const commentModel = {
   $comments,
   getComments,
-  setNewComment,
-  $newComment,
   $sending,
-  $sendCommentError,
-  setError,
   $loadingComments,
   setSelectComment,
   $selectComment,
   setNewCommentText,
   setCommentStatus,
   $updatingComment,
+  sendNewComment,
 };

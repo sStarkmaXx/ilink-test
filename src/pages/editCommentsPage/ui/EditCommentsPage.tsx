@@ -2,13 +2,15 @@ import css from './EditCommentsPage.module.scss';
 import { ChangeEvent, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useStore } from 'effector-react';
-import { commentsModel } from 'entities/comment/model/comment';
+import { commentModel } from 'entities/comment/model/comment';
 import { Toast, toastModel } from 'shared/ui/toast';
 import { Preloader } from 'shared/ui/preloader';
+import { sendEditComment } from 'features/editComment';
 
 export const EditCommentsPage = () => {
-  const isLoading = useStore(commentsModel.$updatingComment);
-  const selectComment = useStore(commentsModel.$selectComment);
+  const backUrl = '/ilink-test/controlPanel/comments/';
+  const isLoading = useStore(commentModel.$updatingComment);
+  const selectComment = useStore(commentModel.$selectComment);
   const [text, setText] = useState<string>(selectComment.text);
   const changeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.currentTarget.value);
@@ -17,7 +19,7 @@ export const EditCommentsPage = () => {
   const disabled = text.trim() === '';
   const onClickChangeComText = () => {
     if (!disabled) {
-      commentsModel.setNewCommentText(text);
+      sendEditComment(text);
     }
   };
 
@@ -37,7 +39,7 @@ export const EditCommentsPage = () => {
             {' '}
             <div className={css.header}>
               <p>Редактирование отзыва</p>
-              <NavLink to={'/ilink-test/controlPanel/comments/'}></NavLink>
+              <NavLink to={backUrl}></NavLink>
             </div>
             <label>Отзыв</label>
             <div className={css.length} data-length={`${text.length}/200`}>
@@ -53,15 +55,13 @@ export const EditCommentsPage = () => {
             </div>
             <div className={css.footer}>
               <NavLink
-                to={'/ilink-test/controlPanel/comments/'}
+                to={backUrl}
                 onClick={onClickChangeComText}
                 className={disabled ? css.disabled : ''}
               >
                 Подтвердить редактирование
               </NavLink>
-              <NavLink to={'/ilink-test/controlPanel/comments/'}>
-                Отмена
-              </NavLink>
+              <NavLink to={backUrl}>Отмена</NavLink>
             </div>
           </>
         )}

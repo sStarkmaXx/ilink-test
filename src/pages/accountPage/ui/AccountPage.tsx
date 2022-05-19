@@ -8,7 +8,7 @@ import { Toast } from 'shared/ui/toast';
 import vector from '../img/vector.png';
 import css from './AccountPage.module.scss';
 import { accountModel } from 'entities/account/model/accountModel';
-import { commentsModel } from 'entities/comment/model/comment';
+import { commentModel } from 'entities/comment/model/comment';
 import { useStore } from 'effector-react';
 import { Preloader } from 'shared/ui/preloader';
 import { modalWindowMadel } from 'entities/modalWindow/model/modalWindowModel';
@@ -16,14 +16,14 @@ import { toastModel } from 'shared/ui/toast/model/toastModel';
 
 export const AccountPage = () => {
   const isLoading = useStore(accountModel.$isLoading);
-  const toastText = useStore(toastModel.$toast);
   useEffect(() => {
     accountModel.getAccount();
-    commentsModel.getComments();
+    commentModel.getComments();
   }, []);
 
   const modalWindow = useStore(modalWindowMadel.$modalWindow);
   const toast = useStore(toastModel.$toast);
+  const toastErorr = useStore(toastModel.$toastError);
 
   const closeToast = () => {
     toastModel.showHideToast(null);
@@ -51,7 +51,7 @@ export const AccountPage = () => {
       </div>
       {modalWindow && <CommentForm />}
       {toast && (
-        <Toast closeToast={closeToast} error={false} text={toastText} />
+        <Toast closeToast={closeToast} error={toastErorr} text={toast} />
       )}
     </>
   );

@@ -3,7 +3,7 @@ import { ChangeEvent, useState, KeyboardEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { emailRegExp as loginRegExp } from 'shared/regexp/emailRegexp';
 import { passwordRegExp } from 'shared/regexp/passwordRegExp';
-import { accessTokenModel } from 'entities/accessToken/model/accessToken';
+import { login as loginFN } from 'features/login';
 
 export const LoginForm = () => {
   //-----------------------------------состояние компоненты-----------------------------------------------------
@@ -49,8 +49,7 @@ export const LoginForm = () => {
   const entryButtonClick = () => {
     setLogin('');
     setPassword('');
-    accessTokenModel.getAccessToken({ login: login, password: password });
-    console.log(localStorage.getItem('accessToken'));
+    loginFN({ login: login, password: password });
   };
 
   const onKeyEntry = (e: KeyboardEvent<HTMLInputElement>) => {

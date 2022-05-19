@@ -111,14 +111,10 @@ const updateProfileInfoFX = createEffect(
           document.location = '/ilink-test/';
         }
         if (res.status >= 200 && res.status < 300) {
-          toastModel.setToastError(false);
-          toastModel.showHideToast('Информация успешно обновлена!');
-          setTimeout(() => toastModel.showHideToast(null), 2000);
+          toastModel.success('Информация успешно обновлена!');
         }
         if (res.status >= 300 && res.status < 500) {
-          toastModel.showHideToast('Ошибка, попробуйте позже!');
-          setTimeout(() => toastModel.showHideToast(null), 2000);
-          toastModel.setToastError(true);
+          toastModel.error('Ошибка, попробуйте позже!');
         }
         return res.text();
       })

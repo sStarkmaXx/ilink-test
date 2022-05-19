@@ -5,8 +5,7 @@ import purpleLogo from '../img/LogoPurple.png';
 import { NavLink } from 'react-router-dom';
 import { useStore } from 'effector-react';
 import { accountModel } from 'entities/account/model/accountModel';
-import { useEffect, useState } from 'react';
-import { accountType } from '../../../entities/account/model/accountModel';
+import { useEffect } from 'react';
 
 type HeaderType =
   | 'controlPanelHeader'

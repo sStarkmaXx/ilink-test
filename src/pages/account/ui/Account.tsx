@@ -1,8 +1,6 @@
 import { accountType } from 'entities/account/model/accountModel';
 import css from './Account.module.scss';
 
-type StatusType = 'Обучается' | 'Закончил' | 'Отчислен' | null;
-
 type AccountPropsType = {
   account: accountType;
 };

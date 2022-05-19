@@ -37,7 +37,17 @@ export const EditProfilePage = () => {
   const onClickSave = () => {
     setEditButton(true);
     setSaveButton(false);
-    save();
+    const newProfileInfo: newProfileInfoType = {
+      firstName: name,
+      lastName: lastName,
+      birthDate: new Date(birthday).toDateString(),
+      cityOfResidence: city,
+      gender: sex,
+      hasPet: pet,
+      smallAboutMe: info,
+      aboutMe: about,
+    };
+    accountModel.updateProfileInfo(newProfileInfo);
   };
 
   const photo = ' https://academtest.ilink.dev/images/' + account.profileImage;
@@ -86,20 +96,6 @@ export const EditProfilePage = () => {
     } else {
       setPet(false);
     }
-  };
-
-  const save = () => {
-    const newProfileInfo: newProfileInfoType = {
-      firstName: name,
-      lastName: lastName,
-      birthDate: new Date(birthday).toDateString(),
-      cityOfResidence: city,
-      gender: sex,
-      hasPet: pet,
-      smallAboutMe: info,
-      aboutMe: about,
-    };
-    accountModel.updateProfileInfo(newProfileInfo);
   };
 
   const nameError = name.trim() === '' || !nameLastNameRegEx.test(name);
