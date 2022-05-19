@@ -30,3 +30,8 @@ ____
 + React
 + Effector
 + Feature-Sliced Design
+
+___
+## Author
+Max Myasnikov
+[My VK](https://vk.com/stark_max)
