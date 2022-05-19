@@ -104,6 +104,7 @@ const updateProfilePhotoFX = createEffect(() => {
   const response = photoApi
     .updateProfilePhoto(body)
     .then((res) => {
+      debugger;
       if (res.status === 401) {
         document.location = '/ilink-test/';
       }

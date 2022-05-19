@@ -102,7 +102,6 @@ const sendCommentFX = createEffect(async (comment: newCommentType) => {
     .sendNewComment(comment)
     .then((res) => res.text())
     .then((res) => {
-      console.log(res);
       return JSON.parse(res);
     });
 
@@ -118,7 +117,6 @@ const sendCommentFX = createEffect(async (comment: newCommentType) => {
   } else if (response.status === 400) {
     setError('Вы ввели не верный код.');
     setTimeout(() => setError(null), 2000);
-    console.log('ошибка 400');
   } else {
     setError('Ошибка отправки комментария, попробуйте позже!');
     setTimeout(() => setError(null), 2000);

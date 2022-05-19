@@ -6,9 +6,10 @@ import {
   commentType,
   commentsModel,
   commentStatusType,
-} from '../../../entities/comment/model/comment';
+} from 'entities/comment/model/comment';
 import { useStore } from 'effector-react';
 import { CommentSkeleton } from 'pages/comment/ui/commenSkeleton/CommentSkeleton';
+import dataEmpty from 'pages/controlPanelPage/img/Group137336586.png';
 
 export const CommentList = () => {
   useEffect(() => {
@@ -32,7 +33,7 @@ export const CommentList = () => {
 
   const [filteredComments, setFilteredComments] =
     useState<commentType[]>(comments);
-  console.log('filteredComments', filteredComments);
+
   const [commentFilter, setCommentFilter] =
     useState<commentStatusType>('onCheck');
 
@@ -141,8 +142,10 @@ export const CommentList = () => {
             <CommentSkeleton />
             <CommentSkeleton />
           </>
-        ) : (
+        ) : comment.length !== 0 ? (
           comment
+        ) : (
+          <img src={dataEmpty} alt="" />
         )}
       </div>
     </div>

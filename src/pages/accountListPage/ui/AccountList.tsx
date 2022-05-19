@@ -6,8 +6,8 @@ import drDown from '../img/Arrow - Down 2.png';
 import { useStore } from 'effector-react';
 import { accountType } from 'entities/account/model/accountModel';
 import { AccountSkeleton } from 'pages/account/ui/accountSkeleton/AccountSkeleton';
-import dataEmpty from '../../../pages/controlPanelPage/img/Group137336586.png';
-import { accountModel } from '../../../entities/account/model/accountModel';
+import dataEmpty from 'pages/controlPanelPage/img/Group137336586.png';
+import { accountModel } from 'entities/account/model/accountModel';
 
 export type AccountFilterType = string;
 
@@ -122,7 +122,6 @@ export const AccountList = () => {
     if (Math.ceil(filteredAccounts.length / step) < backAllPages) {
       setCurrentPage(1);
       setStartIndex(0);
-      console.log('from useeffect', currentPage, startIndex, filteredAccounts);
     }
     accountsForPageFilter();
     paginationButtons();
@@ -162,56 +161,62 @@ export const AccountList = () => {
           )}
         </div>
       </div>
-      <div className={css.table}>
-        <div className={css.accountName}>
-          <div className={css.tableHeader}>
-            <span>ИФ УЧЕНИКА</span>
-          </div>
-          {acc}
-        </div>
-        <div className={css.infoStatus}>
+      {isLoading ? (
+        <>
           <div className={css.tableHeader}>
             <span>ИФ УЧЕНИКА</span>
             <span>КРАТКАЯ ИНФОРМАЦИЯ</span>
             <span>СТАТУС</span>
           </div>
-          {acc}
-        </div>
-
-        {/* {isLoading ? (
-          <>
-            <AccountSkeleton />
-            <AccountSkeleton />
-            <AccountSkeleton />
-            <AccountSkeleton />
-            <AccountSkeleton />
-            <AccountSkeleton />
-          </>
-        ) : filteredAccounts.length !== 0 ? (
-          acc
-        ) : (
-          <img src={dataEmpty} alt="" />
-        )} */}
-      </div>
-      <div className={css.pagination}>
-        <NavLink
-          to={`/ilink-test/controlPanel/accounts/${
-            currentPage >= 2 ? currentPage - 1 : 1
-          }`}
-          className={css.arrowLeft}
-          onClick={onClickHandlerBack}
-          data-style={currentPage === 1 ? 'disabled' : ''}
-        ></NavLink>
-        {pagBut}
-        <NavLink
-          to={`/ilink-test/controlPanel/accounts/${
-            currentPage < allPages ? currentPage + 1 : allPages
-          }`}
-          className={css.arrowRight}
-          onClick={onClickHandlerForward}
-          data-style={currentPage === allPages ? 'disabled' : ''}
-        ></NavLink>
-      </div>
+          <AccountSkeleton />
+          <AccountSkeleton />
+          <AccountSkeleton />
+          <AccountSkeleton />
+          <AccountSkeleton />
+          <AccountSkeleton />
+        </>
+      ) : filteredAccounts.length !== 0 ? (
+        <>
+          {' '}
+          <div className={css.table}>
+            <div className={css.accountName}>
+              <div className={css.tableHeader}>
+                <span>ИФ УЧЕНИКА</span>
+              </div>
+              {acc}
+            </div>
+            <div className={css.infoStatus}>
+              <div className={css.tableHeader}>
+                <span>ИФ УЧЕНИКА</span>
+                <span>КРАТКАЯ ИНФОРМАЦИЯ</span>
+                <span>СТАТУС</span>
+              </div>
+              {acc}
+            </div>
+          </div>
+          <div className={css.pagination}>
+            <NavLink
+              to={`/ilink-test/controlPanel/accounts/${
+                currentPage >= 2 ? currentPage - 1 : 1
+              }`}
+              className={css.arrowLeft}
+              onClick={onClickHandlerBack}
+              data-style={currentPage === 1 ? 'disabled' : ''}
+            ></NavLink>
+            {pagBut}
+            <NavLink
+              to={`/ilink-test/controlPanel/accounts/${
+                currentPage < allPages ? currentPage + 1 : allPages
+              }`}
+              className={css.arrowRight}
+              onClick={onClickHandlerForward}
+              data-style={currentPage === allPages ? 'disabled' : ''}
+            ></NavLink>
+          </div>
+        </>
+      ) : (
+        <img src={dataEmpty} alt="" />
+      )}
     </div>
   );
 };

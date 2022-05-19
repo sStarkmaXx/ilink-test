@@ -141,6 +141,11 @@ sample({
   target: updateProfileInfoFX,
 });
 
+forward({
+  from: updateProfileInfoFX,
+  to: getAccountFX,
+});
+
 //---------------------------------------------------getAllAccounts--------------------------------
 type accountsStoreType = Array<accountType>;
 

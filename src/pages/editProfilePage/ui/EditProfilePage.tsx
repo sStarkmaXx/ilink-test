@@ -70,7 +70,6 @@ export const EditProfilePage = () => {
 
   const onClickSetCity = (city: string) => {
     setCity(city);
-    console.log(city);
   };
 
   const onClickSetSex = (sex: string) => {
@@ -100,15 +99,12 @@ export const EditProfilePage = () => {
       smallAboutMe: info,
       aboutMe: about,
     };
-
-    console.log('newProfileInfo', newProfileInfo);
     accountModel.updateProfileInfo(newProfileInfo);
   };
 
   const nameError = name.trim() === '' || !nameLastNameRegEx.test(name);
   const lastNameError =
     lastName.trim() === '' || !nameLastNameRegEx.test(lastName);
-
   const aboutError = about.trim() === '';
   const datePattern = /(\d{2})\.(\d{2})\.(\d{4})/;
   const dateError =
@@ -116,7 +112,6 @@ export const EditProfilePage = () => {
     Date.parse(birthday.replace(datePattern, '$3-$2-$1'));
   const saveButtonDisable =
     nameError || lastNameError || aboutError || dateError;
-
   const [fileSize, setFileSize] = useState<number>(0);
   const fileError = fileSize > 5242880;
   const onClickSelectImg = (e: ChangeEvent<HTMLInputElement>) => {
@@ -184,7 +179,10 @@ export const EditProfilePage = () => {
               </button>
             )}
           </div>
-          <div className={css.container}>
+          <div
+            className={css.container}
+            data-style={editButton ? 'disable' : ''}
+          >
             <div className={css.el}>
               <label htmlFor="name">Имя</label>
               <input

@@ -25,7 +25,6 @@ export const AccountPage = () => {
   const modalWindow = useStore(modalWindowMadel.$modalWindow);
   const toast = useStore(toastModel.$toast);
 
-  console.log('toast', toast);
   const closeToast = () => {
     toastModel.showHideToast(null);
   };
